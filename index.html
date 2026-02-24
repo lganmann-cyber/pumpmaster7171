@@ -712,8 +712,16 @@
         const statusRes = await fetch(`/api/status/${jobId}`);
         const data = await statusRes.json();
 
-        progressFill.style.width = data.progress + '%';
-        progressPercent.textContent = data.progress + '%';
+        const progress = data.progress != null ? data.progress : 0;
+        progressFill.style.width = progress + '%';
+        progressPercent.textContent = progress + '%';
+
+        if (!statusRes.ok) {
+          addLogEntry(data.error || 'Job not found. On Vercel, clones may not persist—try running locally for full support.', 'error');
+          cloneBtn.disabled = false;
+          inputSection.style.display = 'block';
+          return;
+        }
 
         if (data.log && data.log.length > lastLogLength) {
           for (let i = lastLogLength; i < data.log.length; i++) {

@@ -13,12 +13,10 @@ const path = require('path');
 const fs = require('fs-extra');
 const { runCloneJob, createJob, OUTPUT_BASE } = require('./src/cloner');
 const { createZipFromDir } = require('./src/utils/zip');
+const jobStore = require('./src/job-store');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-
-// In-memory job state (use Redis/DB in production)
-const jobs = new Map();
 
 app.use(cors());
 app.use(express.json());
@@ -32,7 +30,7 @@ app.get('/', (req, res) => {
 /**
  * POST /api/clone - Start a clone job
  */
-app.post('/api/clone', (req, res) => {
+app.post('/api/clone', async (req, res) => {
   try {
     const { url, options = {} } = req.body;
 
@@ -55,7 +53,7 @@ app.post('/api/clone', (req, res) => {
       content: options.content !== false
     };
 
-    jobs.set(jobId, {
+    const initialJob = {
       jobId,
       status: 'started',
       progress: 0,
@@ -63,36 +61,34 @@ app.post('/api/clone', (req, res) => {
       log: [],
       stats: { pages: 0, images: 0, fonts: 0, cssFiles: 0 },
       createdAt: new Date().toISOString()
-    });
+    };
+    await jobStore.set(jobId, initialJob);
 
     // Run clone in background
-    runCloneJob(jobId, url, normalizedOptions, (update) => {
-      const job = jobs.get(jobId);
-      if (job) {
-        job.status = update.status;
-        job.progress = update.progress;
-        job.currentStep = update.currentStep;
-        job.log = update.log || job.log;
-        job.stats = update.stats || job.stats;
-      }
+    runCloneJob(jobId, url, normalizedOptions, async (update) => {
+      await jobStore.update(jobId, {
+        status: update.status,
+        progress: update.progress,
+        currentStep: update.currentStep,
+        ...(update.log && { log: update.log }),
+        ...(update.stats && { stats: update.stats })
+      });
     })
-      .then((result) => {
-        const job = jobs.get(jobId);
-        if (job) {
-          job.status = 'completed';
-          job.progress = 100;
-          job.currentStep = 'Complete';
-          job.outputDir = result.outputDir;
-          job.stats = result.stats;
-        }
+      .then(async (result) => {
+        await jobStore.update(jobId, {
+          status: 'completed',
+          progress: 100,
+          currentStep: 'Complete',
+          outputDir: result.outputDir,
+          stats: result.stats
+        });
       })
-      .catch((err) => {
-        const job = jobs.get(jobId);
-        if (job) {
-          job.status = 'error';
-          job.currentStep = `Error: ${err.message}`;
-          job.error = err.message;
-        }
+      .catch(async (err) => {
+        await jobStore.update(jobId, {
+          status: 'error',
+          currentStep: `Error: ${err.message}`,
+          error: err.message
+        });
       });
 
     res.json({ jobId, status: 'started' });
@@ -105,9 +101,9 @@ app.post('/api/clone', (req, res) => {
 /**
  * GET /api/status/:jobId - Get job progress
  */
-app.get('/api/status/:jobId', (req, res) => {
+app.get('/api/status/:jobId', async (req, res) => {
   const { jobId } = req.params;
-  const job = jobs.get(jobId);
+  const job = await jobStore.get(jobId);
 
   if (!job) {
     return res.status(404).json({ error: 'Job not found' });
@@ -116,10 +112,10 @@ app.get('/api/status/:jobId', (req, res) => {
   res.json({
     jobId,
     status: job.status,
-    progress: job.progress,
+    progress: job.progress ?? 0,
     currentStep: job.currentStep,
-    log: job.log,
-    stats: job.stats,
+    log: job.log || [],
+    stats: job.stats || {},
     error: job.error
   });
 });
@@ -129,7 +125,7 @@ app.get('/api/status/:jobId', (req, res) => {
  */
 app.get('/api/download/:jobId/:type', async (req, res) => {
   const { jobId, type } = req.params;
-  const job = jobs.get(jobId);
+  const job = await jobStore.get(jobId);
 
   if (!job) {
     return res.status(404).json({ error: 'Job not found' });
@@ -193,7 +189,7 @@ function startServer(port) {
     console.error('No available ports between 3000-3010. Kill the process using port 3000 or set PORT=3011');
     process.exit(1);
   }
-  const server = app.listen(port, () => {
+  const server = app.listen(port, '0.0.0.0', () => {
     console.log(`Site Cloner running at http://localhost:${port}`);
   });
   server.on('error', (err) => {

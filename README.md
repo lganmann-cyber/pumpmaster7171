@@ -16,11 +16,22 @@ Opens at **http://localhost:3000**
 npm run start:http
 ```
 
+## Deploy to Railway (recommended)
+
+1. Push to GitHub
+2. Go to [railway.app](https://railway.app) → **New Project** → **Deploy from GitHub**
+3. Select your repo; Railway auto-detects Node.js and uses `npm start`
+4. Add a **domain** in Settings → Networking
+5. **Optional:** Add Upstash Redis env vars (`KV_REST_API_URL`, `KV_REST_API_TOKEN`) for job persistence across restarts
+
+Puppeteer runs fully on Railway—hero images and carousels work.
+
 ## Deploy to Vercel
 
 1. Push to GitHub, then [import the repo](https://vercel.com/new) in Vercel
-2. Deploy (no build command needed)
-3. **Note:** On Vercel, Puppeteer is disabled (HTTP-only mode) due to serverless limits. For full hero/carousel support, run locally or use Railway/Render.
+2. Add **Upstash Redis** (Vercel Dashboard → Storage → Create Database) so job state persists across serverless instances
+3. Deploy (no build command needed)
+4. **Limitations:** Puppeteer disabled (HTTP-only). Clone output is ephemeral (/tmp)—downloads may fail on cold starts. For full support, run locally or use Railway.
 
 ## Usage
 
