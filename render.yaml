@@ -1,0 +1,5 @@
+services:
+  - type: web
+    name: pumpmaster69
+    runtime: docker
+    healthCheckPath: /

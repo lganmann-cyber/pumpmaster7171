@@ -16,7 +16,18 @@ Opens at **http://localhost:3000**
 npm run start:http
 ```
 
-## Deploy to Railway (recommended)
+## Deploy to Render (free tier)
+
+1. Push to GitHub
+2. Go to [render.com](https://render.com) → **New** → **Web Service**
+3. Connect your repo (`pumpmaster69` or `lganmann-cyber/pumpmaster69`)
+4. Set **Environment** to **Docker** (uses the included Dockerfile)
+5. Choose **Free** plan
+6. Click **Create Web Service**
+
+Puppeteer runs fully. Free tier spins down after ~15 min idle; first request may take 30–60s to wake.
+
+## Deploy to Railway
 
 1. Push to GitHub
 2. Go to [railway.app](https://railway.app) → **New Project** → **Deploy from GitHub**
