@@ -52,10 +52,10 @@ export function FeatureCard({
         </button>
       </div>
 
-      <h3 className="mx-auto mt-8 mb-1 max-w-[16ch] text-center t-headline">{headline}</h3>
-      {meta ? <p className="text-center t-clock opacity-80">{meta}</p> : null}
+      <h3 className="mx-auto mt-7 mb-1 max-w-[15ch] text-center t-headline">{headline}</h3>
+      {meta ? <p className="text-center t-label opacity-75">{meta}</p> : null}
 
-      <SecondaryButtonOnColor full onClick={onCta} className="mt-8">
+      <SecondaryButtonOnColor full onClick={onCta} className="mt-6">
         {cta}
       </SecondaryButtonOnColor>
     </motion.section>

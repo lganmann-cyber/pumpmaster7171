@@ -115,7 +115,9 @@
   --font: 'Plus Jakarta Sans', -apple-system, system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
 
-  --t-display: 700 40px/1.05 var(--font);
+  /* 40px is the design size; on a 390px phone it fills the screen and reads
+     as shouting, so it scales down to ~34px there and hits 40 from 768 up. */
+  --t-display: 700 clamp(32px, 8.7vw, 40px)/1.06 var(--font);
   --t-title: 700 26px/1.2 var(--font);
   --t-headline: 700 28px/1.15 var(--font);
   --t-stat: 700 26px/1.1 var(--font);

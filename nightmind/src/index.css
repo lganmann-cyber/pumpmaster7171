@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@import './fonts.css';
 /* tokens.css is imported *after* Tailwind so its :root declarations win over
    Tailwind's default theme vars (notably --font-mono). */
 @import './tokens.css';
@@ -78,15 +79,19 @@
 @layer components {
   .t-display {
     font: var(--t-display);
-    letter-spacing: -0.02em;
+    /* Jakarta at 700 needs more negative tracking than the spec's -0.02em to
+       stop large sizes reading as a wall. */
+    letter-spacing: -0.032em;
+    text-wrap: balance;
   }
   .t-title {
     font: var(--t-title);
-    letter-spacing: -0.015em;
+    letter-spacing: -0.02em;
   }
   .t-headline {
     font: var(--t-headline);
-    letter-spacing: -0.015em;
+    letter-spacing: -0.022em;
+    text-wrap: balance;
   }
   .t-stat {
     font: var(--t-stat);

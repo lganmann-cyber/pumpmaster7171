@@ -58,9 +58,7 @@ export function Signs() {
       <div className="mt-6 flex items-start justify-between gap-4">
         <DisplayHeadline
           lead={top ? `${top.label} again` : 'No signs yet'}
-          accent={
-            top ? `${top.count} entries so far` : 'Tag a repeat and it starts'
-          }
+          accent={top ? `${top.count} entries` : 'Tag a repeat'}
         />
         <SegmentedTabs
           items={PERIODS}
@@ -106,7 +104,7 @@ export function Signs() {
               <ul className="mt-3 flex flex-col gap-2">
                 {selectedDreams.slice(0, 6).map((d) => (
                   <li key={d.id} className="rounded-tile bg-sunken p-4">
-                    <p className="t-clock text-muted">{longDate(d.wokeAt)}</p>
+                    <p className="mono t-meta text-muted">{longDate(d.wokeAt)}</p>
                     <p className="mt-1 line-clamp-2 t-body text-ink">
                       {isRecall(d) ? d.transcript : 'Nothing remembered — logged anyway'}
                     </p>
@@ -122,14 +120,12 @@ export function Signs() {
             label="Dreams logged"
             value={`${dreams.filter(isRecall).length}`}
             hue="purple"
-            mono
             footnote="All time"
           />
           <StatCard
             label="Longest streak"
             value={`${progress.longestStreak} days`}
             hue="blue"
-            mono
             footnote={`Current ${progress.recallStreak}`}
           />
         </div>
@@ -147,7 +143,7 @@ export function Signs() {
                   key={d.id}
                   className="flex items-center justify-between gap-4 rounded-tile bg-sunken p-4"
                 >
-                  <span className="t-clock text-muted">{longDate(d.wokeAt)}</span>
+                  <span className="mono t-meta text-muted">{longDate(d.wokeAt)}</span>
                   <span className="truncate t-meta text-ink">{d.lucidDuration ?? 'logged'}</span>
                 </li>
               ))}

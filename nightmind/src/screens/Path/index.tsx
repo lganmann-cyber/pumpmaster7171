@@ -38,7 +38,7 @@ export function Path() {
     <AppShell>
       <header className="pt-6">
         <DisplayHeadline
-          lead={`Unit ${currentUnit.index} is open`}
+          lead={`Unit ${currentUnit.index} open`}
           accent={`${done(currentUnit)} of ${unitLessons(currentUnit, categories).length} done`}
         />
       </header>

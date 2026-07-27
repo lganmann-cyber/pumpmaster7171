@@ -1,7 +1,14 @@
 /* NightMind service worker.
    App-shell cache so the app opens at 5am with no network. */
 const CACHE = 'nightmind-v1'
-const SHELL = ['/', '/index.html', '/manifest.webmanifest', '/icon.svg']
+const SHELL = [
+  '/',
+  '/index.html',
+  '/manifest.webmanifest',
+  '/icon.svg',
+  '/fonts/plus-jakarta-sans-latin-d4d84d.woff2',
+  '/fonts/jetbrains-mono-latin-0a7197.woff2',
+]
 
 self.addEventListener('install', (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(SHELL)).then(() => self.skipWaiting()))

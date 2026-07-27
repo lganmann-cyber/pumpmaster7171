@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Check, Circle, Loader2, Moon } from 'lucide-react'
 import { AppShell } from '../../components/AppShell'
@@ -27,6 +28,7 @@ const FAKE_TRANSCRIPTS = [
 
 export function Journal() {
   const now = useNow()
+  const location = useLocation()
   const m = useMotionProfile()
   const dreams = useApp((s) => s.dreams)
   const signCatalogue = useApp((s) => s.signCatalogue)
@@ -43,6 +45,15 @@ export function Journal() {
   const [editingId, setEditingId] = useState<string | null>(null)
   const [audioSeconds, setAudioSeconds] = useState(0)
   const textarea = useRef<HTMLTextAreaElement>(null)
+
+  // Arriving from the morning capture card: recording is already running by
+  // the time the screen paints. One tap from home to talking.
+  useEffect(() => {
+    if ((location.state as { autoRecord?: boolean } | null)?.autoRecord) {
+      setPhase('recording')
+      window.history.replaceState({}, '')
+    }
+  }, [location.state])
 
   useEffect(() => {
     if (phase !== 'recording') return
@@ -120,8 +131,8 @@ export function Journal() {
     <AppShell>
       <header className="pt-6">
         <DisplayHeadline
-          lead={recalledToday > 0 ? `${recalledToday} logged today` : 'Nothing logged today'}
-          accent={recalledToday > 0 ? 'Add another before it goes' : 'Talk before you move'}
+          lead={recalledToday > 0 ? `${recalledToday} logged today` : 'Nothing logged'}
+          accent={recalledToday > 0 ? 'Add another' : 'Talk before you move'}
         />
       </header>
 
@@ -317,8 +328,11 @@ export function Journal() {
                           <span className="block truncate t-body font-semibold text-ink">
                             {first}
                           </span>
-                          <span className="mono mt-0.5 block t-meta text-muted">
-                            {formatClock(new Date(d.wokeAt))} · {formatDuration(estimateSeconds(d.transcript))}
+                          <span className="mt-0.5 block t-meta text-muted">
+                            <span className="mono">
+                              {formatClock(new Date(d.wokeAt))} ·{' '}
+                              {formatDuration(estimateSeconds(d.transcript))}
+                            </span>
                             {d.wasLucid ? ' · lucid' : ''}
                           </span>
                         </span>

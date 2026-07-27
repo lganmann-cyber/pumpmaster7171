@@ -111,14 +111,23 @@ export function Tonight() {
             </div>
           </div>
 
+          {/* The medallion sits in the header row, not in a slab of its own —
+              a 100px icon floating in 400px of empty purple read as unfinished. */}
           {face === 'morning' ? (
-            <div className="mt-6 flex justify-center">
+            <div className="mt-5 flex items-center gap-3">
               <span
-                className={`grid size-[104px] place-items-center rounded-full ${morningOnColor ? 'text-inverse' : 'text-ink'}`}
-                style={{ background: 'radial-gradient(circle, rgba(255,255,255,0.28), transparent 70%)' }}
+                className={`grid size-11 shrink-0 place-items-center rounded-full ${morningOnColor ? 'text-inverse' : 'text-ink'}`}
+                style={{
+                  background: morningOnColor
+                    ? 'radial-gradient(circle, rgba(255,255,255,0.45), rgba(255,255,255,0.12) 70%)'
+                    : 'var(--surface-raised)',
+                }}
               >
-                <Sun size={44} strokeWidth={1.6} aria-hidden />
+                <Sun size={22} strokeWidth={1.8} aria-hidden />
               </span>
+              <p className={`t-label ${morningOnColor ? 'text-inverse opacity-85' : 'text-muted'}`}>
+                Woke at <span className="mono">{formatClock(new Date(now))}</span>
+              </p>
             </div>
           ) : null}
         </div>
@@ -129,7 +138,9 @@ export function Tonight() {
           <DisplayHeadline lead={headline.lead} accent={headline.accent} />
         </div>
 
-        {face !== 'night' ? (
+        {/* Categories sort what you practise once you're lucid. At 7am the job is
+            capture, so they stay out of the way until the day face. */}
+        {face === 'day' || face === 'evening' ? (
           <div className="mt-7">
             <SegmentedTabs
               items={CATEGORY_TABS}
@@ -156,8 +167,8 @@ export function Tonight() {
                 icon={Mic}
                 eyebrow="Capture"
                 headline="Talk it out before you move."
-                cta="Open the recorder"
-                onCta={() => navigate('/journal')}
+                cta="Start recording"
+                onCta={() => navigate('/journal', { state: { autoRecord: true } })}
                 meta={recalledToday > 0 ? `${recalledToday} logged so far` : undefined}
               />
             ) : null}
@@ -209,7 +220,6 @@ export function Tonight() {
                   hue="purple"
                   icon={Flame}
                   footnote={TIER_LABEL[progress.recallTier]}
-                  mono
                 />
                 <StatCard
                   label="Checks today"
@@ -219,7 +229,6 @@ export function Tonight() {
                   footnote={
                     progress.checksToday < progress.checkTarget ? 'Tap to log one' : 'Target met'
                   }
-                  mono
                   onClick={() => {
                     logRealityCheck()
                     toast('Check logged')
@@ -232,7 +241,6 @@ export function Tonight() {
                     hue="orange"
                     icon={Pencil}
                     footnote="All time"
-                    mono
                   />
                 </div>
               </div>
@@ -286,26 +294,26 @@ function headlineFor(
 
   if (face === 'morning') {
     if (ctx.recalledToday === 0)
-      return { lead: 'Nothing written down yet', accent: 'The first minute is the one that counts' }
+      return { lead: 'Nothing yet', accent: 'Talk before you move' }
     return {
-      lead: `${count(ctx.recalledToday)} ${ctx.recalledToday === 1 ? 'dream' : 'dreams'} this morning`,
-      accent: `That's ${ctx.streak} days running`,
+      lead: `${count(ctx.recalledToday)} ${ctx.recalledToday === 1 ? 'dream' : 'dreams'}`,
+      accent: `Day ${ctx.streak}`,
     }
   }
 
   if (face === 'day') {
     const left = Math.max(0, ctx.checkTarget - ctx.checksToday)
     if (ctx.checksToday === 0)
-      return { lead: 'No checks logged today', accent: `${ctx.checkTarget} to go before bed` }
+      return { lead: 'No checks yet', accent: `${count(ctx.checkTarget)} before bed` }
     return {
-      lead: `You've checked in ${ctx.checksToday === 1 ? 'once' : `${count(ctx.checksToday).toLowerCase()} times`} today`,
-      accent: left === 0 ? 'Target met' : `${count(left)} more before bed`,
+      lead: `${count(ctx.checksToday)} checks in`,
+      accent: left === 0 ? 'Target met' : `${count(left)} to go`,
     }
   }
 
   if (face === 'evening') {
-    return { lead: 'Wind-down starts here', accent: 'One sentence, then sleep' }
+    return { lead: 'Wind-down', accent: 'One sentence, then sleep' }
   }
 
-  return { lead: `Alarm set for ${formatClock(ctx.wbtb)}`, accent: 'Nothing else to do tonight' }
+  return { lead: `Alarm ${formatClock(ctx.wbtb)}`, accent: 'Nothing else tonight' }
 }
