@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>NIGHTMIND | Signs</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&amp;family=JetBrains+Mono:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            background-color: #10131a;
+            color: #e0e2ec;
+            -webkit-font-smoothing: antialiased;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom scrollbar for high-density lists */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #14171E;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #4b4450;
+            border-radius: 2px;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-lowest": "#0b0e15",
+                        "on-tertiary-fixed": "#2b1700",
+                        "secondary-fixed-dim": "#95ccff",
+                        "on-primary-container": "#420e6f",
+                        "on-error": "#690005",
+                        "surface-container": "#1d2027",
+                        "on-secondary": "#003353",
+                        "surface": "#10131a",
+                        "on-secondary-container": "#002c48",
+                        "secondary-fixed": "#cee5ff",
+                        "surface-dim": "#10131a",
+                        "outline-variant": "#4b4450",
+                        "on-surface-variant": "#cec3d2",
+                        "on-primary": "#461373",
+                        "surface-variant": "#32353c",
+                        "error-container": "#93000a",
+                        "tertiary-fixed-dim": "#ffb869",
+                        "primary-fixed": "#f0dbff",
+                        "outline": "#232833",
+                        "inverse-surface": "#e0e2ec",
+                        "surface-tint": "#ddb8ff",
+                        "surface-container-high": "#272a31",
+                        "on-background": "#e0e2ec",
+                        "background": "#10131a",
+                        "primary": "#ddb8ff",
+                        "tertiary-container": "#cf8422",
+                        "on-primary-fixed-variant": "#5e2f8b",
+                        "error": "#ffb4ab",
+                        "secondary-container": "#3297de",
+                        "surface-container-low": "#191c23",
+                        "on-secondary-fixed-variant": "#004a75",
+                        "on-tertiary-container": "#442700",
+                        "tertiary": "#ffb869",
+                        "primary-container": "#b07fe0",
+                        "surface-bright": "#363941",
+                        "on-error-container": "#ffdad6",
+                        "tertiary-fixed": "#ffdcbb",
+                        "inverse-on-surface": "#2d3038",
+                        "on-tertiary-fixed-variant": "#673d00",
+                        "secondary": "#95ccff",
+                        "on-tertiary": "#482900",
+                        "surface-container-highest": "#32353c",
+                        "on-secondary-fixed": "#001d32",
+                        "on-primary-fixed": "#2c0051",
+                        "inverse-primary": "#7748a5",
+                        "primary-fixed-dim": "#ddb8ff",
+                        "on-surface": "#e0e2ec"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px",
+                        "card": "28px",
+                        "sheet": "32px"
+                    },
+                    "spacing": {
+                        "md": "24px",
+                        "lg": "32px",
+                        "xs": "8px",
+                        "gutter": "16px",
+                        "margin-mobile": "20px",
+                        "xl": "48px",
+                        "base": "4px",
+                        "margin-desktop": "64px",
+                        "sm": "16px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "label-caps": ["JetBrains Mono"],
+                        "headline-sm": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "stats-lg": ["JetBrains Mono"],
+                        "stats-sm": ["JetBrains Mono"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-md selection:bg-primary selection:text-on-primary-container">
+<!-- Top App Bar -->
+<header class="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-md px-margin-mobile py-4 flex justify-between items-center border-none">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary cursor-pointer transition-transform active:scale-90" data-icon="menu">menu</span>
+<h1 class="font-headline-md text-headline-md tracking-tighter">
+<span class="text-primary">NIGHT</span><span class="text-on-surface-variant">MIND</span>
+</h1>
+</div>
+<div class="w-10 h-10 rounded-full border border-outline overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a focused practitioner in a dark studio setting. The lighting is dramatic, high-contrast chiaroscuro, reflecting a nocturnal technical aesthetic. The color palette is dominated by deep blacks and midnight blues with a subtle purple rim light, echoing the NightMind design system's technical and serious atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDE-V-W8HfAyuXGgKO6wfxA-pxnTIgDGdeTiUKOaPzJzetQxgM4gKfpy56IWLfIKDjUBFJGssfVVIMM500h9KU8kqHaPcOYDY3yZ0MooZ7eK2TCnCI4cJGp3y_DLEsST9s1fx5kKrFSc56UML535wc7TO3cHH3cuBMCaAp2DBRK37AeIGDclRO0IamrmX8JOQAAJujSh4Wg3muG6NrgPTQ6e0mA4UkoOESSua-DYm7EpUrA0ziDmiscpWahzveh7DbYwIqaRMFY"/>
+</div>
+</header>
+<main class="pt-24 pb-32 px-margin-mobile max-w-xl mx-auto space-y-6">
+<!-- Header & Toggle Section -->
+<section class="flex flex-col gap-4">
+<div class="flex justify-between items-end">
+<h2 class="font-headline-lg text-headline-lg">
+<span class="text-primary">Signs</span><span class="text-on-surface-variant">.</span>
+</h2>
+<!-- Segmented Toggle -->
+<div class="flex bg-surface-container-low border border-outline p-1 rounded-full">
+<button class="px-4 py-1.5 rounded-full font-label-caps text-label-caps bg-primary text-on-primary-container transition-all">WEEK</button>
+<button class="px-4 py-1.5 rounded-full font-label-caps text-label-caps text-on-surface-variant hover:text-on-surface">MONTH</button>
+<button class="px-4 py-1.5 rounded-full font-label-caps text-label-caps text-on-surface-variant hover:text-on-surface">YEAR</button>
+</div>
+</div>
+</section>
+<!-- Recall Chart Card -->
+<section class="bg-surface-container border border-outline rounded-card p-6 relative overflow-hidden">
+<div class="flex justify-between items-center mb-6">
+<span class="font-label-caps text-label-caps text-on-surface-variant tracking-widest">RECALL DENSITY</span>
+<span class="font-stats-sm text-stats-sm text-primary">+12% vs LW</span>
+</div>
+<div class="flex items-end justify-between h-32 gap-3 relative">
+<!-- Tooltip (Positioned over active bar) -->
+<div class="absolute top-0 left-[62%] -translate-x-1/2 -mt-8 bg-primary text-on-primary-container px-3 py-1 rounded-lg font-stats-sm text-stats-sm z-10">
+                    4 Dreams
+                </div>
+<!-- Bars -->
+<div class="flex-1 bg-surface-variant rounded-full h-[30%]"></div>
+<div class="flex-1 bg-surface-variant rounded-full h-[45%]"></div>
+<div class="flex-1 bg-surface-variant rounded-full h-[20%]"></div>
+<div class="flex-1 bg-surface-variant rounded-full h-[65%]"></div>
+<div class="flex-1 bg-primary-container rounded-full h-[85%] border border-primary/30"></div>
+<div class="flex-1 bg-surface-variant rounded-full h-[40%]"></div>
+<div class="flex-1 bg-surface-variant rounded-full h-[15%]"></div>
+</div>
+<div class="flex justify-between mt-4 font-label-caps text-[10px] text-on-surface-variant opacity-50">
+<span>MON</span><span>TUE</span><span>WED</span><span>THU</span><span>FRI</span><span>SAT</span><span>SUN</span>
+</div>
+</section>
+<!-- Dream Sign Constellation -->
+<section class="bg-surface-container border border-outline rounded-card p-6 h-80 flex flex-col">
+<span class="font-label-caps text-label-caps text-on-surface-variant tracking-widest mb-4">RECURRING NODES</span>
+<div class="flex-1 relative bg-surface-container-lowest rounded-xl border border-outline-variant overflow-hidden">
+<!-- Constellation SVG Field -->
+<svg class="absolute inset-0 w-full h-full" viewbox="0 0 300 200">
+<defs>
+<filter id="glow">
+<fegaussianblur result="coloredBlur" stddeviation="1.5"></fegaussianblur>
+<femerge>
+<femergenode in="coloredBlur"></femergenode>
+<femergenode in="SourceGraphic"></femergenode>
+</femerge>
+</filter>
+</defs>
+<!-- Hairlines -->
+<line stroke="#4b4450" stroke-width="0.5" x1="80" x2="180" y1="60" y2="120"></line>
+<line stroke="#4b4450" stroke-width="0.5" x1="180" x2="220" y1="120" y2="50"></line>
+<line stroke="#4b4450" stroke-width="0.5" x1="80" x2="220" y1="60" y2="50"></line>
+<!-- Nodes (Sized by frequency) -->
+<!-- Node: Teeth -->
+<circle cx="80" cy="60" fill="#ddb8ff" fill-opacity="0.2" filter="url(#glow)" r="18" stroke="#ddb8ff" stroke-width="1"></circle>
+<text fill="#ddb8ff" font-family="JetBrains Mono" font-size="8" font-weight="700" text-anchor="middle" x="80" y="64">TEETH</text>
+<!-- Node: Old House -->
+<circle cx="180" cy="120" fill="#ddb8ff" fill-opacity="0.3" filter="url(#glow)" r="28" stroke="#ddb8ff" stroke-width="1.5"></circle>
+<text fill="#ddb8ff" font-family="JetBrains Mono" font-size="10" font-weight="700" text-anchor="middle" x="180" y="124">OLD HOUSE</text>
+<!-- Node: Water -->
+<circle cx="220" cy="50" fill="#ddb8ff" fill-opacity="0.15" filter="url(#glow)" r="14" stroke="#ddb8ff" stroke-width="1"></circle>
+<text fill="#ddb8ff" font-family="JetBrains Mono" font-size="7" font-weight="700" text-anchor="middle" x="220" y="54">WATER</text>
+</svg>
+</div>
+</section>
+<!-- Stats Grid -->
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-surface-container border border-outline rounded-card p-5">
+<span class="font-label-caps text-label-caps text-on-surface-variant block mb-2">DREAMS LOGGED</span>
+<div class="flex items-baseline gap-1">
+<span class="font-stats-lg text-stats-lg text-primary">47</span>
+<span class="font-stats-sm text-stats-sm text-on-surface-variant">total</span>
+</div>
+</div>
+<div class="bg-surface-container border border-outline rounded-card p-5">
+<span class="font-label-caps text-label-caps text-on-surface-variant block mb-2">LONGEST STREAK</span>
+<div class="flex items-baseline gap-1">
+<span class="font-stats-lg text-stats-lg text-tertiary">12</span>
+<span class="font-stats-sm text-stats-sm text-on-surface-variant">days</span>
+</div>
+</div>
+</div>
+<!-- Lucidity Log -->
+<section class="bg-surface-container border border-outline rounded-card overflow-hidden">
+<div class="p-5 border-b border-outline-variant flex justify-between items-center">
+<span class="font-label-caps text-label-caps text-on-surface-variant tracking-widest uppercase">Lucidity Log</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary transition-colors" data-icon="filter_list">filter_list</span>
+</div>
+<div class="max-h-64 overflow-y-auto custom-scrollbar">
+<!-- Log Entry 1 -->
+<div class="px-5 py-4 border-b border-outline-variant/30 flex justify-between items-center hover:bg-surface-variant/20 transition-colors">
+<div class="flex items-center gap-4">
+<span class="font-stats-sm text-stats-sm text-on-surface-variant w-14">OCT 24</span>
+<span class="font-body-md text-body-md">The Infinite Library</span>
+</div>
+<span class="bg-primary/20 text-primary text-[10px] font-label-caps px-2 py-0.5 rounded border border-primary/30">LUCID</span>
+</div>
+<!-- Log Entry 2 -->
+<div class="px-5 py-4 border-b border-outline-variant/30 flex justify-between items-center hover:bg-surface-variant/20 transition-colors">
+<div class="flex items-center gap-4">
+<span class="font-stats-sm text-stats-sm text-on-surface-variant w-14">OCT 23</span>
+<span class="font-body-md text-body-md">Static Corridor</span>
+</div>
+<div class="w-[42px]"></div> <!-- Spacer for non-lucid -->
+</div>
+<!-- Log Entry 3 -->
+<div class="px-5 py-4 border-b border-outline-variant/30 flex justify-between items-center hover:bg-surface-variant/20 transition-colors">
+<div class="flex items-center gap-4">
+<span class="font-stats-sm text-stats-sm text-on-surface-variant w-14">OCT 21</span>
+<span class="font-body-md text-body-md">Shattered Mirror</span>
+</div>
+<span class="bg-primary/20 text-primary text-[10px] font-label-caps px-2 py-0.5 rounded border border-primary/30">LUCID</span>
+</div>
+<!-- Log Entry 4 -->
+<div class="px-5 py-4 border-b border-outline-variant/30 flex justify-between items-center hover:bg-surface-variant/20 transition-colors">
+<div class="flex items-center gap-4">
+<span class="font-stats-sm text-stats-sm text-on-surface-variant w-14">OCT 20</span>
+<span class="font-body-md text-body-md">Basement Flood</span>
+</div>
+<div class="w-[42px]"></div>
+</div>
+</div>
+<button class="w-full py-3 font-label-caps text-label-caps text-primary hover:bg-primary/10 transition-all border-t border-outline-variant/50">VIEW FULL LOG</button>
+</section>
+</main>
+<!-- Navigation Shell (BottomNavBar) -->
+<nav class="fixed bottom-0 w-full z-50 bg-surface-container dark:bg-surface-container flex justify-around items-center px-4 py-2 rounded-t-xl border-t border-outline-variant dark:border-outline-variant shadow-lg md:hidden">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="nights_stay">nights_stay</span>
+<span class="font-label-caps text-[10px] mt-1">Tonight</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="book">book</span>
+<span class="font-label-caps text-[10px] mt-1">Journal</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="psychology_alt">psychology_alt</span>
+<span class="font-label-caps text-[10px] mt-1">Path</span>
+</a>
+<!-- ACTIVE TAB: Signs -->
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-xl px-3 py-1 scale-105 shadow-md" href="#">
+<span class="material-symbols-outlined" data-icon="insights" style="font-variation-settings: 'FILL' 1;">insights</span>
+<span class="font-label-caps text-[10px] mt-1">Signs</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="graphic_eq">graphic_eq</span>
+<span class="font-label-caps text-[10px] mt-1">Player</span>
+</a>
+</nav>
+<script>
+        // Micro-interaction for constellation nodes
+        document.querySelectorAll('circle').forEach(node => {
+            node.addEventListener('mouseenter', () => {
+                node.style.strokeWidth = '3px';
+                node.style.transition = 'all 0.3s ease';
+            });
+            node.addEventListener('mouseleave', () => {
+                node.style.strokeWidth = node.getAttribute('stroke-width');
+            });
+        });
+
+        // Simple toggle switch logic
+        const toggleButtons = document.querySelectorAll('.bg-surface-container-low button');
+        toggleButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                toggleButtons.forEach(b => {
+                    b.classList.remove('bg-primary', 'text-on-primary-container');
+                    b.classList.add('text-on-surface-variant');
+                });
+                btn.classList.add('bg-primary', 'text-on-primary-container');
+                btn.classList.remove('text-on-surface-variant');
+            });
+        });
+    </script>
+</body></html>

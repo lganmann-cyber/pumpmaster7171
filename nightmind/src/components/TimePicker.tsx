@@ -1,12 +1,10 @@
-import { ChevronDown, ChevronUp } from 'lucide-react'
+import { Icon } from './Icon'
 import { motion } from 'framer-motion'
 import { parseHM, toHM } from '../lib/time'
 import { useMotionProfile } from '../lib/motion'
+import { cx } from '../lib/cx'
 
-/**
- * Times are load-bearing in this product, so the picker runs in the mono face
- * with tabular figures — the digits do not shift as they change.
- */
+/** Times are load-bearing here, so the picker runs in the mono face. */
 export function TimePicker({
   value,
   onChange,
@@ -22,8 +20,7 @@ export function TimePicker({
   const minute = mins % 60
   const h12 = h24 % 12 === 0 ? 12 : h24 % 12
   const pm = h24 >= 12
-
-  const bump = (deltaMinutes: number) => onChange(toHM(mins + deltaMinutes))
+  const bump = (d: number) => onChange(toHM(mins + d))
 
   const Stepper = ({
     onUp,
@@ -43,11 +40,11 @@ export function TimePicker({
         onClick={onUp}
         whileTap={m.press}
         transition={m.t(120)}
-        className="grid size-11 place-items-center rounded-full text-muted"
+        className="grid size-11 place-items-center rounded-full text-on-variant"
       >
-        <ChevronUp size={20} aria-hidden />
+        <Icon name="keyboard_arrow_up" size={22} />
       </motion.button>
-      <span className="mono text-[40px] leading-none font-medium text-ink tabular-nums">
+      <span className="font-mono text-[36px] leading-none font-semibold text-on-surface tabular-nums">
         {children}
       </span>
       <motion.button
@@ -56,25 +53,21 @@ export function TimePicker({
         onClick={onDown}
         whileTap={m.press}
         transition={m.t(120)}
-        className="grid size-11 place-items-center rounded-full text-muted"
+        className="grid size-11 place-items-center rounded-full text-on-variant"
       >
-        <ChevronDown size={20} aria-hidden />
+        <Icon name="keyboard_arrow_down" size={22} />
       </motion.button>
     </div>
   )
 
   return (
-    <div className="rounded-card bg-surface p-5">
-      <div className="flex items-center justify-between">
-        <span className="t-label text-muted">{label}</span>
-        <span className="t-clock text-muted">{pm ? 'pm' : 'am'}</span>
-      </div>
-
-      <div className="mt-3 flex items-center justify-center gap-2">
+    <div className="card rounded-card p-md">
+      <span className="t-label-caps text-on-variant uppercase">{label}</span>
+      <div className="mt-sm flex items-center justify-center gap-2">
         <Stepper onUp={() => bump(60)} onDown={() => bump(-60)} unit="hour">
           {`${h12}`.padStart(2, '0')}
         </Stepper>
-        <span className="mono pb-1 text-[40px] leading-none text-muted">:</span>
+        <span className="pb-1 font-mono text-[36px] leading-none text-on-variant">:</span>
         <Stepper onUp={() => bump(5)} onDown={() => bump(-5)} unit="minutes">
           {`${minute}`.padStart(2, '0')}
         </Stepper>
@@ -85,11 +78,12 @@ export function TimePicker({
               <button
                 key={mer}
                 type="button"
-                onClick={() => bump(pm === (mer === 'pm') ? 0 : mer === 'pm' ? 720 : -720)}
                 aria-pressed={active}
-                className={`min-h-[44px] rounded-chip px-4 t-clock ${
-                  active ? 'bg-purple-tint text-purple-bright' : 'text-muted'
-                }`}
+                onClick={() => bump(pm === (mer === 'pm') ? 0 : mer === 'pm' ? 720 : -720)}
+                className={cx(
+                  'min-h-[44px] rounded-md px-4 t-label-caps uppercase',
+                  active ? 'bg-primary text-on-primary-container' : 'text-on-variant',
+                )}
               >
                 {mer}
               </button>
@@ -97,17 +91,6 @@ export function TimePicker({
           })}
         </div>
       </div>
-
-      <label className="sr-only" htmlFor="time-native">
-        {label}
-      </label>
-      <input
-        id="time-native"
-        type="time"
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        className="mt-4 w-full rounded-chip bg-sunken px-4 py-3 t-clock text-ink"
-      />
     </div>
   )
 }

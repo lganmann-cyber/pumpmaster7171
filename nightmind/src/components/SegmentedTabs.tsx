@@ -10,11 +10,14 @@ type Props<T extends string> = {
   onChange: (id: T) => void
   variant?: 'underline' | 'pill'
   ariaLabel: string
-  /** Underline rows bleed off the right edge on purpose (§5.2) — never compress. */
   bleed?: boolean
   layoutId?: string
 }
 
+/**
+ * Two forms from the reference: the underlined caps row (Tonight) and the
+ * outlined pill toggle with a filled primary segment (Signs).
+ */
 export function SegmentedTabs<T extends string>({
   items,
   value,
@@ -22,7 +25,7 @@ export function SegmentedTabs<T extends string>({
   variant = 'underline',
   ariaLabel,
   bleed,
-  layoutId = 'tab-underline',
+  layoutId = 'tabs',
 }: Props<T>) {
   const m = useMotionProfile()
 
@@ -31,7 +34,7 @@ export function SegmentedTabs<T extends string>({
       <div
         role="tablist"
         aria-label={ariaLabel}
-        className="inline-flex shrink-0 items-center gap-0.5 rounded-control bg-fill p-0.5"
+        className="flex shrink-0 rounded-full border border-outline bg-low p-1"
       >
         {items.map((item) => {
           const active = item.id === value
@@ -43,15 +46,15 @@ export function SegmentedTabs<T extends string>({
               aria-selected={active}
               onClick={() => onChange(item.id)}
               className={cx(
-                'relative min-h-[32px] rounded-control px-3.5 t-meta font-semibold',
-                active ? 'text-ink' : 'text-muted',
+                'relative rounded-full px-4 py-1.5 t-label-caps',
+                active ? 'text-on-primary-container' : 'text-on-variant',
               )}
             >
               {active ? (
                 <motion.span
                   layoutId={`${layoutId}-pill`}
                   transition={m.t(180)}
-                  className="absolute inset-0 rounded-control bg-pressed"
+                  className="absolute inset-0 rounded-full bg-primary"
                 />
               ) : null}
               <span className="relative">{item.label}</span>
@@ -67,8 +70,8 @@ export function SegmentedTabs<T extends string>({
       role="tablist"
       aria-label={ariaLabel}
       className={cx(
-        'no-scrollbar flex items-end gap-6 overflow-x-auto',
-        bleed && '-mr-5 pr-10 md:-mr-8 md:pr-14',
+        'no-scrollbar flex gap-gutter overflow-x-auto py-2',
+        bleed && '-mr-margin pr-margin md:-mr-lg md:pr-lg',
       )}
     >
       {items.map((item) => {
@@ -81,8 +84,8 @@ export function SegmentedTabs<T extends string>({
             aria-selected={active}
             onClick={() => onChange(item.id)}
             className={cx(
-              'relative shrink-0 pb-[10px] t-label whitespace-nowrap',
-              active ? 'text-ink' : 'text-muted',
+              'relative shrink-0 pb-2 t-label-caps whitespace-nowrap',
+              active ? 'text-primary' : 'text-on-variant',
             )}
           >
             {item.label}
@@ -90,7 +93,7 @@ export function SegmentedTabs<T extends string>({
               <motion.span
                 layoutId={layoutId}
                 transition={m.t(240)}
-                className="absolute inset-x-0 bottom-0 h-[3px] rounded-full bg-accent-solid"
+                className="absolute inset-x-0 bottom-0 h-[3px] bg-primary"
               />
             ) : null}
           </button>

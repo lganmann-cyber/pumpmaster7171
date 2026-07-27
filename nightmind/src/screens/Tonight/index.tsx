@@ -1,26 +1,21 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Bell, Flame, Headphones, Mic, Moon, Route, Timer } from 'lucide-react'
 import { AppShell } from '../../components/AppShell'
-import { ActivityRings, RingLegend } from '../../components/ActivityRings'
 import { DisplayHeadline } from '../../components/DisplayHeadline'
 import { FeatureCard } from '../../components/FeatureCard'
-import { IconButton } from '../../components/IconButton'
-import { ListRow } from '../../components/ListRow'
+import { Icon } from '../../components/Icon'
 import { SegmentedTabs } from '../../components/SegmentedTabs'
-import { SessionShelf } from '../../components/SessionShelf'
 import { StatCard } from '../../components/StatCard'
+import { StreakRow } from '../../components/StreakRow'
 import { toast } from '../../components/Toast'
-import { Avatar } from '../../components/Avatar'
 import { useApp } from '../../store'
-import { useFace, useNow } from '../../lib/theme'
+import { useFace, useNow, useTheme } from '../../lib/theme'
 import { useMotionProfile } from '../../lib/motion'
-import { buildRings } from '../../lib/rings'
-import { dayKey, formatClock, headDate } from '../../lib/time'
+import { AMBER_ART, DREAM_ART } from '../../lib/art'
+import { dayKey, formatClock } from '../../lib/time'
 import { isRecall } from '../../lib/streak'
-import { TIER_LABEL } from '../../lib/recall'
-import { LESSONS, UNITS } from '../../data/seed'
+import { LESSONS } from '../../data/seed'
 import type { Category, HomeFace } from '../../lib/types'
 
 const CATEGORY_TABS: { id: Category; label: string }[] = [
@@ -30,23 +25,16 @@ const CATEGORY_TABS: { id: Category; label: string }[] = [
   { id: 'nightmares', label: 'Nightmares' },
 ]
 
-const EYEBROW: Record<HomeFace, string> = {
-  morning: 'This morning',
-  day: 'Today',
-  evening: 'Tonight',
-  night: 'Now',
-}
-
 export function Tonight() {
   const face = useFace()
   const now = useNow()
   const m = useMotionProfile()
   const navigate = useNavigate()
+  const amber = useTheme() === 'nightshift'
 
   const dreams = useApp((s) => s.dreams)
   const progress = useApp((s) => s.progress)
   const settings = useApp((s) => s.settings)
-  const sessions = useApp((s) => s.sessions)
   const logRealityCheck = useApp((s) => s.logRealityCheck)
   const openSession = useApp((s) => s.openSession)
 
@@ -55,238 +43,136 @@ export function Tonight() {
   const recalledToday = dreams.filter(
     (d) => dayKey(d.wokeAt) === dayKey(now) && isRecall(d),
   ).length
-
   const nextLesson =
     LESSONS.find((l) => {
       const done = progress.unitProgress[l.unitId] ?? 0
-      const idxInUnit = LESSONS.filter((x) => x.unitId === l.unitId).indexOf(l)
-      return idxInUnit >= done && (!l.category || l.category === tab)
+      const idx = LESSONS.filter((x) => x.unitId === l.unitId).indexOf(l)
+      return idx >= done && (!l.category || l.category === tab)
     }) ?? LESSONS[0]
 
   const wbtb = settings.wbtbAlarm ?? '03:40'
-  const rings = buildRings(dreams, progress, now)
-  const headline = headlineFor(face, {
-    recalledToday,
-    streak: progress.recallStreak,
-    checksToday: progress.checksToday,
-    checkTarget: progress.checkTarget,
-    wbtb,
-  })
+  const headline = headlineFor(face, { recalledToday, streak: progress.recallStreak })
+  const hero = heroFor(face, nextLesson.title, formatClock(wbtb))
 
   return (
-    <AppShell>
-      {/* Day eyebrow + date, then the large title — the reference's summary head */}
-      <header className="flex items-start justify-between gap-3 pt-4">
-        <div>
-          <p className="t-eyebrow text-accent">{EYEBROW[face]}</p>
-          <p className="mt-1 t-date text-ink">{headDate(now)}</p>
+    <AppShell topBar={false}>
+      {/* Header row: avatar, streak pill, notifications */}
+      <header className="flex items-center justify-between pt-2">
+        <div className="flex items-center gap-3">
+          <button
+            type="button"
+            onClick={() => navigate('/profile')}
+            aria-label="Open profile"
+            className="grid size-10 place-items-center overflow-hidden rounded-full border-2 border-outline-variant bg-container t-label-caps text-primary"
+          >
+            {(useApp.getState().name.trim()[0] ?? 'N').toUpperCase()}
+          </button>
+          <span className="flex items-center gap-1 rounded-full bg-tertiary-container px-3 py-1 text-on-tertiary-container">
+            <Icon name="bolt" size={16} fill />
+            <span className="t-label-caps">{progress.recallStreak} days</span>
+          </span>
         </div>
-        <div className="flex items-center gap-2">
-          <IconButton icon={Bell} label="Notifications" onClick={() => toast('Nothing new')} />
-          <Avatar />
-        </div>
+        <button
+          type="button"
+          aria-label="Notifications"
+          onClick={() => toast('Nothing new tonight')}
+          className="grid size-10 place-items-center rounded-full text-on-variant"
+        >
+          <Icon name="notifications" size={24} />
+        </button>
       </header>
 
-      <div className="pt-6">
-        <DisplayHeadline lead={headline.lead} accent={headline.accent} />
-      </div>
+      <DisplayHeadline lead={headline.lead} accent={headline.accent} />
 
-      <div className="mt-6 flex flex-col gap-3">
-        {/* Rings hero — recall, checks, lessons. Never lucidity. */}
-        <section className="rounded-card bg-surface p-5">
-          <div className="flex items-center gap-6">
-            <ActivityRings rings={rings} />
-            <RingLegend rings={rings} className="flex-1" />
-          </div>
-          <p className="mt-4 t-meta text-faint">
-            Every ring here moves on recall and practice. Lucid dreams are logged, never counted.
-          </p>
-        </section>
+      <SegmentedTabs
+        items={CATEGORY_TABS}
+        value={tab}
+        onChange={setTab}
+        ariaLabel="Practice category"
+        bleed
+        layoutId="tonight-tabs"
+      />
 
-        {face === 'morning' ? (
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={`${face}-${tab}`}
+          initial={m.full ? { opacity: 0 } : false}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={m.t(180)}
+          className="flex flex-col gap-lg"
+        >
           <FeatureCard
-            icon={Mic}
-            eyebrow="Capture"
-            headline="Talk it out before you move."
-            cta="Start recording"
-            onCta={() => navigate('/journal', { state: { autoRecord: true } })}
-            meta={
-              recalledToday > 0
-                ? `${recalledToday} logged so far · under 20 seconds each`
-                : 'Fragments count. Nothing remembered counts too.'
-            }
-          />
-        ) : null}
-
-        {face === 'day' ? (
-          <FeatureCard
-            icon={Route}
-            eyebrow={`Unit ${UNITS.find((u) => u.id === nextLesson.unitId)?.index ?? 1}`}
-            headline={nextLesson.title}
-            cta="Open lesson"
-            onCta={() => navigate(`/path/${nextLesson.id}`)}
-            meta={`${nextLesson.minutes} min · ${nextLesson.level}`}
-          />
-        ) : null}
-
-        {face === 'evening' ? (
-          <FeatureCard
-            icon={Headphones}
-            eyebrow="Tonight"
-            headline="Set the sentence before you sleep."
-            cta="Start session"
+            headline={hero.headline}
+            cta={hero.cta}
+            ctaIcon={hero.icon}
+            art={amber ? AMBER_ART : DREAM_ART}
             onCta={() => {
-              openSession('sess-intention')
-              toast('Session started')
-            }}
-            meta="8 min · guided"
-          />
-        ) : null}
-
-        {face === 'night' ? (
-          <FeatureCard
-            icon={Moon}
-            eyebrow="Now"
-            headline="Back to sleep."
-            cta="Start session"
-            onCta={() => {
-              openSession('sess-return')
-              toast('Session started')
-            }}
-            meta={`20 min · alarm at ${formatClock(wbtb)}`}
-          />
-        ) : null}
-
-        {/* Metric tiles — small grouped cards, 2-up */}
-        <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
-          <StatCard
-            label="Recall streak"
-            value={`${progress.recallStreak} days`}
-            hue="purple"
-            icon={Flame}
-            footnote={TIER_LABEL[progress.recallTier]}
-          />
-          <StatCard
-            label="Checks today"
-            value={`${progress.checksToday} of ${progress.checkTarget}`}
-            hue="blue"
-            icon={Timer}
-            footnote={
-              progress.checksToday < progress.checkTarget ? 'Tap to log one' : 'Target met'
-            }
-            onClick={() => {
-              logRealityCheck()
-              toast('Check logged')
-            }}
-          />
-          <StatCard
-            label="Dreams logged"
-            value={`${dreams.filter(isRecall).length}`}
-            hue="orange"
-            icon={Mic}
-            footnote="All time"
-          />
-          <StatCard
-            label="Recall tier"
-            value={`${progress.recallTier} of 5`}
-            hue="purple"
-            icon={Route}
-            footnote={TIER_LABEL[progress.recallTier]}
-          />
-        </div>
-
-        <ListRow
-          icon={Timer}
-          title="Wake-back-to-bed"
-          meta={`Alarm set for ${formatClock(wbtb)}`}
-          chevron
-          onClick={() => navigate('/profile')}
-        />
-
-        {face !== 'night' ? (
-          <section className="mt-2">
-            <div className="flex items-end justify-between gap-3">
-              <h2 className="t-title text-ink">Guided sessions</h2>
-            </div>
-            <div className="mt-3">
-              <SessionShelf sessions={sessions} onOpen={(id) => {
-                openSession(id)
+              if (face === 'morning') {
+                navigate('/journal', { state: { autoRecord: true } })
+              } else if (face === 'day') {
+                navigate(`/path/${nextLesson.id}`)
+              } else {
+                openSession(face === 'evening' ? 'sess-intention' : 'sess-return')
                 toast('Session started')
-              }} />
-            </div>
-          </section>
-        ) : null}
+              }
+            }}
+          />
 
-        {face === 'day' || face === 'evening' ? (
-          <section className="mt-2">
-            <h2 className="t-title text-ink">Once you're lucid</h2>
-            <div className="mt-3">
-              <SegmentedTabs
-                items={CATEGORY_TABS}
-                value={tab}
-                onChange={setTab}
-                ariaLabel="Practice category"
-                bleed
-                layoutId="tonight-tabs"
-              />
-            </div>
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={tab}
-                initial={m.full ? { opacity: 0 } : false}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={m.t(180)}
-                className="mt-3"
-              >
-                <ListRow
-                  icon={Route}
-                  title={nextLesson.title}
-                  meta={`${nextLesson.minutes} min · Night ${nextLesson.night}`}
-                  wrap
-                  chevron
-                  onClick={() => navigate(`/path/${nextLesson.id}`)}
-                />
-              </motion.div>
-            </AnimatePresence>
-          </section>
-        ) : null}
-      </div>
+          <div className="grid grid-cols-2 gap-gutter">
+            <StatCard
+              icon="visibility"
+              value={`${progress.recallStreak} DAYS`}
+              label="Recall streak"
+              tone="primary"
+            />
+            <StatCard
+              icon="checklist"
+              value={`${progress.checksToday} OF ${progress.checkTarget}`}
+              label="Checks today"
+              tone="secondary"
+              onClick={() => {
+                logRealityCheck()
+                toast('Check logged')
+              }}
+            />
+          </div>
+
+          <StreakRow
+            caption="Wake-back-to-bed"
+            statement={`Alarm set for ${formatClock(wbtb)}`}
+            onClick={() => navigate('/profile')}
+          />
+        </motion.div>
+      </AnimatePresence>
     </AppShell>
   )
 }
 
 function headlineFor(
   face: HomeFace,
-  ctx: {
-    recalledToday: number
-    streak: number
-    checksToday: number
-    checkTarget: number
-    wbtb: string
-  },
+  ctx: { recalledToday: number; streak: number },
 ): { lead: string; accent: string } {
-  const count = (n: number) => ['No', 'One', 'Two', 'Three', 'Four', 'Five', 'Six'][n] ?? `${n}`
-
+  const word = (n: number) => ['No', 'One', 'Two', 'Three', 'Four', 'Five', 'Six'][n] ?? `${n}`
   if (face === 'morning') {
-    if (ctx.recalledToday === 0) return { lead: 'Nothing yet', accent: 'Talk before you move' }
+    if (ctx.recalledToday === 0)
+      return { lead: 'Nothing yet.', accent: 'Talk before you move.' }
     return {
-      lead: `${count(ctx.recalledToday)} ${ctx.recalledToday === 1 ? 'dream' : 'dreams'}`,
-      accent: `Day ${ctx.streak}`,
+      lead: `${word(ctx.recalledToday)} ${ctx.recalledToday === 1 ? 'dream' : 'dreams'}.`,
+      accent: `Day ${ctx.streak} running.`,
     }
   }
+  if (face === 'day') return { lead: 'Checks first.', accent: 'Then the lesson.' }
+  if (face === 'evening') return { lead: 'Wind-down.', accent: 'One sentence, then sleep.' }
+  return { lead: 'Lights out.', accent: 'Nothing else tonight.' }
+}
 
-  if (face === 'day') {
-    const left = Math.max(0, ctx.checkTarget - ctx.checksToday)
-    if (ctx.checksToday === 0)
-      return { lead: 'No checks yet', accent: `${count(ctx.checkTarget)} before bed` }
-    return {
-      lead: `${count(ctx.checksToday)} checks in`,
-      accent: left === 0 ? 'Target met' : `${count(left)} to go`,
-    }
-  }
-
-  if (face === 'evening') return { lead: 'Wind-down', accent: 'One sentence, then sleep' }
-
-  return { lead: `Alarm ${formatClock(ctx.wbtb)}`, accent: 'Nothing else tonight' }
+function heroFor(face: HomeFace, lessonTitle: string, alarm: string) {
+  if (face === 'morning')
+    return { headline: 'Capture your dream', cta: 'Start recording', icon: 'mic' as const }
+  if (face === 'day')
+    return { headline: lessonTitle, cta: 'Open lesson', icon: 'play_arrow' as const }
+  if (face === 'evening')
+    return { headline: 'Set tonight’s intention', cta: 'Start session', icon: 'play_arrow' as const }
+  return { headline: `Back to sleep · ${alarm}`, cta: 'Start session', icon: 'play_arrow' as const }
 }

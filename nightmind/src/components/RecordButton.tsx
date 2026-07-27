@@ -1,10 +1,10 @@
 import { motion } from 'framer-motion'
-import { Mic, Square } from 'lucide-react'
+import { Icon } from './Icon'
 import { useMotionProfile } from '../lib/motion'
 
 /**
- * 88px at every size. Tap starts recording immediately — no modal, no picker.
- * Capture is the first thing on the screen and the fastest thing to reach.
+ * 88px at every size, primary fill, with the blurred halo and the live
+ * waveform from the reference. Tap starts recording immediately.
  */
 export function RecordButton({
   recording,
@@ -15,30 +15,37 @@ export function RecordButton({
 }) {
   const m = useMotionProfile()
   return (
-    <motion.button
-      type="button"
-      onClick={onToggle}
-      whileTap={m.press}
-      transition={m.t(120)}
-      aria-pressed={recording}
-      aria-label={recording ? 'Stop recording' : 'Start recording'}
-      className="relative grid size-[88px] shrink-0 place-items-center rounded-full bg-purple text-inverse"
-    >
-      {m.full && recording ? (
-        <motion.span
-          className="absolute inset-0 rounded-full bg-purple"
-          initial={{ opacity: 0.5, scale: 1 }}
-          animate={{ opacity: 0, scale: 1.45 }}
-          transition={{ duration: 1.6, repeat: Infinity, ease: 'easeOut' }}
-        />
+    <div className="relative flex items-center justify-center">
+      <div className="absolute size-28 rounded-full bg-primary/20 blur-xl" />
+      <motion.button
+        type="button"
+        onClick={onToggle}
+        whileTap={m.press}
+        transition={m.t(120)}
+        aria-pressed={recording}
+        aria-label={recording ? 'Stop recording' : 'Start recording'}
+        className="relative grid size-[88px] place-items-center rounded-full bg-primary text-on-primary-container"
+      >
+        <Icon name={recording ? 'stop_circle' : 'mic'} size={32} fill />
+      </motion.button>
+
+      {recording ? (
+        <div className="absolute -right-24 flex h-8 items-end gap-1" aria-hidden>
+          {[0.1, 0.3, 0.2, 0.4, 0.5].map((delay, i) => (
+            <motion.span
+              key={i}
+              className="w-1 rounded-full bg-primary"
+              style={{ opacity: [0.4, 0.6, 1, 0.6, 0.4][i] }}
+              animate={m.full ? { height: [8, 26, 12, 30, 8] } : { height: 16 }}
+              transition={
+                m.full
+                  ? { duration: 1.2, repeat: Infinity, delay, ease: 'easeInOut' }
+                  : { duration: 0.1 }
+              }
+            />
+          ))}
+        </div>
       ) : null}
-      <span className="relative">
-        {recording ? (
-          <Square size={30} strokeWidth={2} fill="currentColor" aria-hidden />
-        ) : (
-          <Mic size={32} strokeWidth={2} aria-hidden />
-        )}
-      </span>
-    </motion.button>
+    </div>
   )
 }

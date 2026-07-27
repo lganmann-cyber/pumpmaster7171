@@ -8,6 +8,7 @@ import { Journal } from './screens/Journal'
 import { Path } from './screens/Path'
 import { LessonDetail } from './screens/Path/LessonDetail'
 import { Signs } from './screens/Signs'
+import { Player } from './screens/Player'
 import { Profile } from './screens/Profile'
 import { Onboarding } from './screens/Onboarding'
 import { SessionPlayer } from './screens/SessionPlayer'
@@ -41,6 +42,7 @@ export function App() {
         <Route path="/path" element={<Path />} />
         <Route path="/path/:lessonId" element={<LessonDetail />} />
         <Route path="/signs" element={<Signs />} />
+        <Route path="/player" element={<Player />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="*" element={<Tonight />} />
       </Routes>

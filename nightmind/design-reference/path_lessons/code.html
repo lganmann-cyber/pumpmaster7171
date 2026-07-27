@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>NIGHTMIND - The Path</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-glow {
+            box-shadow: 0 0 15px rgba(221, 184, 255, 0.3);
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .lesson-tap-animation {
+            animation: pulse-select 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        @keyframes pulse-select {
+            0% { transform: scale(1); background-color: #1c202b; }
+            50% { transform: scale(0.98); background-color: #32353c; }
+            100% { transform: scale(1); background-color: #1c202b; border-color: #ddb8ff; }
+        }
+    </style>
+<!-- Tailwind Config Verbatim -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-lowest": "#0b0e15",
+                    "on-tertiary-fixed": "#2b1700",
+                    "secondary-fixed-dim": "#95ccff",
+                    "on-primary-container": "#420e6f",
+                    "on-error": "#690005",
+                    "surface-container": "#1d2027",
+                    "on-secondary": "#003353",
+                    "surface": "#10131a",
+                    "on-secondary-container": "#002c48",
+                    "secondary-fixed": "#cee5ff",
+                    "surface-dim": "#10131a",
+                    "outline-variant": "#4b4450",
+                    "on-surface-variant": "#cec3d2",
+                    "on-primary": "#461373",
+                    "surface-variant": "#32353c",
+                    "error-container": "#93000a",
+                    "tertiary-fixed-dim": "#ffb869",
+                    "primary-fixed": "#f0dbff",
+                    "outline": "#978d9b",
+                    "inverse-surface": "#e0e2ec",
+                    "surface-tint": "#ddb8ff",
+                    "surface-container-high": "#272a31",
+                    "on-background": "#e0e2ec",
+                    "background": "#10131a",
+                    "primary": "#ddb8ff",
+                    "tertiary-container": "#cf8422",
+                    "on-primary-fixed-variant": "#5e2f8b",
+                    "error": "#ffb4ab",
+                    "secondary-container": "#3297de",
+                    "surface-container-low": "#191c23",
+                    "on-secondary-fixed-variant": "#004a75",
+                    "on-tertiary-container": "#442700",
+                    "tertiary": "#ffb869",
+                    "primary-container": "#b07fe0",
+                    "surface-bright": "#363941",
+                    "on-error-container": "#ffdad6",
+                    "tertiary-fixed": "#ffdcbb",
+                    "inverse-on-surface": "#2d3038",
+                    "on-tertiary-fixed-variant": "#673d00",
+                    "secondary": "#95ccff",
+                    "on-tertiary": "#482900",
+                    "surface-container-highest": "#32353c",
+                    "on-secondary-fixed": "#001d32",
+                    "on-primary-fixed": "#2c0051",
+                    "inverse-primary": "#7748a5",
+                    "primary-fixed-dim": "#ddb8ff",
+                    "on-surface": "#e0e2ec"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "md": "24px",
+                    "lg": "32px",
+                    "xs": "8px",
+                    "gutter": "16px",
+                    "margin-mobile": "20px",
+                    "xl": "48px",
+                    "base": "4px",
+                    "margin-desktop": "64px",
+                    "sm": "16px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "body-md": ["Plus Jakarta Sans"],
+                    "label-caps": ["JetBrains Mono"],
+                    "headline-sm": ["Plus Jakarta Sans"],
+                    "headline-md": ["Plus Jakarta Sans"],
+                    "headline-lg": ["Plus Jakarta Sans"],
+                    "stats-lg": ["JetBrains Mono"],
+                    "stats-sm": ["JetBrains Mono"]
+            },
+            "fontSize": {
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "label-caps": ["12px", {"lineHeight": "1", "fontWeight": "700"}],
+                    "headline-sm": ["20px", {"lineHeight": "1.4", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                    "stats-lg": ["24px", {"lineHeight": "1.1", "fontWeight": "600"}],
+                    "stats-sm": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md selection:bg-primary selection:text-on-primary">
+<!-- Top Navigation -->
+<header class="bg-background dark:bg-background text-primary dark:text-primary docked full-width top-0 z-40">
+<div class="flex justify-between items-center w-full px-margin-mobile py-4">
+<div class="flex items-center gap-4">
+<button class="hover:opacity-80 transition-opacity scale-95 active:scale-90 transition-transform">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h1 class="font-label-caps text-label-caps tracking-tighter text-primary dark:text-primary">NIGHTMIND</h1>
+</div>
+<div class="w-8 h-8 rounded-full bg-surface-container border border-outline-variant overflow-hidden scale-95 active:scale-90 transition-transform">
+<img class="w-full h-full object-cover" data-alt="A clean, minimalist user profile portrait for a professional lucid dreamer. The lighting is low-key with a cool violet rim light. The individual has a focused, calm expression, wearing a high-tech sleek black garment. The background is a dark, out-of-focus laboratory environment with faint data streams in deep blue." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAIrWSGCJwhGxoycwN_4c_9Ab8iKSWUUBfowEgTeSGgA34WEoO91Oa9JuGE3_dyavXsvPC4JzCEdFDgozfjjJ0PADI508BNPcoZYURJMkO-5BQsQI2JRZcZ5UIfHqR8kA5iauRzuX3z11Yrq_bqXkVo8l_PGZzXHq3XHz9wrRyakVYKUi0p2r5qNfofUWA2UK1ofqEtUh_4p5GemYTnHXlu0XS9534KKo0wYPhH9X9SBLxEfuIEgGgsC1f3U5J_2XOxhaHEPSWE"/>
+</div>
+</div>
+</header>
+<main class="min-h-screen pb-32 pt-4 px-margin-mobile">
+<!-- Hero Header -->
+<section class="mb-lg">
+<h2 class="font-headline-lg text-headline-lg mb-xs">
+<span class="text-primary">The</span> <span class="text-on-background">Path.</span>
+</h2>
+<div class="h-1 w-12 bg-primary rounded-full"></div>
+</section>
+<!-- Unit 1: Recall -->
+<section class="mb-xl">
+<div class="flex items-end justify-between mb-sm">
+<div class="flex items-center gap-3">
+<div class="bg-primary w-1.5 h-8 rounded-full"></div>
+<div>
+<p class="font-label-caps text-label-caps text-primary opacity-70 mb-1">UNIT 01</p>
+<h3 class="font-headline-md text-headline-md text-on-background">Recall</h3>
+</div>
+</div>
+<div class="text-right">
+<span class="font-stats-sm text-stats-sm text-primary">3 OF 5</span>
+<div class="w-24 h-1.5 bg-surface-container-high rounded-full mt-2 overflow-hidden">
+<div class="bg-primary h-full w-[60%]"></div>
+</div>
+</div>
+</div>
+<!-- Lessons Grid -->
+<div class="grid gap-base">
+<!-- Completed Lesson -->
+<div class="group flex items-center justify-between p-sm bg-surface-container rounded-xl border border-outline-variant hover:border-primary/50 transition-all cursor-pointer">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-lg bg-primary-container/20 flex items-center justify-center border border-primary/20">
+<span class="material-symbols-outlined text-primary" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div>
+<h4 class="font-headline-sm text-headline-sm">Journaling</h4>
+<p class="font-label-caps text-label-caps text-on-surface-variant opacity-60">12 MIN • CORE TECHNIQUE</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant opacity-40 group-hover:translate-x-1 transition-transform" data-icon="chevron_right">chevron_right</span>
+</div>
+<!-- Tapped/Active Lesson Visual Representation -->
+<div class="lesson-tap-animation group flex items-center justify-between p-sm bg-surface-container rounded-xl border border-primary active-glow transition-all cursor-pointer">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center border border-primary">
+<span class="material-symbols-outlined text-on-primary-container" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</div>
+<div>
+<h4 class="font-headline-sm text-headline-sm">Wake-still technique</h4>
+<p class="font-label-caps text-label-caps text-on-surface-variant opacity-60">08 MIN • PHYSIOLOGY</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-label-caps text-label-caps text-primary">ACTIVE</span>
+<span class="material-symbols-outlined text-primary" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+<!-- Locked Lesson in Unit 1 -->
+<div class="flex items-center justify-between p-sm bg-surface-container/50 rounded-xl border border-outline-variant/30 opacity-60">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center border border-outline-variant">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="lock" style="font-variation-settings: 'FILL' 1;">lock</span>
+</div>
+<div>
+<h4 class="font-headline-sm text-headline-sm">Dream Mapping</h4>
+<p class="font-label-caps text-label-caps text-on-surface-variant opacity-60">LOCKED • REQUIRES RECALL 4</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Unit 2: Signs -->
+<section class="mb-xl">
+<div class="flex items-end justify-between mb-sm">
+<div class="flex items-center gap-3">
+<div class="bg-secondary w-1.5 h-8 rounded-full"></div>
+<div>
+<p class="font-label-caps text-label-caps text-secondary opacity-70 mb-1">UNIT 02</p>
+<h3 class="font-headline-md text-headline-md text-on-background">Signs</h3>
+</div>
+</div>
+<div class="text-right">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-secondary text-sm" data-icon="lock" style="font-variation-settings: 'FILL' 1;">lock</span>
+<span class="font-stats-sm text-stats-sm text-secondary uppercase">Locked</span>
+</div>
+<div class="w-24 h-1.5 bg-surface-container-high rounded-full mt-2"></div>
+</div>
+</div>
+<div class="grid gap-base opacity-40 grayscale">
+<!-- Locked Lesson 1 -->
+<div class="flex items-center justify-between p-sm bg-surface-container rounded-xl border border-outline-variant">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="insights">insights</span>
+</div>
+<div>
+<h4 class="font-headline-sm text-headline-sm">Pattern Analysis</h4>
+<p class="font-label-caps text-label-caps">15 MIN • ANALYTICS</p>
+</div>
+</div>
+<span class="material-symbols-outlined" data-icon="lock">lock</span>
+</div>
+<!-- Locked Lesson 2 -->
+<div class="flex items-center justify-between p-sm bg-surface-container rounded-xl border border-outline-variant">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="alarm">alarm</span>
+</div>
+<div>
+<h4 class="font-headline-sm text-headline-sm">Anomaly Detection</h4>
+<p class="font-label-caps text-label-caps">20 MIN • ADVANCED</p>
+</div>
+</div>
+<span class="material-symbols-outlined" data-icon="lock">lock</span>
+</div>
+</div>
+</section>
+<!-- Mastery Card (Bento Style) -->
+<section class="grid grid-cols-1 md:grid-cols-2 gap-sm">
+<div class="bg-surface-container rounded-[28px] border border-outline-variant p-md relative overflow-hidden">
+<div class="relative z-10">
+<h4 class="font-label-caps text-label-caps text-primary mb-xs">GLOBAL RANK</h4>
+<p class="font-headline-lg text-headline-lg">Top 12%</p>
+<p class="font-body-md text-on-surface-variant mt-2 max-w-[200px]">You are advancing through 'Recall' faster than 88% of practitioners.</p>
+</div>
+<div class="absolute -right-4 -bottom-4 opacity-10">
+<span class="material-symbols-outlined text-[120px]" data-icon="psychology_alt">psychology_alt</span>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Shell -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center px-4 py-2 bg-surface-container dark:bg-surface-container border-t border-outline-variant dark:border-outline-variant rounded-t-xl">
+<!-- Tonight -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors active:scale-95 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="nights_stay">nights_stay</span>
+<span class="font-label-caps text-label-caps mt-1">Tonight</span>
+</a>
+<!-- Journal -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors active:scale-95 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="book">book</span>
+<span class="font-label-caps text-label-caps mt-1">Journal</span>
+</a>
+<!-- Path (ACTIVE) -->
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-xl px-3 py-1 active:scale-95 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="psychology_alt" style="font-variation-settings: 'FILL' 1;">psychology_alt</span>
+<span class="font-label-caps text-label-caps mt-1">Path</span>
+</a>
+<!-- Signs -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors active:scale-95 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="insights">insights</span>
+<span class="font-label-caps text-label-caps mt-1">Signs</span>
+</a>
+<!-- Player -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors active:scale-95 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="graphic_eq">graphic_eq</span>
+<span class="font-label-caps text-label-caps mt-1">Player</span>
+</a>
+</nav>
+<!-- Micro-interaction script -->
+<script>
+        document.querySelectorAll('.group').forEach(item => {
+            item.addEventListener('click', function() {
+                // Visual feedback only for demo
+                const ripple = document.createElement('div');
+                ripple.className = 'absolute inset-0 bg-primary/10 pointer-events-none rounded-xl animate-ping';
+                this.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 1000);
+            });
+        });
+    </script>
+</body></html>

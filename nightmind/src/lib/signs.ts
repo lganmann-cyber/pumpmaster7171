@@ -47,16 +47,20 @@ export function signsFromDreams(dreams: Dream[], catalogue: DreamSign[]): DreamS
  * spiral out on the golden angle so the field stays legible at 3 nodes and
  * at 30. No physics, no reflow between renders.
  */
-export function buildConstellation(dreams: Dream[], catalogue: DreamSign[]): ConstellationModel {
-  const signs = signsFromDreams(dreams, catalogue)
+export function buildConstellation(
+  dreams: Dream[],
+  catalogue: DreamSign[],
+  limit = 7,
+): ConstellationModel {
+  const signs = signsFromDreams(dreams, catalogue).slice(0, limit)
   const max = signs[0]?.count ?? 1
 
   const nodes: ConstellationNode[] = signs.map((s, i) => {
     const share = s.count / max
-    const r = 3.2 + share * 6.4
+    const r = 5 + share * 5.5
     if (i === 0) return { ...s, x: 50, y: 50, r, rank: i }
     const jitter = hash(s.id)
-    const ring = Math.min(37, 15 + Math.sqrt(i) * 10 + jitter * 3)
+    const ring = Math.min(32, 17 + Math.sqrt(i) * 9 + jitter * 3)
     const angle = i * GOLDEN + jitter * 0.6
     return {
       ...s,
@@ -101,7 +105,7 @@ function clamp(v: number, lo: number, hi: number) {
  * colliding. Node 0 is pinned — the biggest sign holds the centre.
  */
 function relax(nodes: ConstellationNode[]) {
-  const PAD = 4.5
+  const PAD = 12
   for (let pass = 0; pass < 90; pass += 1) {
     for (let i = 0; i < nodes.length; i += 1) {
       for (let j = i + 1; j < nodes.length; j += 1) {

@@ -2,78 +2,89 @@
 @import './fonts.css';
 @import './tokens.css';
 
-/* Every Tailwind colour/radius/font utility resolves to a token in tokens.css.
-   `inline` keeps the var() reference live, so a theme swap on <html> repaints
-   the whole app without regenerating a single class. */
+/* Every utility resolves to a token. `inline` keeps the var() reference live,
+   so swapping the theme on <html> repaints the app without regenerating CSS. */
 @theme inline {
-  --color-canvas: var(--bg-canvas);
+  --color-background: var(--background);
   --color-surface: var(--surface);
-  --color-sunken: var(--surface-sunken);
-  --color-raised: var(--surface-raised);
-  --color-pressed: var(--surface-pressed);
-  --color-fill: var(--fill-neutral);
-  --color-fill-strong: var(--fill-neutral-strong);
+  --color-surface-dim: var(--surface-dim);
+  --color-surface-bright: var(--surface-bright);
+  --color-lowest: var(--surface-container-lowest);
+  --color-low: var(--surface-container-low);
+  --color-container: var(--surface-container);
+  --color-high: var(--surface-container-high);
+  --color-highest: var(--surface-container-highest);
+  --color-variant: var(--surface-variant);
 
-  --color-ink: var(--ink);
-  --color-muted: var(--ink-muted);
-  --color-faint: var(--ink-faint);
-  --color-inverse: var(--ink-inverse);
+  --color-on-surface: var(--on-surface);
+  --color-on-variant: var(--on-surface-variant);
+  --color-inverse-surface: var(--inverse-surface);
+  --color-inverse-on-surface: var(--inverse-on-surface);
 
-  --color-recall: var(--recall);
-  --color-checks: var(--checks);
-  --color-lessons: var(--lessons);
-  --color-accent: var(--accent);
-  --color-accent-solid: var(--accent-solid);
+  --color-outline: var(--outline);
+  --color-outline-variant: var(--outline-variant);
+  --color-card-outline: var(--card-outline);
 
-  --color-purple: var(--purple);
-  --color-purple-bright: var(--purple-bright);
-  --color-purple-badge: var(--purple-badge);
-  --color-purple-tint: var(--purple-tint);
-  --color-blue: var(--blue);
-  --color-blue-tint: var(--blue-tint);
-  --color-orange: var(--orange);
-  --color-orange-tint: var(--orange-tint);
-  --color-alert: var(--alert);
-  --color-award: var(--award);
-  --color-hairline: var(--hairline);
+  --color-primary: var(--primary);
+  --color-on-primary: var(--on-primary);
+  --color-primary-container: var(--primary-container);
+  --color-on-primary-container: var(--on-primary-container);
 
-  --color-on: var(--on-color);
-  --color-on-muted: var(--on-color-muted);
-  --color-on-fill: var(--on-fill);
+  --color-secondary: var(--secondary);
+  --color-on-secondary: var(--on-secondary);
+  --color-secondary-container: var(--secondary-container);
+  --color-on-secondary-container: var(--on-secondary-container);
+
+  --color-tertiary: var(--tertiary);
+  --color-on-tertiary: var(--on-tertiary);
+  --color-tertiary-container: var(--tertiary-container);
+  --color-on-tertiary-container: var(--on-tertiary-container);
+
+  --color-error: var(--error);
 
   --radius-sheet: var(--r-sheet);
   --radius-card: var(--r-card);
-  --radius-tile: var(--r-tile);
-  --radius-chip: var(--r-chip);
-  --radius-control: var(--r-control);
+  --radius-xl: var(--r-xl);
+  --radius-lg: var(--r-lg);
+  --radius-md: var(--r-md);
+  --radius-sm: var(--r-sm);
+
+  --spacing-base: 4px;
+  --spacing-xs: 8px;
+  --spacing-sm: 16px;
+  --spacing-gutter: 16px;
+  --spacing-md: 24px;
+  --spacing-lg: 32px;
+  --spacing-xl: 48px;
+  --spacing-margin: 20px;
+  --spacing-margin-desktop: 64px;
 
   --font-sans: var(--font);
+  --font-mono: var(--font-mono);
 }
 
 @layer base {
   html {
-    background: var(--bg-canvas);
+    background: var(--background);
     color-scheme: dark;
     -webkit-tap-highlight-color: transparent;
   }
-
   [data-theme='light'] {
     color-scheme: light;
   }
 
   body {
-    font: var(--t-body);
-    letter-spacing: -0.012em;
-    background: var(--bg-canvas);
-    color: var(--ink);
+    font: var(--t-body-md);
+    background: var(--background);
+    color: var(--on-surface);
     overscroll-behavior-y: none;
     -webkit-font-smoothing: antialiased;
   }
 
   :where(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
-    outline: 2px solid var(--accent);
+    outline: 2px solid var(--primary);
     outline-offset: 2px;
-    border-radius: var(--r-chip);
+    border-radius: var(--r-md);
   }
 
   button {
@@ -81,91 +92,57 @@
   }
 
   ::selection {
-    background: var(--purple-tint);
-    color: var(--ink);
+    background: var(--primary);
+    color: var(--on-primary-container);
   }
 }
 
 @layer components {
-  /* Apple's text styles. Negative tracking at display sizes, none on numerals. */
-  .t-display {
-    font: var(--t-display);
-    letter-spacing: -0.025em;
+  /* Prose */
+  .t-headline-lg {
+    font: var(--t-headline-lg);
+    letter-spacing: -0.02em;
   }
-  .t-date {
-    font: var(--t-date);
-    letter-spacing: -0.019em;
+  .t-headline-md {
+    font: var(--t-headline-md);
   }
-  .t-headline {
-    font: var(--t-headline);
-    letter-spacing: -0.019em;
+  .t-headline-sm {
+    font: var(--t-headline-sm);
   }
-  .t-title {
-    font: var(--t-title);
-    letter-spacing: -0.018em;
+  .t-body-lg {
+    font: var(--t-body-lg);
   }
-  .t-title3 {
-    font: var(--t-title3);
-    letter-spacing: -0.015em;
+  .t-body-md {
+    font: var(--t-body-md);
   }
-  .t-stat {
-    font: var(--t-stat);
-    letter-spacing: 0;
+
+  /* Data — mono, tabular, reserved for quantifiable values */
+  .t-stats-lg {
+    font: var(--t-stats-lg);
     font-variant-numeric: tabular-nums;
   }
-  .t-ring-value {
-    font: var(--t-ring-value);
-    letter-spacing: 0;
+  .t-stats-sm {
+    font: var(--t-stats-sm);
+    letter-spacing: 0.05em;
     font-variant-numeric: tabular-nums;
   }
-  .t-body {
-    font: var(--t-body);
-    letter-spacing: -0.012em;
+  .t-label-caps {
+    font: var(--t-label-caps);
+    letter-spacing: 0.02em;
   }
-  .t-body-strong {
-    font: var(--t-body-strong);
-    letter-spacing: -0.012em;
+
+  /* The card perimeter: a 1px outline, never a shadow. */
+  .card {
+    background: var(--surface-container);
+    border: 1px solid var(--card-outline);
   }
-  .t-label {
-    font: var(--t-label);
-    letter-spacing: -0.012em;
-  }
-  .t-meta {
-    font: var(--t-meta);
-    letter-spacing: 0;
-  }
-  /* The one uppercase treatment in the system, straight from the reference:
-     day eyebrows, ring labels and badges. */
-  .t-eyebrow {
-    font: var(--t-eyebrow);
-    letter-spacing: 0.055em;
-    text-transform: uppercase;
-  }
-  .t-nav {
-    font: var(--t-nav);
-    letter-spacing: 0;
-  }
-  .t-clock {
-    font: var(--t-clock);
-    letter-spacing: -0.01em;
-    font-variant-numeric: tabular-nums;
-  }
-  /* Numbers never jitter: values, timers, legends. */
-  .mono {
-    font-variant-numeric: tabular-nums;
-    font-feature-settings: 'tnum';
+  .glass-card {
+    background: var(--glass);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--card-outline);
   }
 }
 
-@utility hairline-t {
-  border-top: 0.5px solid var(--hairline);
-}
-@utility hairline-b {
-  border-bottom: 0.5px solid var(--hairline);
-}
-@utility card-shadow {
-  box-shadow: var(--shadow-card);
-}
 @utility no-scrollbar {
   scrollbar-width: none;
   &::-webkit-scrollbar {
@@ -173,8 +150,7 @@
   }
 }
 
-/* Night Shift suppresses every CSS transition/animation beyond a 100ms fade.
-   The JS half of this rule lives in lib/motion.ts. */
+/* Night Shift suppresses every CSS transition/animation beyond a 100ms fade. */
 [data-theme='nightshift'] *,
 [data-theme='nightshift'] *::before,
 [data-theme='nightshift'] *::after {

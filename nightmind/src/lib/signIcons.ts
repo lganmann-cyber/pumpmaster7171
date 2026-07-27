@@ -1,50 +1,38 @@
-import {
-  ArrowUpDown,
-  Car,
-  Cat,
-  Droplets,
-  Footprints,
-  Home,
-  Moon,
-  Phone,
-  School,
-  Search,
-  Smile,
-  Sparkles,
-  SquareStack,
-  User,
-  Waves,
-  Wind,
-  type LucideIcon,
-} from 'lucide-react'
+import type { IconName } from './icons'
 
-const MAP: Record<string, LucideIcon> = {
-  s_water: Droplets,
-  s_teeth: Smile,
-  's_old-house': Home,
-  s_flying: Wind,
-  s_late: ArrowUpDown,
-  s_phone: Phone,
-  s_stairs: SquareStack,
-  s_sam: User,
-  s_chased: Footprints,
-  s_school: School,
-  s_cat: Cat,
-  s_mirror: Sparkles,
-  s_car: Car,
-  s_lift: ArrowUpDown,
-  s_sea: Waves,
-  s_lost: Search,
+const MAP: Record<string, IconName> = {
+  s_water: 'waves',
+  s_teeth: 'psychology',
+  's_old-house': 'bedtime',
+  s_flying: 'bolt',
+  s_late: 'schedule',
+  s_phone: 'graphic_eq',
+  s_stairs: 'insights',
+  s_sam: 'psychology_alt',
+  s_chased: 'bolt',
+  s_school: 'book',
+  s_cat: 'auto_awesome',
+  s_mirror: 'auto_awesome',
+  s_car: 'timer',
+  s_lift: 'insights',
+  s_sea: 'waves',
+  s_lost: 'edit_note',
 }
 
-export function signIcon(id: string | undefined): LucideIcon {
-  return (id && MAP[id]) || Moon
+export function signIcon(id: string | undefined): IconName {
+  return (id && MAP[id]) || 'bedtime'
 }
 
-const HUES = ['purple', 'blue', 'orange'] as const
-export function signHue(id: string | undefined): (typeof HUES)[number] {
-  if (!id) return 'purple'
+const TONES = [
+  'bg-primary-container/20 text-primary',
+  'bg-secondary-container/20 text-secondary',
+  'bg-tertiary-container/20 text-tertiary',
+]
+
+/** Tint tile behind the glyph, keyed off the sign so a sign keeps its colour. */
+export function signTone(id: string | undefined): string {
+  if (!id) return 'bg-primary-container/10 text-on-variant'
   let n = 0
   for (let i = 0; i < id.length; i += 1) n += id.charCodeAt(i)
-  return HUES[n % HUES.length]
+  return TONES[n % TONES.length]
 }

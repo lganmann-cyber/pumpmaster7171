@@ -1,64 +1,59 @@
 import { motion } from 'framer-motion'
-import { ChevronRight, type LucideIcon } from 'lucide-react'
-import { PrimaryButton } from './PrimaryButton'
+import { Icon } from './Icon'
 import { useMotionProfile } from '../lib/motion'
-
-type Props = {
-  icon: LucideIcon
-  eyebrow: string
-  headline: string
-  cta: string
-  onCta: () => void
-  onOverflow?: () => void
-  meta?: string
-}
+import type { IconName } from '../lib/icons'
 
 /**
- * The one prominent action on a screen. It used to be a full-bleed purple slab,
- * which put a wall of saturated colour above the fold and made every screen
- * feel crammed. It is now a grouped card: tinted eyebrow, plain headline, and
- * the accent lives in the button alone.
+ * The 240px hero: a primary-container field with the dreamscape art blended
+ * over it, headline and a white pill CTA anchored to the bottom.
  */
 export function FeatureCard({
-  icon: Icon,
   eyebrow,
   headline,
   cta,
+  ctaIcon = 'mic',
   onCta,
-  onOverflow,
-  meta,
-}: Props) {
+  art,
+}: {
+  eyebrow?: string
+  headline: string
+  cta: string
+  ctaIcon?: IconName
+  onCta: () => void
+  art: string
+}) {
   const m = useMotionProfile()
   return (
     <motion.section
       initial={m.full ? { opacity: 0, y: 10 } : false}
       animate={{ opacity: 1, y: 0 }}
       transition={m.t(320)}
-      className="rounded-card bg-surface p-5"
+      className="relative flex h-[240px] flex-col justify-end gap-md overflow-hidden rounded-card bg-primary-container p-lg"
     >
-      <div className="flex items-start justify-between gap-3">
-        <div className="flex items-center gap-1.5 text-accent">
-          <Icon size={15} strokeWidth={2.4} aria-hidden />
-          <span className="t-eyebrow">{eyebrow}</span>
-        </div>
-        {onOverflow ? (
-          <button
-            type="button"
-            aria-label="More options"
-            onClick={onOverflow}
-            className="-mt-1 -mr-1 grid size-11 place-items-center rounded-full text-muted"
-          >
-            <ChevronRight size={18} aria-hidden />
-          </button>
-        ) : null}
+      <div className="absolute inset-0 z-0">
+        <div
+          className="absolute inset-0 bg-cover bg-center opacity-60 mix-blend-overlay"
+          style={{ backgroundImage: `url("${art}")` }}
+        />
       </div>
-
-      <h3 className="mt-2 max-w-[22ch] t-title3 text-ink">{headline}</h3>
-      {meta ? <p className="mt-1 t-meta text-muted">{meta}</p> : null}
-
-      <PrimaryButton onClick={onCta} className="mt-4">
-        {cta}
-      </PrimaryButton>
+      <div className="relative z-10 flex flex-col gap-sm">
+        {eyebrow ? (
+          <span className="t-label-caps text-on-primary-container uppercase opacity-70">
+            {eyebrow}
+          </span>
+        ) : null}
+        <h3 className="t-headline-md leading-tight text-on-primary-container">{headline}</h3>
+        <motion.button
+          type="button"
+          onClick={onCta}
+          whileTap={m.press}
+          transition={m.t(120)}
+          className="flex w-fit items-center gap-2 rounded-full bg-white px-6 py-3"
+        >
+          <Icon name={ctaIcon} size={20} fill className="text-primary-container" />
+          <span className="t-label-caps text-on-primary-container">{cta}</span>
+        </motion.button>
+      </div>
     </motion.section>
   )
 }

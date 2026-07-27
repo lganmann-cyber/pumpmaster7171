@@ -48,9 +48,9 @@ export function useTheme(): ThemeName {
 }
 
 const THEME_COLOR: Record<ThemeName, string> = {
-  dark: '#0A0C11',
-  light: '#F0F2F6',
-  nightshift: '#08060B',
+  dark: '#10131A',
+  light: '#F7F6FB',
+  nightshift: '#0A0705',
 }
 
 /** Writes the resolved theme onto <html> and keeps the browser chrome in step. */

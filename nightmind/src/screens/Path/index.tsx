@@ -1,24 +1,18 @@
 import { useNavigate } from 'react-router-dom'
-import { BookOpen, Check } from 'lucide-react'
 import { AppShell } from '../../components/AppShell'
 import { DisplayHeadline } from '../../components/DisplayHeadline'
 import { ListRow } from '../../components/ListRow'
 import { useApp } from '../../store'
 import { UNITS } from '../../data/seed'
 import { cx } from '../../lib/cx'
-import { useColorSurface } from '../../lib/onColor'
 import type { Lesson, Unit } from '../../lib/types'
 
-
-
-const HUE_TEXT = {
-  purple: 'text-purple-bright',
-  blue: 'text-blue',
-  orange: 'text-orange',
+const TONE = {
+  purple: { bar: 'bg-primary', text: 'text-primary', tile: 'primary' },
+  blue: { bar: 'bg-secondary', text: 'text-secondary', tile: 'secondary' },
+  orange: { bar: 'bg-tertiary', text: 'text-tertiary', tile: 'tertiary' },
 } as const
-const HUE_BAR = { purple: 'bg-recall', blue: 'bg-checks', orange: 'bg-lessons' } as const
 
-/** A unit unlocks when the one before it is finished. Never a paywall. */
 function unitLessons(unit: Unit, categories: string[]): Lesson[] {
   if (unit.id !== 'doing') return unit.lessons
   return unit.lessons.filter((l) => !l.category || categories.includes(l.category))
@@ -29,94 +23,85 @@ export function Path() {
   const progress = useApp((s) => s.progress)
   const categories = useApp((s) => s.settings.categories)
 
-  const bands = {
-    purple: useColorSurface('purple').className,
-    blue: useColorSurface('blue').className,
-    orange: useColorSurface('orange').className,
-  }
-
   const done = (unit: Unit) => progress.unitProgress[unit.id] ?? 0
   const complete = (unit: Unit) => done(unit) >= unitLessons(unit, categories).length
 
-  const firstLockedIndex = UNITS.findIndex((u) => !complete(u))
-  const currentUnit = UNITS[firstLockedIndex === -1 ? UNITS.length - 1 : firstLockedIndex]
-
   return (
     <AppShell>
-      <header className="pt-6">
-        <DisplayHeadline
-          lead={`Unit ${currentUnit.index} open`}
-          accent={`${done(currentUnit)} of ${unitLessons(currentUnit, categories).length} done`}
-        />
-      </header>
+      <DisplayHeadline lead="Path." accent="The" accentFirst rule />
 
-      <div className="mt-7 flex flex-col gap-6">
-        {UNITS.map((unit, i) => {
-          const lessons = unitLessons(unit, categories)
-          const unlocked = i === 0 || complete(UNITS[i - 1])
-          const finished = done(unit)
+      {UNITS.map((unit, i) => {
+        const lessons = unitLessons(unit, categories)
+        const unlocked = i === 0 || complete(UNITS[i - 1])
+        const finished = done(unit)
+        const tone = TONE[unit.hue]
+        const pct = Math.round((finished / Math.max(1, lessons.length)) * 100)
 
-          return (
-            <section key={unit.id} aria-labelledby={`unit-${unit.id}`}>
-              <div className={cx('rounded-card p-5', bands[unit.hue])}>
-                <div className="flex items-center justify-between gap-3">
-                  <span className={cx('t-eyebrow', HUE_TEXT[unit.hue])}>
-                    Unit {`${unit.index}`.padStart(2, '0')}
-                  </span>
-                  <span className="mono t-meta font-semibold text-muted">
-                    {finished} of {lessons.length}
-                  </span>
-                </div>
-                <h2 id={`unit-${unit.id}`} className="mt-2 t-title text-ink">
-                  {unit.title}
-                </h2>
-                <p className="mt-1 t-meta text-muted">{unit.blurb}</p>
-                <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-fill">
-                  <div
-                    className={cx('h-full rounded-full', HUE_BAR[unit.hue])}
-                    style={{ width: `${(finished / Math.max(1, lessons.length)) * 100}%` }}
-                  />
+        return (
+          <section key={unit.id} aria-labelledby={`unit-${unit.id}`} className="flex flex-col gap-sm">
+            <div className="flex items-end justify-between gap-3">
+              <div className="flex items-center gap-3">
+                <span className={cx('h-8 w-1.5 shrink-0 rounded-full', tone.bar)} />
+                <div>
+                  <p className={cx('mb-1 t-label-caps opacity-70', tone.text)}>
+                    UNIT {`${unit.index}`.padStart(2, '0')}
+                  </p>
+                  <h3 id={`unit-${unit.id}`} className="t-headline-md text-on-surface">
+                    {unit.title}
+                  </h3>
                 </div>
               </div>
+              <div className="text-right">
+                {unlocked ? (
+                  <span className={cx('t-stats-sm', tone.text)}>
+                    {finished} OF {lessons.length}
+                  </span>
+                ) : (
+                  <span className={cx('t-stats-sm', tone.text)}>LOCKED</span>
+                )}
+                <div className="mt-2 h-1.5 w-24 overflow-hidden rounded-full bg-high">
+                  <div className={cx('h-full', tone.bar)} style={{ width: `${unlocked ? pct : 0}%` }} />
+                </div>
+              </div>
+            </div>
 
-              <ul className="mt-3 flex flex-col gap-2">
-                {lessons.map((lesson, li) => {
-                  const isDone = unlocked && li < finished
-                  return (
-                    <li key={lesson.id}>
-                      <ListRow
-                        icon={BookOpen}
-                        hue={unit.hue}
-                        title={lesson.title}
-                        meta={`${lesson.minutes} min · Night ${lesson.night}`}
-                        metaMono
-                        wrap
-                        locked={!unlocked}
-                        chevron={unlocked}
-                        trailing={
-                          isDone ? (
-                            <span className="grid size-6 place-items-center rounded-full bg-recall text-on-fill">
-                              <Check size={14} strokeWidth={3} aria-hidden />
-                              <span className="sr-only">Completed</span>
-                            </span>
-                          ) : undefined
-                        }
-                        onClick={unlocked ? () => navigate(`/path/${lesson.id}`) : undefined}
-                      />
-                    </li>
-                  )
-                })}
-              </ul>
+            <div className="grid gap-base">
+              {lessons.map((lesson, li) => {
+                const isDone = unlocked && li < finished
+                const isActive = unlocked && li === finished
+                return (
+                  <ListRow
+                    key={lesson.id}
+                    icon={isDone ? 'check_circle' : isActive ? 'play_arrow' : 'schedule'}
+                    tone={tone.tile}
+                    title={lesson.title}
+                    meta={
+                      unlocked
+                        ? `${`${lesson.minutes}`.padStart(2, '0')} MIN • ${lesson.level.toUpperCase()}`
+                        : `LOCKED • REQUIRES ${UNITS[i - 1].title.toUpperCase()}`
+                    }
+                    locked={!unlocked}
+                    active={isActive}
+                    chevron={unlocked}
+                    trailing={
+                      isActive ? <span className="t-label-caps text-primary">ACTIVE</span> : undefined
+                    }
+                    onClick={unlocked ? () => navigate(`/path/${lesson.id}`) : undefined}
+                  />
+                )
+              })}
+            </div>
+          </section>
+        )
+      })}
 
-              {!unlocked ? (
-                <p className="mt-2 t-meta text-muted">
-                  Opens when you finish {UNITS[i - 1].title.toLowerCase()}.
-                </p>
-              ) : null}
-            </section>
-          )
-        })}
-      </div>
+      <section className="card relative overflow-hidden rounded-card p-md">
+        <p className="t-label-caps text-primary">GLOBAL RANK</p>
+        <h3 className="mt-xs t-headline-md text-on-surface">Top 12%</h3>
+        <p className="mt-xs max-w-[34ch] t-body-md text-on-variant">
+          You are advancing through Recall faster than 88% of practitioners.
+        </p>
+      </section>
     </AppShell>
   )
 }

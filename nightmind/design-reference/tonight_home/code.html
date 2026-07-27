@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>NIGHTMIND - Tonight</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500;600;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100..900&amp;family=Plus+Jakarta+Sans:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-lowest": "#0b0e15",
+                    "on-tertiary-fixed": "#2b1700",
+                    "secondary-fixed-dim": "#95ccff",
+                    "on-primary-container": "#420e6f",
+                    "on-error": "#690005",
+                    "surface-container": "#1d2027",
+                    "on-secondary": "#003353",
+                    "surface": "#10131a",
+                    "on-secondary-container": "#002c48",
+                    "secondary-fixed": "#cee5ff",
+                    "surface-dim": "#10131a",
+                    "outline-variant": "#4b4450",
+                    "on-surface-variant": "#cec3d2",
+                    "on-primary": "#461373",
+                    "surface-variant": "#32353c",
+                    "error-container": "#93000a",
+                    "tertiary-fixed-dim": "#ffb869",
+                    "primary-fixed": "#f0dbff",
+                    "outline": "#978d9b",
+                    "inverse-surface": "#e0e2ec",
+                    "surface-tint": "#ddb8ff",
+                    "surface-container-high": "#272a31",
+                    "on-background": "#e0e2ec",
+                    "background": "#10131a",
+                    "primary": "#ddb8ff",
+                    "tertiary-container": "#cf8422",
+                    "on-primary-fixed-variant": "#5e2f8b",
+                    "error": "#ffb4ab",
+                    "secondary-container": "#3297de",
+                    "surface-container-low": "#191c23",
+                    "on-secondary-fixed-variant": "#004a75",
+                    "on-tertiary-container": "#442700",
+                    "tertiary": "#ffb869",
+                    "primary-container": "#b07fe0",
+                    "surface-bright": "#363941",
+                    "on-error-container": "#ffdad6",
+                    "tertiary-fixed": "#ffdcbb",
+                    "inverse-on-surface": "#2d3038",
+                    "on-tertiary-fixed-variant": "#673d00",
+                    "secondary": "#95ccff",
+                    "on-tertiary": "#482900",
+                    "surface-container-highest": "#32353c",
+                    "on-secondary-fixed": "#001d32",
+                    "on-primary-fixed": "#2c0051",
+                    "inverse-primary": "#7748a5",
+                    "primary-fixed-dim": "#ddb8ff",
+                    "on-surface": "#e0e2ec"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "md": "24px",
+                    "lg": "32px",
+                    "xs": "8px",
+                    "gutter": "16px",
+                    "margin-mobile": "20px",
+                    "xl": "48px",
+                    "base": "4px",
+                    "margin-desktop": "64px",
+                    "sm": "16px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "body-md": ["Plus Jakarta Sans"],
+                    "label-caps": ["JetBrains Mono"],
+                    "headline-sm": ["Plus Jakarta Sans"],
+                    "headline-md": ["Plus Jakarta Sans"],
+                    "headline-lg": ["Plus Jakarta Sans"],
+                    "stats-lg": ["JetBrains Mono"],
+                    "stats-sm": ["JetBrains Mono"]
+            },
+            "fontSize": {
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "label-caps": ["12px", {"lineHeight": "1", "fontWeight": "700"}],
+                    "headline-sm": ["20px", {"lineHeight": "1.4", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                    "stats-lg": ["24px", {"lineHeight": "1.1", "fontWeight": "600"}],
+                    "stats-sm": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #10131a;
+            color: #e0e2ec;
+            -webkit-font-smoothing: antialiased;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-tab-underline {
+            position: relative;
+        }
+        .active-tab-underline::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: #ddb8ff;
+        }
+        .glass-card {
+            background: rgba(20, 23, 30, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid #232833;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="flex flex-col min-h-screen">
+<!-- Top App Bar -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md">
+<div class="flex justify-between items-center w-full px-margin-mobile py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full border-2 border-outline-variant overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A close-up high-resolution profile portrait of a focused man in his 30s with short hair, illuminated by soft blue and purple neon light. The style is modern, cinematic, and professional, following a dark techno-aesthetic with high contrast and sharp focus on the eyes." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPua-LgOxoOpGsY4IcAGigynDT1hx46Hdq3M6EnLD_BcQkOEV2KvoEnphyvEVWmSyaClI2XrTk7Z5AXjgKPeYgbPwLKy7vciVAKFY5mUYyFDBgtqSRye4pUPhMpW67xPUMfNFnwa-TDzsjLLAVNvXITtOPHrfics87MohQSSjcxSbb8gQ2SmxiCWjjb9lzDqv6LNhBAAxpnIGI6oK1e0JbU1NLJ18wZqk2AuBYYBA4Zci6s3voAz20n7dIvLAg3UDLVm0ItcRo"/>
+</div>
+<div class="flex items-center bg-tertiary-container px-3 py-1 rounded-full gap-1">
+<span class="material-symbols-outlined text-[16px] text-on-tertiary-container" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+<span class="font-label-caps text-label-caps text-on-tertiary-container">12 days</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+</button>
+</div>
+</div>
+</header>
+<main class="flex-grow pt-24 pb-32 px-margin-mobile space-y-lg">
+<!-- Headline Section -->
+<section class="space-y-base">
+<h1 class="font-headline-lg text-headline-lg max-w-[300px]">
+<span class="text-on-surface">Three dreams.</span><br/>
+<span class="text-primary">Your best week yet.</span>
+</h1>
+</section>
+<!-- Tabs Navigation -->
+<nav class="flex gap-gutter overflow-x-auto no-scrollbar py-2">
+<button class="font-label-caps text-label-caps text-primary active-tab-underline whitespace-nowrap">General</button>
+<button class="font-label-caps text-label-caps text-on-surface-variant hover:text-on-surface transition-colors whitespace-nowrap">Romance</button>
+<button class="font-label-caps text-label-caps text-on-surface-variant hover:text-on-surface transition-colors whitespace-nowrap">Skills</button>
+<button class="font-label-caps text-label-caps text-on-surface-variant hover:text-on-surface transition-colors whitespace-nowrap">Nightmares</button>
+</nav>
+<!-- Feature Card (Full Bleed-ish) -->
+<section class="relative h-[240px] rounded-[28px] overflow-hidden bg-primary-container p-lg flex flex-col justify-end gap-md shadow-2xl">
+<div class="absolute inset-0 z-0">
+
+<div class="absolute inset-0 bg-cover bg-center mix-blend-overlay opacity-60" data-alt="A surreal and atmospheric digital landscape representing a dream state with floating obsidian monoliths in a deep violet and indigo nebula. Subtle glowing particles drift through the dark space. The art style is technical and sharp, using high contrast and a nocturnal, focused mood consistent with a high-performance lucid dreaming application." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAQQ1BqqglAsLzHp9HpfiitWfaEQnokroeObRdzXPXd1TXym52Bz3AiB-1-yxwHiPGqTpYRa9GrtzQU9YsGcWxcay4x6UTrEvxkRC5fuqdkepqGp1FBnXqUa9c7oTMIlMnJXuJnlDokETs1TbPdw333j_g1S8kTxn_MRqFwOksQiXGUis8EfDjxT-fXUeOfXfyxUvvVEBycAuU4nRV2RXDhznk92s4xYmPfLwAOfo5ea4_0u2FdmJ673M4SfJ1fmpsPLezPyZu9')"></div>
+</div>
+<div class="relative z-10 space-y-sm">
+<h2 class="font-headline-md text-headline-md text-on-primary-container leading-tight">Capture your dream</h2>
+<button class="bg-white px-6 py-3 rounded-full flex items-center gap-2 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-primary-container" style="font-variation-settings: 'FILL' 1;">mic</span>
+<span class="font-label-caps text-label-caps text-on-primary-container">Start recording</span>
+</button>
+</div>
+</section>
+<!-- Stat Cards (2-up) -->
+<section class="grid grid-cols-2 gap-gutter">
+<!-- Recall Card -->
+<div class="glass-card rounded-[28px] p-md flex flex-col justify-between h-[120px]">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-primary">visibility</span>
+<span class="font-stats-sm text-stats-sm text-primary">12 DAYS</span>
+</div>
+<div class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Recall streak</div>
+</div>
+<!-- Checks Card -->
+<div class="glass-card rounded-[28px] p-md flex flex-col justify-between h-[120px]">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-secondary">checklist</span>
+<span class="font-stats-sm text-stats-sm text-secondary">3 OF 5</span>
+</div>
+<div class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Checks today</div>
+</div>
+</section>
+<!-- Streak Row (Bottom Pill) -->
+<section>
+<div class="bg-surface-container-high border border-outline-variant rounded-full px-sm py-4 flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary">alarm</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-on-surface uppercase opacity-80">Wake-back-to-bed</span>
+<span class="font-label-caps text-[13px] text-tertiary">Alarm set for 3:40am</span>
+</div>
+<div class="ml-auto pr-2">
+<span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center px-4 py-2 bg-surface-container border-t border-outline-variant rounded-t-xl">
+<!-- Tonight (Active) -->
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-xl px-3 py-1 active:scale-95 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">nights_stay</span>
+<span class="font-label-caps text-label-caps mt-0.5">Tonight</span>
+</a>
+<!-- Journal -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors active:scale-95 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">book</span>
+<span class="font-label-caps text-label-caps mt-0.5">Journal</span>
+</a>
+<!-- Path -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors active:scale-95 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">psychology_alt</span>
+<span class="font-label-caps text-label-caps mt-0.5">Path</span>
+</a>
+<!-- Signs -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors active:scale-95 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">insights</span>
+<span class="font-label-caps text-label-caps mt-0.5">Signs</span>
+</a>
+<!-- Player -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors active:scale-95 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">graphic_eq</span>
+<span class="font-label-caps text-label-caps mt-0.5">Player</span>
+</a>
+</nav>
+<script>
+        // Micro-interaction: Tab switching simulation
+        const tabs = document.querySelectorAll('nav button');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => {
+                    t.classList.remove('text-primary', 'active-tab-underline');
+                    t.classList.add('text-on-surface-variant');
+                });
+                tab.classList.remove('text-on-surface-variant');
+                tab.classList.add('text-primary', 'active-tab-underline');
+            });
+        });
+
+        // Subtle background flicker effect to simulate "Lucidity" atmosphere
+        const cards = document.querySelectorAll('.glass-card');
+        setInterval(() => {
+            const randomCard = cards[Math.floor(Math.random() * cards.length)];
+            randomCard.style.borderColor = '#ddb8ff33';
+            setTimeout(() => {
+                randomCard.style.borderColor = '#232833';
+            }, 150);
+        }, 4000);
+    </script>
+</body></html>

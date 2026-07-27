@@ -1,32 +1,30 @@
 import { motion } from 'framer-motion'
-import type { LucideIcon } from 'lucide-react'
 import type { ReactNode } from 'react'
+import { Icon } from './Icon'
 import { cx } from '../lib/cx'
 import { useMotionProfile } from '../lib/motion'
+import type { IconName } from '../lib/icons'
 
-type Props = {
-  children: ReactNode
-  onClick?: () => void
-  icon?: LucideIcon
-  disabled?: boolean
-  full?: boolean
-  type?: 'button' | 'submit'
-  className?: string
-}
-
-/**
- * The prominent action. Accent fill, white 17/600, 14pt radius — the single
- * place a saturated fill appears in chrome.
- */
+/** Solid primary with dark on-container label in mono caps, 12px radius. */
 export function PrimaryButton({
   children,
   onClick,
-  icon: Icon,
+  icon,
   disabled,
   full = true,
+  variant = 'solid',
   type = 'button',
   className,
-}: Props) {
+}: {
+  children: ReactNode
+  onClick?: () => void
+  icon?: IconName
+  disabled?: boolean
+  full?: boolean
+  variant?: 'solid' | 'outline'
+  type?: 'button' | 'submit'
+  className?: string
+}) {
   const m = useMotionProfile()
   return (
     <motion.button
@@ -36,14 +34,16 @@ export function PrimaryButton({
       whileTap={disabled ? undefined : m.press}
       transition={m.t(120)}
       className={cx(
-        'inline-flex min-h-[50px] items-center justify-center gap-2 rounded-tile px-7',
-        't-body-strong disabled:opacity-40',
-        'bg-accent-solid text-on-fill',
+        'inline-flex min-h-[48px] items-center justify-center gap-2 rounded-md px-6 t-label-caps',
+        'disabled:opacity-40',
+        variant === 'solid'
+          ? 'bg-primary text-on-primary-container'
+          : 'border border-outline text-on-surface',
         full && 'w-full',
         className,
       )}
     >
-      {Icon ? <Icon size={18} strokeWidth={2} aria-hidden /> : null}
+      {icon ? <Icon name={icon} size={20} fill /> : null}
       {children}
     </motion.button>
   )

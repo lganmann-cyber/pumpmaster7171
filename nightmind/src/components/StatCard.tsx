@@ -1,37 +1,33 @@
 import { motion } from 'framer-motion'
-import type { LucideIcon } from 'lucide-react'
+import { Icon } from './Icon'
 import { cx } from '../lib/cx'
 import { useMotionProfile } from '../lib/motion'
+import type { IconName } from '../lib/icons'
 
-type Hue = 'purple' | 'blue' | 'orange'
+type Tone = 'primary' | 'secondary' | 'tertiary'
 
-const TINT: Record<Hue, string> = {
-  purple: 'text-purple-bright',
-  blue: 'text-blue',
-  orange: 'text-orange',
+const TONE: Record<Tone, string> = {
+  primary: 'text-primary',
+  secondary: 'text-secondary',
+  tertiary: 'text-tertiary',
 }
 
 /**
- * Metric tile — a grouped card, not a colour slab. A tinted glyph and label on
- * top, a big tabular value under it, an optional sub. Colour appears at glyph
- * scale only; the rings own the light.
+ * The 2-up dashboard card: glyph and mono value on the top row, caps label
+ * pinned to the bottom. Fixed 120px so a pair never sits unevenly.
  */
 export function StatCard({
-  label,
+  icon,
   value,
-  hue,
-  icon: Icon,
-  footnote,
+  label,
+  tone = 'primary',
   onClick,
 }: {
-  label: string
+  icon: IconName
   value: string
-  hue: Hue
-  icon?: LucideIcon
-  footnote?: string
+  label: string
+  tone?: Tone
   onClick?: () => void
-  /** kept for call-site compatibility — all numerals are tabular now */
-  mono?: boolean
 }) {
   const m = useMotionProfile()
   const Tag = onClick ? motion.button : motion.div
@@ -39,17 +35,13 @@ export function StatCard({
     <Tag
       {...(onClick ? { type: 'button' as const, onClick, whileTap: m.press } : {})}
       transition={m.t(120)}
-      className={cx(
-        'flex min-h-[92px] flex-col gap-2 rounded-tile bg-surface p-4 text-left',
-        onClick && 'cursor-pointer',
-      )}
+      className="glass-card flex h-[120px] flex-col justify-between rounded-card p-md text-left"
     >
-      <div className={cx('flex items-center gap-1.5', TINT[hue])}>
-        {Icon ? <Icon size={15} strokeWidth={2.4} aria-hidden /> : null}
-        <span className="t-meta font-semibold">{label}</span>
+      <div className="flex items-start justify-between gap-2">
+        <Icon name={icon} size={24} className={TONE[tone]} />
+        <span className={cx('t-stats-sm', TONE[tone])}>{value}</span>
       </div>
-      <div className="t-stat text-ink">{value}</div>
-      {footnote ? <div className="t-meta text-faint">{footnote}</div> : null}
+      <div className="t-label-caps tracking-wider text-on-variant uppercase">{label}</div>
     </Tag>
   )
 }

@@ -6,8 +6,9 @@ const SHELL = [
   '/index.html',
   '/manifest.webmanifest',
   '/icon.svg',
-  '/fonts/plus-jakarta-sans-latin-d4d84d.woff2',
-  '/fonts/jetbrains-mono-latin-0a7197.woff2',
+  '/fonts/jakarta-latin-d4d84d.woff2',
+  '/fonts/jbmono-latin-0a7197.woff2',
+  '/fonts/msym-subset.woff2',
 ]
 
 self.addEventListener('install', (e) => {
