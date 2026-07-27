@@ -25,7 +25,7 @@ export function TopBar({ className }: { className?: string }) {
             type="button"
             aria-label="Menu"
             onClick={() => navigate('/profile')}
-            className="flex size-6 items-center justify-center text-primary"
+            className="-ml-2.5 flex size-11 items-center justify-center text-primary"
           >
             <Icon name="menu" size={24} />
           </button>
@@ -35,9 +35,11 @@ export function TopBar({ className }: { className?: string }) {
           type="button"
           aria-label={name ? `${name} — open profile` : 'Open profile'}
           onClick={() => navigate('/profile')}
-          className="grid size-8 place-items-center overflow-hidden rounded-full border border-outline-variant bg-container t-label-caps text-primary"
+          className="-mr-1.5 grid size-11 place-items-center rounded-full text-primary"
         >
-          {(name.trim()[0] ?? 'N').toUpperCase()}
+          <span className="grid size-8 place-items-center rounded-full border border-outline-variant bg-container t-label-caps">
+            {(name.trim()[0] ?? 'N').toUpperCase()}
+          </span>
         </button>
       </div>
     </header>

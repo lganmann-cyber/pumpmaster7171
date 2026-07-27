@@ -46,7 +46,7 @@ export function SegmentedTabs<T extends string>({
               aria-selected={active}
               onClick={() => onChange(item.id)}
               className={cx(
-                'relative rounded-full px-4 py-1.5 t-label-caps',
+                'relative flex min-h-[44px] items-center rounded-full px-4 t-label-caps',
                 active ? 'text-on-primary-container' : 'text-on-variant',
               )}
             >
@@ -70,7 +70,7 @@ export function SegmentedTabs<T extends string>({
       role="tablist"
       aria-label={ariaLabel}
       className={cx(
-        'no-scrollbar flex gap-gutter overflow-x-auto py-2',
+        'no-scrollbar flex gap-gutter overflow-x-auto',
         bleed && '-mr-margin pr-margin md:-mr-lg md:pr-lg',
       )}
     >
@@ -84,7 +84,7 @@ export function SegmentedTabs<T extends string>({
             aria-selected={active}
             onClick={() => onChange(item.id)}
             className={cx(
-              'relative shrink-0 pb-2 t-label-caps whitespace-nowrap',
+              'relative flex min-h-[44px] shrink-0 items-end justify-center pb-2 t-label-caps whitespace-nowrap',
               active ? 'text-primary' : 'text-on-variant',
             )}
           >

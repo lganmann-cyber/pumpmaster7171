@@ -21,7 +21,17 @@ export function Icon({
     <span
       aria-hidden
       className={cx('material-symbols-outlined', fill && 'filled', className)}
-      style={{ fontSize: size, width: size, height: size }}
+      style={{
+        // inline-grid, not inline: an inline box ignores width/height and takes
+        // the glyph's advance, which made icons collide with adjacent text
+        display: 'inline-grid',
+        placeItems: 'center',
+        fontSize: size,
+        width: size,
+        height: size,
+        flexShrink: 0,
+        lineHeight: 1,
+      }}
     >
       {ICON[name]}
     </span>

@@ -41,7 +41,7 @@ export function LessonDetail() {
               type="button"
               aria-label="Back"
               onClick={() => navigate(-1)}
-              className="grid size-10 place-items-center rounded-full bg-black/20 text-on-primary-container"
+              className="grid size-11 place-items-center rounded-full bg-black/20 text-on-primary-container"
             >
               <Icon name="arrow_back" size={24} />
             </button>
@@ -50,7 +50,7 @@ export function LessonDetail() {
               type="button"
               aria-label="Share"
               onClick={() => toast('Sharing is off in this build')}
-              className="grid size-10 place-items-center rounded-full bg-black/20 text-on-primary-container"
+              className="grid size-11 place-items-center rounded-full bg-black/20 text-on-primary-container"
             >
               <Icon name="share" size={22} />
             </button>
@@ -119,7 +119,7 @@ export function LessonDetail() {
               setBookmarked((b) => !b)
               toast(bookmarked ? 'Bookmark removed' : 'Lesson bookmarked')
             }}
-            className="grid size-[48px] shrink-0 place-items-center rounded-md border border-outline text-on-surface"
+            className="grid size-[48px] min-h-[44px] shrink-0 place-items-center rounded-md border border-outline text-on-surface"
           >
             <Icon name="bookmark" size={22} fill={bookmarked} />
           </motion.button>

@@ -129,7 +129,7 @@ export function Signs() {
             type="button"
             aria-label="Filter"
             onClick={() => toast('Filters are off in this build')}
-            className="text-on-variant"
+            className="-mr-2 grid size-11 place-items-center text-on-variant"
           >
             <Icon name="filter_list" size={24} />
           </button>

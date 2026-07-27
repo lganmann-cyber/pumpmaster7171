@@ -109,7 +109,7 @@ export function SessionPlayer() {
               type="button"
               onClick={closeSession}
               aria-label="Close session"
-              className="grid size-10 shrink-0 place-items-center rounded-full bg-container text-on-surface"
+              className="grid size-11 shrink-0 place-items-center rounded-full bg-container text-on-surface"
             >
               <Icon name="expand_more" size={24} />
             </button>
@@ -150,7 +150,7 @@ export function SessionPlayer() {
                   aria-pressed={sleepTimerMin === min}
                   onClick={() => setSleepTimer(sleepTimerMin === min ? null : min)}
                   className={cx(
-                    'min-h-[36px] rounded-full px-3 t-label-caps',
+                    'min-h-[44px] rounded-full px-3 t-label-caps',
                     sleepTimerMin === min
                       ? 'bg-primary text-on-primary-container'
                       : 'text-on-variant',

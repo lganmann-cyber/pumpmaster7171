@@ -92,7 +92,14 @@ export function Journal() {
     window.scrollTo({ top: 0, behavior: m.full ? 'smooth' : 'auto' })
   }
 
+  const [showAll, setShowAll] = useState(false)
+  // The timeline used to render all 47 entries at once, which is a wall rather
+  // than a screen. Recent days first; the rest is one tap away.
   const grouped = useMemo(() => groupByDay(dreams), [dreams])
+  const visibleGroups = showAll ? grouped : grouped.slice(0, 4)
+  const hiddenCount = grouped
+    .slice(4)
+    .reduce((a, [, entries]) => a + entries.length, 0)
 
   return (
     <AppShell>
@@ -102,7 +109,7 @@ export function Journal() {
       </h2>
 
       {/* Capture — the first thing on the screen, no intermediate step */}
-      <section className="flex flex-col items-center justify-center py-sm">
+      <section className="flex flex-col items-center justify-center py-md">
         <AnimatePresence mode="wait">
           {phase === 'capture' || phase === 'recording' ? (
             <motion.div
@@ -127,7 +134,7 @@ export function Journal() {
                   setPhase('review')
                   window.setTimeout(() => textarea.current?.focus(), 60)
                 }}
-                className="mt-md t-label-caps text-on-variant underline decoration-outline-variant underline-offset-4"
+                className="mt-md flex min-h-[44px] items-center px-3 t-label-caps text-on-variant underline decoration-outline-variant underline-offset-4"
               >
                 or type it
               </button>
@@ -137,7 +144,7 @@ export function Journal() {
                   addDream({ transcript: '', wokeAt: new Date().toISOString(), clarity: 1 })
                   toast('Blank night saved — streak held')
                 }}
-                className="mt-xs t-label-caps text-on-variant opacity-60"
+                className="flex min-h-[44px] items-center px-3 t-label-caps text-on-variant opacity-60"
               >
                 I don't remember anything
               </button>
@@ -196,7 +203,7 @@ export function Journal() {
                           setSigns(on ? signs.filter((x) => x !== s.id) : [...signs, s.id])
                         }
                         className={cx(
-                          'min-h-[36px] rounded-full border px-3 t-label-caps',
+                          'min-h-[44px] rounded-full border px-4 t-label-caps',
                           on
                             ? 'border-primary bg-primary text-on-primary-container'
                             : 'border-outline-variant text-on-variant',
@@ -255,16 +262,16 @@ export function Journal() {
       </section>
 
       {/* Timeline */}
-      <section className="flex flex-col gap-sm">
+      <section className="flex flex-col gap-md">
         {dreams.length === 0 ? (
           <p className="card rounded-card p-md t-body-md text-on-variant">
             Nothing here yet. Tomorrow morning, before you move, before you check your phone — talk
             into this.
           </p>
         ) : (
-          grouped.map(([key, entries]) => (
-            <div key={key} className="flex flex-col gap-base">
-              <div className="flex items-center gap-sm py-xs">
+          visibleGroups.map(([key, entries]) => (
+            <div key={key} className="flex flex-col gap-xs">
+              <div className="flex items-center gap-sm pt-xs pb-base">
                 <span className="h-px flex-grow bg-outline-variant" />
                 <span className="t-label-caps tracking-widest text-on-variant uppercase">
                   {dateHeading(entries[0].wokeAt, now)}
@@ -307,6 +314,16 @@ export function Journal() {
             </div>
           ))
         )}
+
+        {!showAll && hiddenCount > 0 ? (
+          <button
+            type="button"
+            onClick={() => setShowAll(true)}
+            className="flex min-h-[48px] w-full items-center justify-center rounded-xl border border-outline-variant t-label-caps text-primary"
+          >
+            SHOW {hiddenCount} EARLIER {hiddenCount === 1 ? 'ENTRY' : 'ENTRIES'}
+          </button>
+        ) : null}
       </section>
 
       {/* Practitioner tip */}

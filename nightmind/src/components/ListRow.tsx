@@ -49,7 +49,7 @@ export function ListRow({
       transition={m.t(120)}
       aria-disabled={locked || undefined}
       className={cx(
-        'flex w-full items-center gap-sm rounded-xl border p-4 text-left',
+        'flex w-full min-w-0 items-center gap-sm rounded-xl border p-4 text-left',
         active
           ? 'border-primary bg-container shadow-[0_0_20px_-4px_var(--primary)]'
           : 'border-outline-variant bg-low',
@@ -72,9 +72,9 @@ export function ListRow({
         ) : null}
       </span>
 
-      {trailing}
+      {trailing ? <span className="shrink-0">{trailing}</span> : null}
       {chevron && !locked ? (
-        <span className="text-on-variant opacity-40">
+        <span className="shrink-0 text-on-variant opacity-40">
           <Icon name="chevron_right" size={24} />
         </span>
       ) : null}

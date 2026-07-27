@@ -65,7 +65,7 @@ export function Path() {
               </div>
             </div>
 
-            <div className="grid gap-base">
+            <div className="grid gap-xs">
               {lessons.map((lesson, li) => {
                 const isDone = unlocked && li < finished
                 const isActive = unlocked && li === finished
@@ -78,7 +78,7 @@ export function Path() {
                     meta={
                       unlocked
                         ? `${`${lesson.minutes}`.padStart(2, '0')} MIN • ${lesson.level.toUpperCase()}`
-                        : `LOCKED • REQUIRES ${UNITS[i - 1].title.toUpperCase()}`
+                        : 'LOCKED'
                     }
                     locked={!unlocked}
                     active={isActive}

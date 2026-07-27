@@ -58,7 +58,7 @@ export function Profile() {
           type="button"
           aria-label="Back"
           onClick={() => navigate(-1)}
-          className="grid size-10 place-items-center rounded-full bg-container text-on-surface"
+          className="grid size-11 place-items-center rounded-full bg-container text-on-surface"
         >
           <Icon name="arrow_back" size={24} />
         </button>
@@ -142,7 +142,7 @@ export function Profile() {
               setWbtbAlarm(settings.wbtbAlarm ? undefined : '03:40')
               toast(settings.wbtbAlarm ? 'Alarm off' : 'Alarm set')
             }}
-            className="min-h-[40px] rounded-md border border-outline px-4 t-label-caps text-on-surface"
+            className="min-h-[44px] shrink-0 rounded-md border border-outline px-4 t-label-caps text-on-surface"
           >
             {settings.wbtbAlarm ? 'TURN OFF' : 'TURN ON'}
           </button>
@@ -169,7 +169,7 @@ export function Profile() {
                   toggleCategory(id)
                 }}
                 className={cx(
-                  'min-h-[40px] rounded-full border px-4 t-label-caps',
+                  'min-h-[44px] rounded-full border px-4 t-label-caps',
                   on
                     ? 'border-primary bg-primary text-on-primary-container'
                     : 'border-outline-variant text-on-variant',
@@ -212,7 +212,7 @@ export function Profile() {
                 aria-pressed={on}
                 onClick={() => setTimeOverride(hm)}
                 className={cx(
-                  'min-h-[40px] rounded-full border px-4 t-label-caps',
+                  'min-h-[44px] rounded-full border px-4 t-label-caps',
                   on
                     ? 'border-primary bg-primary text-on-primary-container'
                     : 'border-outline-variant text-on-variant',

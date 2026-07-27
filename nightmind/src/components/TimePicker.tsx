@@ -71,7 +71,7 @@ export function TimePicker({
         <Stepper onUp={() => bump(5)} onDown={() => bump(-5)} unit="minutes">
           {`${minute}`.padStart(2, '0')}
         </Stepper>
-        <div className="ml-4 flex flex-col gap-1">
+        <div className="ml-4 flex flex-col gap-xs">
           {(['am', 'pm'] as const).map((mer) => {
             const active = (mer === 'pm') === pm
             return (

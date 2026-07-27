@@ -63,7 +63,7 @@ export function Tonight() {
             type="button"
             onClick={() => navigate('/profile')}
             aria-label="Open profile"
-            className="grid size-10 place-items-center overflow-hidden rounded-full border-2 border-outline-variant bg-container t-label-caps text-primary"
+            className="grid size-11 place-items-center rounded-full border-2 border-outline-variant bg-container t-label-caps text-primary"
           >
             {(useApp.getState().name.trim()[0] ?? 'N').toUpperCase()}
           </button>
@@ -76,7 +76,7 @@ export function Tonight() {
           type="button"
           aria-label="Notifications"
           onClick={() => toast('Nothing new tonight')}
-          className="grid size-10 place-items-center rounded-full text-on-variant"
+          className="-mr-1.5 grid size-11 place-items-center rounded-full text-on-variant"
         >
           <Icon name="notifications" size={24} />
         </button>

@@ -32,7 +32,7 @@ export function BottomNav() {
               {({ isActive }) => (
                 <>
                   <Icon name={icon} size={24} fill={isActive} />
-                  <span className="mt-0.5 t-label-caps">{label}</span>
+                  <span className="mt-1 t-label-caps">{label}</span>
                 </>
               )}
             </NavLink>
