@@ -1,0 +1,26 @@
+import { cx } from '../lib/cx'
+
+/**
+ * The signature type treatment: clause one in --ink, clause two in
+ * --purple-bright, both ending in a period. Exactly once per screen.
+ * Measure is capped at 12ch so the two-line wrap survives every width.
+ */
+export function DisplayHeadline({
+  lead,
+  accent,
+  className,
+  id,
+}: {
+  lead: string
+  accent: string
+  className?: string
+  id?: string
+}) {
+  const period = (s: string) => (/[.?!]$/.test(s.trim()) ? s.trim() : `${s.trim()}.`)
+  return (
+    <h1 id={id} className={cx('max-w-[12ch] t-display text-ink', className)}>
+      {period(lead)}{' '}
+      <span className="text-purple-bright">{period(accent)}</span>
+    </h1>
+  )
+}

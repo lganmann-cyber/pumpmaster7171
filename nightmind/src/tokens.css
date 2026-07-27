@@ -1,0 +1,158 @@
+/* NightMind design tokens — single source of truth.
+   Every color, radius, and type value in the app resolves through these.
+   Components never carry a raw hex. */
+
+:root,
+[data-theme='dark'] {
+  --bg-canvas: #0a0c11;
+  --surface: #14171e;
+  --surface-sunken: #1c202a;
+  --surface-raised: #232834;
+
+  --ink: #f4f5f8;
+  --ink-muted: #9aa0ab;
+  --ink-inverse: #0a0c11;
+
+  --purple: #b07fe0;
+  --purple-bright: #c9a2f0; /* purple type on dark */
+  --purple-badge: #9b44e0;
+  --purple-tint: #2a1f3d;
+  --blue: #3fa0e8;
+  --blue-tint: #16283a;
+  --orange: #f4a340;
+  --orange-tint: #3a2a14;
+  --alert: #e5544b;
+
+  --shadow-card: none;
+  --hairline: rgba(255, 255, 255, 0.06);
+
+  /* On-color type. White on --purple is only ever used at 18px+ or 14px+ bold. */
+  --on-color: #ffffff;
+  --on-color-muted: rgba(255, 255, 255, 0.85);
+
+  /* The white CTA pill that sits on a --purple card. Its label is purple type
+     on a *light* surface, so it takes the deep purple in every theme —
+     --purple-bright on white is ~2.3:1 and fails §10. */
+  --pill-bg: #ffffff;
+  --pill-ink: #7a2bd0;
+
+  /* Type that sits on a saturated --purple/--blue/--orange fill. The source
+     system puts white here; white measures 2.3:1 on --purple and 1.9:1 on
+     --orange, which fails §10 at any size. Deep ink clears 9:1 on all three
+     and is identical in both themes because the fills are. */
+  --on-fill: #14161a;
+}
+
+[data-theme='light'] {
+  --bg-canvas: #f0f2f6;
+  --surface: #ffffff;
+  --surface-sunken: #f5f5f7;
+  --surface-raised: #ffffff;
+
+  --ink: #14161a;
+  --ink-muted: #6e747e; /* lifted from #8A8F98 for AA */
+  --ink-inverse: #ffffff;
+
+  --purple: #b07fe0;
+  --purple-bright: #7a2bd0; /* on light, "bright" means deep */
+  --purple-badge: #9b44e0;
+  --purple-tint: #ede3fb;
+  --blue: #3fa0e8;
+  --blue-tint: #e9f2fd;
+  --orange: #f4a340;
+  --orange-tint: #fdeedf;
+  --alert: #c4342b;
+
+  --shadow-card: 0 4px 20px rgba(20, 22, 26, 0.04);
+  --hairline: rgba(20, 22, 26, 0.06);
+
+  --on-color: #ffffff;
+  --on-color-muted: rgba(255, 255, 255, 0.85);
+
+  --pill-bg: #ffffff;
+  --pill-ink: #7a2bd0;
+
+  --on-fill: #14161a;
+}
+
+[data-theme='nightshift'] {
+  --bg-canvas: #08060b;
+  --surface: #14100c;
+  --surface-sunken: #1b160f;
+  --surface-raised: #221b12;
+
+  --ink: #e8a055;
+  --ink-muted: #8a6438;
+  --ink-inverse: #08060b;
+
+  --purple: #c4652a; /* every accent collapses to amber */
+  --purple-bright: #e8a055;
+  --purple-badge: #a85222;
+  --purple-tint: #2a1a0c;
+  --blue: #c4652a;
+  --blue-tint: #2a1a0c;
+  --orange: #e8a055;
+  --orange-tint: #2a1a0c;
+  --alert: #d4553a;
+
+  --shadow-card: none;
+  --hairline: rgba(232, 160, 85, 0.08);
+
+  /* Amber-only: nothing on a fill is ever white here, and contrast drops
+     one notch on purpose. The user is trying to stay half-asleep. */
+  --on-color: #f6dcc0;
+  --on-color-muted: rgba(246, 220, 192, 0.78);
+
+  /* A white pill at 3am is a torch. It becomes a raised amber surface. */
+  --pill-bg: #221b12;
+  --pill-ink: #e8a055;
+
+  /* Night Shift never puts type on a saturated fill — see lib/onColor.ts. */
+  --on-fill: #e8a055;
+}
+
+:root {
+  --font: 'Plus Jakarta Sans', -apple-system, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  --t-display: 700 40px/1.05 var(--font);
+  --t-title: 700 26px/1.2 var(--font);
+  --t-headline: 700 28px/1.15 var(--font);
+  --t-stat: 700 26px/1.1 var(--font);
+  --t-body: 400 16px/1.5 var(--font);
+  --t-label: 500 14px/1.4 var(--font);
+  --t-meta: 400 13px/1.4 var(--font);
+  --t-nav: 500 11px/1.2 var(--font);
+  --t-clock: 500 15px/1.2 var(--font-mono);
+
+  --r-sheet: 32px;
+  --r-card: 28px;
+  --r-tile: 18px;
+  --r-chip: 12px;
+  --r-full: 999px;
+
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 20px;
+  --s-6: 24px;
+  --s-7: 32px;
+  --s-8: 40px;
+
+  /* The session player is near-black in every theme — it is the one surface
+     that does not follow the canvas. */
+  --player-bg: #06070a;
+  --player-glow: rgba(176, 127, 224, 0.28);
+
+  /* Layout constants from §3 */
+  --content-max: 720px;
+  --rail-w: 88px;
+  --rail-w-wide: 240px;
+}
+
+/* Last word: Night Shift overrides the shared block above. A purple bloom at
+   3am defeats the point of the mode. */
+[data-theme='nightshift'] {
+  --player-glow: rgba(196, 101, 42, 0.2);
+}

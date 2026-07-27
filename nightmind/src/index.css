@@ -1,0 +1,151 @@
+@import 'tailwindcss';
+/* tokens.css is imported *after* Tailwind so its :root declarations win over
+   Tailwind's default theme vars (notably --font-mono). */
+@import './tokens.css';
+
+/* Every Tailwind color/radius/font utility resolves to a token in tokens.css.
+   `inline` keeps the var() reference live, so a theme swap on <html> repaints
+   the whole app without regenerating a single class. */
+@theme inline {
+  --color-canvas: var(--bg-canvas);
+  --color-surface: var(--surface);
+  --color-sunken: var(--surface-sunken);
+  --color-raised: var(--surface-raised);
+
+  --color-ink: var(--ink);
+  --color-muted: var(--ink-muted);
+  --color-inverse: var(--ink-inverse);
+
+  --color-purple: var(--purple);
+  --color-purple-bright: var(--purple-bright);
+  --color-purple-badge: var(--purple-badge);
+  --color-purple-tint: var(--purple-tint);
+  --color-blue: var(--blue);
+  --color-blue-tint: var(--blue-tint);
+  --color-orange: var(--orange);
+  --color-orange-tint: var(--orange-tint);
+  --color-alert: var(--alert);
+  --color-hairline: var(--hairline);
+
+  /* type that sits on a saturated fill */
+  --color-on: var(--on-color);
+  --color-on-muted: var(--on-color-muted);
+  --color-on-fill: var(--on-fill);
+
+  --radius-sheet: var(--r-sheet);
+  --radius-card: var(--r-card);
+  --radius-tile: var(--r-tile);
+  --radius-chip: var(--r-chip);
+
+  --font-sans: var(--font);
+}
+
+@layer base {
+  html {
+    background: var(--bg-canvas);
+    color-scheme: dark;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  [data-theme='light'] {
+    color-scheme: light;
+  }
+
+  body {
+    font: var(--t-body);
+    background: var(--bg-canvas);
+    color: var(--ink);
+    overscroll-behavior-y: none;
+  }
+
+  /* §10 — one focus treatment, everywhere, all three themes. */
+  :where(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
+    outline: 2px solid var(--purple-bright);
+    outline-offset: 2px;
+    border-radius: var(--r-chip);
+  }
+
+  button {
+    color: inherit;
+  }
+
+  ::selection {
+    background: var(--purple-tint);
+    color: var(--ink);
+  }
+}
+
+@layer components {
+  .t-display {
+    font: var(--t-display);
+    letter-spacing: -0.02em;
+  }
+  .t-title {
+    font: var(--t-title);
+    letter-spacing: -0.015em;
+  }
+  .t-headline {
+    font: var(--t-headline);
+    letter-spacing: -0.015em;
+  }
+  .t-stat {
+    font: var(--t-stat);
+    letter-spacing: -0.01em;
+  }
+  .t-body {
+    font: var(--t-body);
+  }
+  .t-label {
+    font: var(--t-label);
+  }
+  .t-meta {
+    font: var(--t-meta);
+  }
+  .t-nav {
+    font: var(--t-nav);
+  }
+  /* times only — WBTB windows, timestamps, durations */
+  .t-clock {
+    font: var(--t-clock);
+    font-variant-numeric: tabular-nums;
+  }
+  .mono {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@utility hairline-t {
+  border-top: 1px solid var(--hairline);
+}
+@utility hairline-b {
+  border-bottom: 1px solid var(--hairline);
+}
+@utility card-shadow {
+  box-shadow: var(--shadow-card);
+}
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Night Shift suppresses every CSS transition/animation beyond a 100ms fade.
+   The JS half of this rule lives in lib/motion.ts. */
+[data-theme='nightshift'] *,
+[data-theme='nightshift'] *::before,
+[data-theme='nightshift'] *::after {
+  animation-duration: 100ms !important;
+  transition-duration: 100ms !important;
+  transition-property: opacity !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
