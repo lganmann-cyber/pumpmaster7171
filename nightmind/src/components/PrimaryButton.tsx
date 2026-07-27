@@ -3,7 +3,6 @@ import type { LucideIcon } from 'lucide-react'
 import type { ReactNode } from 'react'
 import { cx } from '../lib/cx'
 import { useMotionProfile } from '../lib/motion'
-import { useTheme } from '../lib/theme'
 
 type Props = {
   children: ReactNode
@@ -16,9 +15,8 @@ type Props = {
 }
 
 /**
- * The commit action. On light this is an --ink pill with inverse type;
- * on dark and Night Shift a solid black pill disappears into the canvas,
- * so it becomes --surface-raised with an --ink label.
+ * The prominent action. Accent fill, white 17/600, 14pt radius — the single
+ * place a saturated fill appears in chrome.
  */
 export function PrimaryButton({
   children,
@@ -30,7 +28,6 @@ export function PrimaryButton({
   className,
 }: Props) {
   const m = useMotionProfile()
-  const light = useTheme() === 'light'
   return (
     <motion.button
       type={type}
@@ -39,9 +36,9 @@ export function PrimaryButton({
       whileTap={disabled ? undefined : m.press}
       transition={m.t(120)}
       className={cx(
-        'inline-flex min-h-[52px] items-center justify-center gap-2 rounded-full px-6 t-label',
-        'disabled:opacity-40',
-        light ? 'bg-ink text-inverse' : 'bg-raised text-ink',
+        'inline-flex min-h-[50px] items-center justify-center gap-2 rounded-tile px-7',
+        't-body-strong disabled:opacity-40',
+        'bg-accent-solid text-on-fill',
         full && 'w-full',
         className,
       )}

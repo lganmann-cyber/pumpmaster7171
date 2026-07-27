@@ -20,7 +20,7 @@ export function AppShell({ children, bleed }: { children: ReactNode; bleed?: boo
         <div
           className={cx(
             'mx-auto w-full max-w-[720px] pb-[104px] md:pb-10',
-            !bleed && 'px-5 md:px-8',
+            !bleed && 'px-4 md:px-8',
           )}
         >
           {children}

@@ -2,13 +2,19 @@ import { motion } from 'framer-motion'
 import type { LucideIcon } from 'lucide-react'
 import { cx } from '../lib/cx'
 import { useMotionProfile } from '../lib/motion'
-import { useColorSurface } from '../lib/onColor'
 
 type Hue = 'purple' | 'blue' | 'orange'
 
+const TINT: Record<Hue, string> = {
+  purple: 'text-purple-bright',
+  blue: 'text-blue',
+  orange: 'text-orange',
+}
+
 /**
- * Contrasting pair, ~180px tall. Label 14/400 at 85%, value 26/700.
- * Everything here is 14px+ bold or 18px+, per the white-on-color rule in §10.
+ * Metric tile — a grouped card, not a colour slab. A tinted glyph and label on
+ * top, a big tabular value under it, an optional sub. Colour appears at glyph
+ * scale only; the rings own the light.
  */
 export function StatCard({
   label,
@@ -17,7 +23,6 @@ export function StatCard({
   icon: Icon,
   footnote,
   onClick,
-  mono,
 }: {
   label: string
   value: string
@@ -25,28 +30,26 @@ export function StatCard({
   icon?: LucideIcon
   footnote?: string
   onClick?: () => void
+  /** kept for call-site compatibility — all numerals are tabular now */
   mono?: boolean
 }) {
   const m = useMotionProfile()
-  const surface = useColorSurface(hue)
   const Tag = onClick ? motion.button : motion.div
   return (
     <Tag
       {...(onClick ? { type: 'button' as const, onClick, whileTap: m.press } : {})}
       transition={m.t(120)}
       className={cx(
-        'flex min-h-[180px] flex-col justify-between rounded-card p-5 text-left',
-        surface.className,
+        'flex min-h-[92px] flex-col gap-2 rounded-tile bg-surface p-4 text-left',
+        onClick && 'cursor-pointer',
       )}
     >
-      <div className="flex items-start justify-between">
-        <span className="t-label font-semibold">{label}</span>
-        {Icon ? <Icon size={20} strokeWidth={2} aria-hidden /> : null}
+      <div className={cx('flex items-center gap-1.5', TINT[hue])}>
+        {Icon ? <Icon size={15} strokeWidth={2.4} aria-hidden /> : null}
+        <span className="t-meta font-semibold">{label}</span>
       </div>
-      <div>
-        <div className={cx('t-stat', mono && 'mono')}>{value}</div>
-        {footnote ? <div className="mt-1 t-meta font-medium opacity-85">{footnote}</div> : null}
-      </div>
+      <div className="t-stat text-ink">{value}</div>
+      {footnote ? <div className="t-meta text-faint">{footnote}</div> : null}
     </Tag>
   )
 }

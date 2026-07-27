@@ -10,11 +10,7 @@ type Props = {
   className?: string
 }
 
-/**
- * The pill that sits on a saturated card: light fill, purple label.
- * Both values come from --pill-bg / --pill-ink so Night Shift can swap the
- * whole thing for a raised amber surface without a second component.
- */
+/** Tinted button: accent at low opacity with an accent label. */
 export function SecondaryButtonOnColor({ children, onClick, full, className }: Props) {
   const m = useMotionProfile()
   return (
@@ -23,9 +19,9 @@ export function SecondaryButtonOnColor({ children, onClick, full, className }: P
       onClick={onClick}
       whileTap={m.press}
       transition={m.t(120)}
-      style={{ background: 'var(--pill-bg)', color: 'var(--pill-ink)' }}
       className={cx(
-        'inline-flex min-h-[44px] items-center justify-center rounded-full px-5 t-label font-semibold',
+        'inline-flex min-h-[44px] items-center justify-center rounded-chip bg-purple-tint px-5',
+        't-label text-accent',
         full && 'w-full',
         className,
       )}

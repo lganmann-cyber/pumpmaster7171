@@ -17,10 +17,12 @@ export function DisplayHeadline({
   id?: string
 }) {
   const period = (s: string) => (/[.?!]$/.test(s.trim()) ? s.trim() : `${s.trim()}.`)
+  // Clause two always takes its own line. Letting the two flow together
+  // stranded an orphan ("Day" / "12.") at almost every phone width.
   return (
-    <h1 id={id} className={cx('max-w-[12ch] t-display text-ink', className)}>
-      {period(lead)}{' '}
-      <span className="text-purple-bright">{period(accent)}</span>
+    <h1 id={id} className={cx('max-w-[16ch] t-display text-ink', className)}>
+      {period(lead)}
+      <span className="block text-accent">{period(accent)}</span>
     </h1>
   )
 }

@@ -11,6 +11,13 @@ import type { Lesson, Unit } from '../../lib/types'
 
 
 
+const HUE_TEXT = {
+  purple: 'text-purple-bright',
+  blue: 'text-blue',
+  orange: 'text-orange',
+} as const
+const HUE_BAR = { purple: 'bg-recall', blue: 'bg-checks', orange: 'bg-lessons' } as const
+
 /** A unit unlocks when the one before it is finished. Never a paywall. */
 function unitLessons(unit: Unit, categories: string[]): Lesson[] {
   if (unit.id !== 'doing') return unit.lessons
@@ -52,18 +59,24 @@ export function Path() {
           return (
             <section key={unit.id} aria-labelledby={`unit-${unit.id}`}>
               <div className={cx('rounded-card p-5', bands[unit.hue])}>
-                <div className="flex items-center justify-between">
-                  <span className="mono t-label font-medium opacity-80">
+                <div className="flex items-center justify-between gap-3">
+                  <span className={cx('t-eyebrow', HUE_TEXT[unit.hue])}>
                     Unit {`${unit.index}`.padStart(2, '0')}
                   </span>
-                  <span className="mono t-label font-semibold">
+                  <span className="mono t-meta font-semibold text-muted">
                     {finished} of {lessons.length}
                   </span>
                 </div>
-                <h2 id={`unit-${unit.id}`} className="mt-3 t-title">
+                <h2 id={`unit-${unit.id}`} className="mt-2 t-title text-ink">
                   {unit.title}
                 </h2>
-                <p className="mt-1 t-label opacity-85">{unit.blurb}</p>
+                <p className="mt-1 t-meta text-muted">{unit.blurb}</p>
+                <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-fill">
+                  <div
+                    className={cx('h-full rounded-full', HUE_BAR[unit.hue])}
+                    style={{ width: `${(finished / Math.max(1, lessons.length)) * 100}%` }}
+                  />
+                </div>
               </div>
 
               <ul className="mt-3 flex flex-col gap-2">
@@ -82,7 +95,7 @@ export function Path() {
                         chevron={unlocked}
                         trailing={
                           isDone ? (
-                            <span className="grid size-6 place-items-center rounded-full bg-purple text-inverse">
+                            <span className="grid size-6 place-items-center rounded-full bg-recall text-on-fill">
                               <Check size={14} strokeWidth={3} aria-hidden />
                               <span className="sr-only">Completed</span>
                             </span>

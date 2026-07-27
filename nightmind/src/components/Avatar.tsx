@@ -19,8 +19,8 @@ export function Avatar({ onColor }: { onColor?: boolean }) {
       transition={m.t(120)}
       aria-label={name ? `${name} — open profile` : 'Open profile'}
       className={cx(
-        'grid size-12 shrink-0 place-items-center rounded-full t-label font-semibold',
-        onColor ? 'bg-white/20 text-on-fill' : 'bg-purple-tint text-purple-bright',
+        'grid size-9 shrink-0 place-items-center rounded-full t-label font-semibold',
+        onColor ? 'bg-white/22 text-on backdrop-blur-md' : 'bg-fill text-ink',
       )}
     >
       {initial}

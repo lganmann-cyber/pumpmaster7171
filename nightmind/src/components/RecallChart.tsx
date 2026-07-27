@@ -60,7 +60,7 @@ export function RecallChart({ data, caption }: Props) {
           width={w}
           rx={w / 2}
           ry={w / 2}
-          fill={isActive ? 'var(--purple)' : 'var(--purple-tint)'}
+          fill={isActive ? 'var(--recall)' : 'var(--purple-tint)'}
         />
         {isActive ? (
           // Kept inside the plot area so the pill never clips at either end.
@@ -68,13 +68,13 @@ export function RecallChart({ data, caption }: Props) {
             transform={`translate(${clamp(cx, 44, Math.max(44, plotWidth - 44))}, ${barY - 12})`}
             pointerEvents="none"
           >
-            <rect x={-42} y={-28} width={84} height={28} rx={14} fill="var(--ink)" />
+            <rect x={-44} y={-28} width={88} height={28} rx={14} fill="var(--surface-pressed)" />
             <text
               x={0}
               y={-9}
               textAnchor="middle"
-              fill="var(--ink-inverse)"
-              style={{ font: '600 13px var(--font)' }}
+              fill="var(--ink)"
+              style={{ font: '600 13px var(--font)', fontVariantNumeric: 'tabular-nums' }}
             >
               {value === 1 ? '1 dream' : `${value} dreams`}
             </text>
@@ -86,7 +86,7 @@ export function RecallChart({ data, caption }: Props) {
 
   return (
     <section className="rounded-card bg-surface p-5 card-shadow">
-      <h2 className="t-label font-semibold text-ink">{caption}</h2>
+      <h2 className="t-eyebrow text-accent">{caption}</h2>
 
       <div ref={plot} className="mt-4" style={{ height: CHART_H }}>
         <ResponsiveContainer width="100%" height="100%">
@@ -112,7 +112,7 @@ export function RecallChart({ data, caption }: Props) {
             onClick={() => setSelected(i)}
             aria-pressed={i === active}
             className={`min-h-[44px] flex-1 rounded-chip t-meta ${
-              i === active ? 'font-semibold text-ink' : 'text-muted'
+              i === active ? 'font-semibold text-ink' : 'text-faint'
             }`}
           >
             <span aria-hidden>{d.label}</span>

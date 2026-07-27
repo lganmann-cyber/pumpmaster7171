@@ -52,20 +52,20 @@ export function ListRow({
       aria-disabled={locked || undefined}
       className={cx(
         'flex w-full items-center gap-3 rounded-tile p-4 text-left',
-        surface === 'sunken' && 'bg-sunken',
+        surface === 'sunken' && 'bg-surface',
         surface === 'surface' && 'bg-surface',
         locked && 'opacity-40',
       )}
     >
       {Icon ? (
-        <span className={cx('grid size-10 shrink-0 place-items-center rounded-full', TINT[hue])}>
-          <Icon size={18} strokeWidth={2} aria-hidden />
+        <span className={cx('grid size-9 shrink-0 place-items-center rounded-chip', TINT[hue])}>
+          <Icon size={17} strokeWidth={2.2} aria-hidden />
         </span>
       ) : null}
 
       <span className="min-w-0 flex-1">
         <span
-          className={cx('block t-body font-semibold text-ink', wrap ? 'line-clamp-2' : 'truncate')}
+          className={cx('block t-body-strong text-ink', wrap ? 'line-clamp-2' : 'truncate')}
         >
           {title}
         </span>

@@ -35,14 +35,14 @@ export function StreakRow({
       onClick={onClick}
       whileTap={m.press}
       transition={m.t(120)}
-      className="flex w-full items-center gap-4 rounded-full bg-surface p-4 pr-5 text-left card-shadow"
+      className="flex w-full items-center gap-3 rounded-tile bg-surface p-4 text-left"
     >
-      <span className={cx('grid size-11 shrink-0 place-items-center rounded-full', tint)}>
-        <Icon size={20} strokeWidth={2} aria-hidden />
+      <span className={cx('grid size-9 shrink-0 place-items-center rounded-chip', tint)}>
+        <Icon size={17} strokeWidth={2.2} aria-hidden />
       </span>
       <span className="min-w-0 flex-1">
         <span className="block t-meta text-muted">{caption}</span>
-        <span className={cx('block truncate t-label font-semibold text-ink', mono && 'mono')}>
+        <span className={cx('block truncate t-body-strong text-ink', mono && 'mono')}>
           {statement}
         </span>
       </span>

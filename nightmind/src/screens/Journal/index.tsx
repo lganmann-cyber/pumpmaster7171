@@ -137,7 +137,7 @@ export function Journal() {
       </header>
 
       {/* Capture is the first thing on the screen — no intermediate step. */}
-      <section className="mt-7 rounded-card bg-surface p-5 card-shadow">
+      <section className="mt-6 rounded-card bg-surface p-5">
         <AnimatePresence mode="wait">
           {phase === 'capture' || phase === 'recording' ? (
             <motion.div
@@ -291,7 +291,7 @@ export function Journal() {
         ) : (
           grouped.map(([key, entries]) => (
             <div key={key} className="mb-4">
-              <h2 className="sticky top-0 z-10 -mx-5 bg-canvas px-5 py-2 t-label font-semibold text-muted md:-mx-8 md:px-8">
+              <h2 className="sticky top-0 z-10 -mx-4 bg-canvas px-4 py-2 t-eyebrow text-muted md:-mx-8 md:px-8">
                 {dateHeading(entries[0].wokeAt, now)}
               </h2>
               <ul className="flex flex-col gap-2">
@@ -306,11 +306,11 @@ export function Journal() {
                       <button
                         type="button"
                         onClick={() => openForReview(d)}
-                        className="flex w-full items-center gap-3 rounded-tile bg-sunken p-4 text-left"
+                        className="flex w-full items-center gap-3 rounded-tile bg-surface p-4 text-left"
                       >
                         <span
                           className={cx(
-                            'grid size-10 shrink-0 place-items-center rounded-full',
+                            'grid size-9 shrink-0 place-items-center rounded-chip',
                             {
                               purple: 'bg-purple-tint text-purple-bright',
                               blue: 'bg-blue-tint text-blue',
@@ -325,7 +325,7 @@ export function Journal() {
                           )}
                         </span>
                         <span className="min-w-0 flex-1">
-                          <span className="block truncate t-body font-semibold text-ink">
+                          <span className="block truncate t-body-strong text-ink">
                             {first}
                           </span>
                           <span className="mt-0.5 block t-meta text-muted">

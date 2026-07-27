@@ -28,7 +28,7 @@ export function Constellation({ model, selectedId, onSelect }: Props) {
   }
 
   return (
-    <div className="relative aspect-[4/3] w-full overflow-hidden rounded-card bg-sunken">
+    <div className="relative aspect-[4/3] w-full overflow-hidden rounded-card bg-surface">
       <svg
         viewBox="0 0 100 100"
         preserveAspectRatio="none"
@@ -47,7 +47,7 @@ export function Constellation({ model, selectedId, onSelect }: Props) {
               y1={a.y}
               x2={b.x}
               y2={b.y}
-              stroke={lit ? 'var(--purple)' : 'var(--purple-tint)'}
+              stroke={lit ? 'var(--recall)' : 'var(--purple-tint)'}
               strokeWidth={lit ? 2 : 1.25}
               vectorEffect="non-scaling-stroke"
               initial={m.full ? { opacity: 0 } : false}
@@ -78,7 +78,7 @@ export function Constellation({ model, selectedId, onSelect }: Props) {
             <span
               className={cx(
                 'grid place-items-center rounded-full',
-                isSelected ? 'bg-purple' : 'bg-purple-tint',
+                isSelected ? 'bg-recall' : 'bg-purple-tint',
               )}
               style={{
                 width: `${n.r * 1.9}%`,
@@ -89,8 +89,8 @@ export function Constellation({ model, selectedId, onSelect }: Props) {
             >
               <span
                 className={cx(
-                  'mono text-[11px] font-medium',
-                  isSelected ? 'text-inverse' : 'text-purple-bright',
+                  'mono text-[11px] font-semibold',
+                  isSelected ? 'text-on-fill' : 'text-purple-bright',
                 )}
               >
                 {n.count}

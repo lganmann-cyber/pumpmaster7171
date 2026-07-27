@@ -31,7 +31,7 @@ export function SegmentedTabs<T extends string>({
       <div
         role="tablist"
         aria-label={ariaLabel}
-        className="inline-flex shrink-0 items-center gap-1 rounded-full bg-sunken p-1"
+        className="inline-flex shrink-0 items-center gap-0.5 rounded-control bg-fill p-0.5"
       >
         {items.map((item) => {
           const active = item.id === value
@@ -43,7 +43,7 @@ export function SegmentedTabs<T extends string>({
               aria-selected={active}
               onClick={() => onChange(item.id)}
               className={cx(
-                'relative min-h-[36px] rounded-full px-3 t-meta font-medium',
+                'relative min-h-[32px] rounded-control px-3.5 t-meta font-semibold',
                 active ? 'text-ink' : 'text-muted',
               )}
             >
@@ -51,7 +51,7 @@ export function SegmentedTabs<T extends string>({
                 <motion.span
                   layoutId={`${layoutId}-pill`}
                   transition={m.t(180)}
-                  className="absolute inset-0 rounded-full bg-surface"
+                  className="absolute inset-0 rounded-control bg-pressed"
                 />
               ) : null}
               <span className="relative">{item.label}</span>
@@ -81,8 +81,8 @@ export function SegmentedTabs<T extends string>({
             aria-selected={active}
             onClick={() => onChange(item.id)}
             className={cx(
-              'relative shrink-0 pb-[13px] t-label whitespace-nowrap',
-              active ? 'font-semibold text-ink' : 'text-muted',
+              'relative shrink-0 pb-[10px] t-label whitespace-nowrap',
+              active ? 'text-ink' : 'text-muted',
             )}
           >
             {item.label}
@@ -90,7 +90,7 @@ export function SegmentedTabs<T extends string>({
               <motion.span
                 layoutId={layoutId}
                 transition={m.t(240)}
-                className="absolute inset-x-0 bottom-0 h-[3px] rounded-full bg-ink"
+                className="absolute inset-x-0 bottom-0 h-[3px] rounded-full bg-accent-solid"
               />
             ) : null}
           </button>

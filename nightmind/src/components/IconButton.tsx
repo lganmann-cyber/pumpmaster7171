@@ -41,8 +41,8 @@ export function IconButton({
       style={{ width: size, height: size }}
       className={cx(
         'grid shrink-0 place-items-center rounded-full',
-        tone === 'surface' && 'bg-raised text-ink',
-        tone === 'onColor' && (amber ? 'bg-raised text-ink' : 'bg-white/20 text-on-fill'),
+        tone === 'surface' && 'bg-fill text-ink',
+        tone === 'onColor' && (amber ? 'bg-raised text-ink' : 'bg-white/22 text-on backdrop-blur-md'),
         tone === 'ghost' && 'text-muted hover:text-ink',
         className,
       )}

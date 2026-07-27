@@ -10,10 +10,10 @@ export function NavRail() {
   return (
     <nav
       aria-label="Main"
-      className="fixed inset-y-0 left-0 z-40 hidden w-[88px] flex-col gap-2 bg-surface p-3 md:flex xl:w-[240px] xl:p-4"
+      className="fixed inset-y-0 left-0 z-40 hidden w-[88px] flex-col gap-2 bg-canvas p-3 md:flex xl:w-[240px] xl:p-4"
     >
       <div className="mb-4 flex items-center gap-3 px-1 pt-4">
-        <span className="grid size-10 shrink-0 place-items-center rounded-full bg-purple-tint text-purple-bright t-label font-semibold">
+        <span className="grid size-10 shrink-0 place-items-center rounded-full bg-purple-tint text-accent t-label font-semibold">
           N
         </span>
         <span className="hidden t-label font-semibold text-ink xl:block">NightMind</span>
@@ -29,13 +29,13 @@ export function NavRail() {
                 cx(
                   'flex min-h-[56px] flex-col items-center justify-center gap-1 rounded-tile px-2',
                   'xl:flex-row xl:justify-start xl:gap-3 xl:px-4',
-                  isActive ? 'bg-sunken text-ink' : 'text-muted',
+                  isActive ? 'text-accent' : 'text-faint',
                 )
               }
             >
               {({ isActive }) => (
                 <>
-                  <Icon size={22} strokeWidth={isActive ? 2.2 : 1.8} aria-hidden />
+                  <Icon size={24} strokeWidth={isActive ? 2.4 : 1.9} aria-hidden />
                   <span className="t-nav xl:t-label">{label}</span>
                 </>
               )}

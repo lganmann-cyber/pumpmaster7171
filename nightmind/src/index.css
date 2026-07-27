@@ -1,10 +1,8 @@
 @import 'tailwindcss';
 @import './fonts.css';
-/* tokens.css is imported *after* Tailwind so its :root declarations win over
-   Tailwind's default theme vars (notably --font-mono). */
 @import './tokens.css';
 
-/* Every Tailwind color/radius/font utility resolves to a token in tokens.css.
+/* Every Tailwind colour/radius/font utility resolves to a token in tokens.css.
    `inline` keeps the var() reference live, so a theme swap on <html> repaints
    the whole app without regenerating a single class. */
 @theme inline {
@@ -12,10 +10,20 @@
   --color-surface: var(--surface);
   --color-sunken: var(--surface-sunken);
   --color-raised: var(--surface-raised);
+  --color-pressed: var(--surface-pressed);
+  --color-fill: var(--fill-neutral);
+  --color-fill-strong: var(--fill-neutral-strong);
 
   --color-ink: var(--ink);
   --color-muted: var(--ink-muted);
+  --color-faint: var(--ink-faint);
   --color-inverse: var(--ink-inverse);
+
+  --color-recall: var(--recall);
+  --color-checks: var(--checks);
+  --color-lessons: var(--lessons);
+  --color-accent: var(--accent);
+  --color-accent-solid: var(--accent-solid);
 
   --color-purple: var(--purple);
   --color-purple-bright: var(--purple-bright);
@@ -26,9 +34,9 @@
   --color-orange: var(--orange);
   --color-orange-tint: var(--orange-tint);
   --color-alert: var(--alert);
+  --color-award: var(--award);
   --color-hairline: var(--hairline);
 
-  /* type that sits on a saturated fill */
   --color-on: var(--on-color);
   --color-on-muted: var(--on-color-muted);
   --color-on-fill: var(--on-fill);
@@ -37,6 +45,7 @@
   --radius-card: var(--r-card);
   --radius-tile: var(--r-tile);
   --radius-chip: var(--r-chip);
+  --radius-control: var(--r-control);
 
   --font-sans: var(--font);
 }
@@ -54,14 +63,15 @@
 
   body {
     font: var(--t-body);
+    letter-spacing: -0.012em;
     background: var(--bg-canvas);
     color: var(--ink);
     overscroll-behavior-y: none;
+    -webkit-font-smoothing: antialiased;
   }
 
-  /* §10 — one focus treatment, everywhere, all three themes. */
   :where(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
-    outline: 2px solid var(--purple-bright);
+    outline: 2px solid var(--accent);
     outline-offset: 2px;
     border-radius: var(--r-chip);
   }
@@ -77,54 +87,81 @@
 }
 
 @layer components {
+  /* Apple's text styles. Negative tracking at display sizes, none on numerals. */
   .t-display {
     font: var(--t-display);
-    /* Jakarta at 700 needs more negative tracking than the spec's -0.02em to
-       stop large sizes reading as a wall. */
-    letter-spacing: -0.032em;
-    text-wrap: balance;
+    letter-spacing: -0.025em;
   }
-  .t-title {
-    font: var(--t-title);
-    letter-spacing: -0.02em;
+  .t-date {
+    font: var(--t-date);
+    letter-spacing: -0.019em;
   }
   .t-headline {
     font: var(--t-headline);
-    letter-spacing: -0.022em;
-    text-wrap: balance;
+    letter-spacing: -0.019em;
+  }
+  .t-title {
+    font: var(--t-title);
+    letter-spacing: -0.018em;
+  }
+  .t-title3 {
+    font: var(--t-title3);
+    letter-spacing: -0.015em;
   }
   .t-stat {
     font: var(--t-stat);
-    letter-spacing: -0.01em;
+    letter-spacing: 0;
+    font-variant-numeric: tabular-nums;
+  }
+  .t-ring-value {
+    font: var(--t-ring-value);
+    letter-spacing: 0;
+    font-variant-numeric: tabular-nums;
   }
   .t-body {
     font: var(--t-body);
+    letter-spacing: -0.012em;
+  }
+  .t-body-strong {
+    font: var(--t-body-strong);
+    letter-spacing: -0.012em;
   }
   .t-label {
     font: var(--t-label);
+    letter-spacing: -0.012em;
   }
   .t-meta {
     font: var(--t-meta);
+    letter-spacing: 0;
+  }
+  /* The one uppercase treatment in the system, straight from the reference:
+     day eyebrows, ring labels and badges. */
+  .t-eyebrow {
+    font: var(--t-eyebrow);
+    letter-spacing: 0.055em;
+    text-transform: uppercase;
   }
   .t-nav {
     font: var(--t-nav);
+    letter-spacing: 0;
   }
-  /* times only — WBTB windows, timestamps, durations */
   .t-clock {
     font: var(--t-clock);
+    letter-spacing: -0.01em;
     font-variant-numeric: tabular-nums;
   }
+  /* Numbers never jitter: values, timers, legends. */
   .mono {
-    font-family: var(--font-mono);
     font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum';
   }
 }
 
 @utility hairline-t {
-  border-top: 1px solid var(--hairline);
+  border-top: 0.5px solid var(--hairline);
 }
 @utility hairline-b {
-  border-bottom: 1px solid var(--hairline);
+  border-bottom: 0.5px solid var(--hairline);
 }
 @utility card-shadow {
   box-shadow: var(--shadow-card);

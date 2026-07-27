@@ -55,11 +55,15 @@ export function Signs() {
         />
       </header>
 
-      <div className="mt-6 flex items-start justify-between gap-4">
+      {/* The selector sits on its own row — sharing one with the large title
+          squeezed the headline into an orphan line. */}
+      <div className="pt-4">
         <DisplayHeadline
           lead={top ? `${top.label} again` : 'No signs yet'}
           accent={top ? `${top.count} entries` : 'Tag a repeat'}
         />
+      </div>
+      <div className="mt-5 flex justify-start">
         <SegmentedTabs
           items={PERIODS}
           value={period}
@@ -70,11 +74,11 @@ export function Signs() {
         />
       </div>
 
-      <div className="mt-7 flex flex-col gap-4">
+      <div className="mt-4 flex flex-col gap-3">
         <RecallChart data={chart} caption={CAPTION[period]} />
 
         <section>
-          <h2 className="t-label font-semibold text-ink">Dream signs</h2>
+          <h2 className="t-title text-ink">Dream signs</h2>
           <p className="mt-1 t-meta text-muted">
             Sized by how often they turn up. Joined where they showed up in the same dream.
           </p>
@@ -97,7 +101,7 @@ export function Signs() {
 
           {selectedNode ? (
             <div className="mt-3 rounded-card bg-surface p-5 card-shadow">
-              <h3 className="t-label font-semibold text-ink">
+              <h3 className="t-body-strong text-ink">
                 {selectedNode.label} · {selectedNode.count}{' '}
                 {selectedNode.count === 1 ? 'dream' : 'dreams'}
               </h3>
@@ -131,7 +135,7 @@ export function Signs() {
         </div>
 
         <section>
-          <h2 className="t-label font-semibold text-ink">Lucidity log</h2>
+          <h2 className="t-title text-ink">Lucidity log</h2>
           {lucid.length === 0 ? (
             <p className="mt-3 rounded-card bg-surface p-5 t-body text-muted">
               Nothing logged yet. Keep working the recall ladder — this fills in on its own.

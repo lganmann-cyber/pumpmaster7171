@@ -11,16 +11,15 @@ import { useTheme } from './theme'
  */
 export function useColorSurface(hue: 'purple' | 'blue' | 'orange' = 'purple') {
   const amber = useTheme() === 'nightshift'
-  const fill = {
-    purple: amber ? 'bg-purple-tint' : 'bg-purple',
-    blue: amber ? 'bg-blue-tint' : 'bg-blue',
-    orange: amber ? 'bg-orange-tint' : 'bg-orange',
-  }[hue]
+  // Grouped surfaces in every theme. Colour arrives as a tinted glyph or a
+  // ring, never as a full-bleed card.
+  const fill = 'bg-surface'
+  void hue
   return {
     amber,
-    className: `${fill} ${amber ? 'text-ink' : 'text-on-fill'}`,
+    className: `${fill} text-ink`,
     /** Type that sits on the fill and must stay legible at label sizes. */
-    onFill: amber ? 'text-ink' : 'text-on-fill',
-    mutedOnFill: amber ? 'text-muted' : 'text-on-muted',
+    onFill: 'text-ink',
+    mutedOnFill: 'text-muted',
   }
 }

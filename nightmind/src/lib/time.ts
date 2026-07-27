@@ -94,6 +94,11 @@ export function longDate(iso: string): string {
   return `${d.getDate()} ${MONTH[d.getMonth()].slice(0, 3)} ${d.getFullYear()}`
 }
 
+/** The summary-head date: "27 July". */
+export function headDate(d: Date): string {
+  return `${d.getDate()} ${MONTH[d.getMonth()]}`
+}
+
 /**
  * §5.2 — the home screen's four faces.
  * morning: wake → 11am · day: 11am → 6pm · evening: 6pm → 11pm · night: 11pm → wake

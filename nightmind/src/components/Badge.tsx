@@ -25,9 +25,9 @@ export function Badge({
   return (
     <span
       className={cx(
-        'inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 t-meta font-medium',
+        'inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 t-eyebrow',
         variant === 'solid-on-color' && 'text-on',
-        variant === 'translucent' && 'bg-white/18 text-on',
+        variant === 'translucent' && 'bg-black/40 text-on backdrop-blur-md',
         variant === 'accent-on-surface' && `${ACCENT[hue].bg} ${ACCENT[hue].fg}`,
         className,
       )}

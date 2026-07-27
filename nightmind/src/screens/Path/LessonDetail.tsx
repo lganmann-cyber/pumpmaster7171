@@ -19,7 +19,6 @@ import { toast } from '../../components/Toast'
 import { useApp } from '../../store'
 import { useTheme } from '../../lib/theme'
 import { useMotionProfile } from '../../lib/motion'
-import { useColorSurface } from '../../lib/onColor'
 import { LESSONS, UNITS } from '../../data/seed'
 
 export function LessonDetail() {
@@ -27,7 +26,6 @@ export function LessonDetail() {
   const navigate = useNavigate()
   const theme = useTheme()
   const m = useMotionProfile()
-  const header = useColorSurface('purple')
   const completeLesson = useApp((s) => s.completeLesson)
   const [bookmarked, setBookmarked] = useState(false)
 
@@ -39,14 +37,22 @@ export function LessonDetail() {
   return (
     <div className="min-h-dvh bg-canvas md:pl-[88px] xl:pl-[240px]">
       {/* Header colour runs behind the status bar; the sheet sits over it. */}
-      <div className={header.className}>
+      <div
+        className="relative"
+        style={{
+          background:
+            theme === 'nightshift'
+              ? 'linear-gradient(160deg, #3a2412 0%, #14100c 70%)'
+              : 'linear-gradient(160deg, #5c2a6b 0%, #2b1b4d 45%, var(--bg-canvas) 100%)',
+        }}
+      >
         <div
           className="mx-auto w-full max-w-[720px] px-5 pb-12 md:px-8"
           style={{ paddingTop: 'calc(env(safe-area-inset-top) + 20px)' }}
         >
           <div className="flex items-center justify-between gap-3">
             <IconButton icon={ArrowLeft} label="Back" tone="onColor" onClick={() => navigate(-1)} />
-            <span className="t-label font-semibold">{unit.title}</span>
+            <span className="t-eyebrow text-white/90">{unit.title}</span>
             <IconButton
               icon={Share2}
               label="Share"
@@ -61,7 +67,7 @@ export function LessonDetail() {
                 initial={m.full ? { opacity: 0, scale: 0.9 } : false}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={m.t(320)}
-                className="grid size-[120px] place-items-center rounded-full"
+                className="grid size-[104px] place-items-center rounded-full text-white"
                 style={{
                   background:
                     'radial-gradient(circle at 50% 40%, rgba(255,255,255,0.34), rgba(255,255,255,0.06) 70%)',
@@ -71,10 +77,10 @@ export function LessonDetail() {
               </motion.span>
             ) : null}
 
-            <Badge variant="solid-on-color" className="mt-4">
+            <Badge variant="translucent" className="mt-4">
               Night {lesson.night}
             </Badge>
-            <h1 className="mt-3 max-w-[16ch] t-title">{lesson.title}</h1>
+            <h1 className="mt-3 max-w-[18ch] t-headline text-white">{lesson.title}</h1>
           </div>
         </div>
       </div>
