@@ -5,11 +5,15 @@ import { cx } from '../lib/cx'
 import { useMotionProfile } from '../lib/motion'
 import type { IconName } from '../lib/icons'
 
-/** Solid primary with dark on-container label in mono caps, 12px radius. */
+/**
+ * The coral pill. One per screen, and it is the only saturated fill in the
+ * layout — everything else is white on cream.
+ */
 export function PrimaryButton({
   children,
   onClick,
   icon,
+  trailingIcon = 'chevron_right',
   disabled,
   full = true,
   variant = 'solid',
@@ -19,9 +23,10 @@ export function PrimaryButton({
   children: ReactNode
   onClick?: () => void
   icon?: IconName
+  trailingIcon?: IconName | null
   disabled?: boolean
   full?: boolean
-  variant?: 'solid' | 'outline'
+  variant?: 'solid' | 'quiet'
   type?: 'button' | 'submit'
   className?: string
 }) {
@@ -34,17 +39,18 @@ export function PrimaryButton({
       whileTap={disabled ? undefined : m.press}
       transition={m.t(120)}
       className={cx(
-        'inline-flex min-h-[48px] items-center justify-center gap-2 rounded-md px-6 t-label-caps',
+        'inline-flex min-h-[52px] items-center justify-center gap-2 rounded-field px-6 t-label',
         'disabled:opacity-40',
         variant === 'solid'
-          ? 'bg-primary text-on-primary-container'
-          : 'border border-outline text-on-surface',
+          ? 'bg-accent text-white'
+          : 'bg-surface text-ink shadow-[var(--shadow-card)]',
         full && 'w-full',
         className,
       )}
     >
-      {icon ? <Icon name={icon} size={20} fill /> : null}
+      {icon ? <Icon name={icon} size={18} /> : null}
       {children}
+      {trailingIcon ? <Icon name={trailingIcon} size={18} /> : null}
     </motion.button>
   )
 }

@@ -21,7 +21,7 @@ export type SettingsSlice = {
 }
 
 export const defaultSettings: Settings = {
-  theme: 'dark',
+  theme: 'light',
   wakeTime: '07:00',
   wbtbAlarm: suggestWbtb('07:00'),
   categories: ['general'],

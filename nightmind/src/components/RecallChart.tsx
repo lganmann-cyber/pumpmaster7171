@@ -30,10 +30,10 @@ export function RecallChart({
   const max = Math.max(1, ...data.map((d) => d.value))
 
   return (
-    <section className="card relative overflow-hidden rounded-card p-md">
+    <section className="card relative overflow-hidden p-5">
       <div className="flex items-center justify-between gap-3">
-        <span className="t-label-caps tracking-widest text-on-variant uppercase">{caption}</span>
-        {delta ? <span className="t-stats-sm text-primary">{delta}</span> : null}
+        <span className="t-eyebrow text-muted">{caption}</span>
+        {delta ? <span className="t-meta text-positive">{delta}</span> : null}
       </div>
 
       <div className="relative mt-8 flex h-32 items-end justify-between gap-3">
@@ -52,8 +52,8 @@ export function RecallChart({
                 // Anchored inside the card at the ends so the pill never clips.
                 <span
                   className={cx(
-                    'pointer-events-none absolute -top-9 z-10 rounded-lg bg-primary px-3 py-1',
-                    't-stats-sm whitespace-nowrap text-on-primary-container',
+                    'pointer-events-none absolute -top-9 z-10 rounded-field bg-ink px-3 py-1',
+                    't-meta whitespace-nowrap text-inverse',
                     i <= 1 ? 'left-0' : i >= data.length - 2 ? 'right-0' : 'left-1/2 -translate-x-1/2',
                   )}
                 >
@@ -63,7 +63,7 @@ export function RecallChart({
               <motion.span
                 className={cx(
                   'w-full rounded-full',
-                  isActive ? 'border border-primary/30 bg-primary-container' : 'bg-variant',
+                  isActive ? 'bg-accent' : 'bg-track',
                 )}
                 initial={m.full ? { height: 0 } : false}
                 animate={{ height: `${pct}%` }}
@@ -75,7 +75,7 @@ export function RecallChart({
         })}
       </div>
 
-      <div className="mt-4 flex justify-between t-label-caps text-[10px] text-on-variant opacity-50">
+      <div className="mt-4 flex justify-between t-meta text-muted">
         {data.map((d) => (
           <span key={d.key} className="flex-1 text-center uppercase">
             {d.label}

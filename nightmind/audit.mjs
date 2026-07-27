@@ -5,14 +5,13 @@ const BASE = 'http://127.0.0.1:4173'
 const OUT = '/tmp/claude-0/-home-user-pumpmaster7171/5d444a5e-3168-5d61-a599-02206a66e10d/scratchpad/shots'
 
 const ROUTES = [
-  ['tonight-morning', '/', '07:30'],
-  ['tonight-day', '/', '13:00'],
-  ['tonight-night', '/', '23:30'],
+  ['home-morning', '/', '07:30'],
+  ['home-day', '/', '13:00'],
+  ['home-night', '/', '23:30'],
   ['journal', '/journal', null],
-  ['path', '/path', null],
-  ['lesson', '/path/recall-1', null],
-  ['signs', '/signs', null],
-  ['player', '/player', null],
+  ['progress', '/progress', null],
+  ['learn', '/learn', null],
+  ['lesson', '/learn/recall-1', null],
   ['profile', '/profile', null],
 ]
 
@@ -147,6 +146,9 @@ const PROBE = () => {
       const divided =
         parseFloat(getComputedStyle(a).borderBottomWidth) > 0 ||
         parseFloat(getComputedStyle(b).borderTopWidth) > 0
+      // a media block abutting its caption is the intended relationship
+      const media =
+        a.tagName === 'IMG' || b.tagName === 'IMG' || !!a.querySelector('img') || !!b.querySelector('img')
       if (
         sameColumn &&
         gap >= 0 &&
@@ -154,6 +156,7 @@ const PROBE = () => {
         isComponent(a) &&
         isComponent(b) &&
         !divided &&
+        !media &&
         !floating(a) &&
         !floating(b)
       ) {

@@ -52,29 +52,45 @@ all motion to a 100ms opacity fade.
 
 ## The visual system
 
-Built to `design-reference/` — the NightMind Lucid system (`DESIGN.md`) and the
-four screen exports it ships with. Tokens, type ramp, radii and spacing come
-from that file verbatim; the screens follow the exported layouts.
+Built to the supplied warm-cream reference.
 
-- **Tonal palette on `#10131a`.** Surfaces step through
-  `#191c23 → #1d2027 → #272a31 → #32353c`. Depth is tonal layering plus a 1px
-  `#232833` outline — never a shadow.
-- **Three logic colours.** Purple `#ddb8ff` is lucidity, blue `#95ccff` is
-  REM/data, orange `#ffb869` is state checks and actions.
-- **Two faces, split by job.** Plus Jakarta Sans carries prose and navigation;
-  JetBrains Mono carries anything quantifiable — timestamps, durations, counts,
-  percentages, unit numbers, caps labels. Both are self-hosted.
-- **Material Symbols Outlined**, self-hosted and subset to the 36 glyphs this
-  app uses (8KB), rendered by codepoint.
-- **Two-tone headlines** at `headline-lg` 32/800, the keyword in the accent,
-  the clauses broken onto their own lines so the wrap is even at any width.
-- **Rounded-rectangle-everything**: 32px sheets, 28px cards, 12px controls.
-- **4px grid**, 20px side margins on phone, 8px between related rows and 24px
-  between logical sections.
+- **Cream canvas** `#faf7f2` with a faint dot grid, **white cards** with a very
+  soft lift — no hard borders anywhere.
+- **One coral accent** `#e2604a` carries every primary action, the active tab
+  and the eyebrows. Nothing else in the layout is saturated.
+- **Pastel tint cards** — lilac, mint, peach, sky — for the practice grid.
+- **Soft flat illustrations**, authored as inline SVG in `lib/art.ts`, so they
+  render offline. Night Shift runs them through an amber filter.
+- **One type family** across every step; numbers sit in it too, so there is no
+  mono face. `t-display / t-title / t-heading / t-stat / t-body / t-label /
+  t-meta / t-eyebrow` — eight steps, one job each.
+- **Material Symbols Outlined**, self-hosted and subset to the 39 glyphs the
+  app uses (~9KB), rendered by codepoint.
 
-Three themes share those token names: `dark` (default), `light`, and
-`nightshift` — an amber-only mode with no blue channel that auto-engages
-between 1:30am and 5:30am.
+Light is the default, matching the reference. Dark keeps the warmth (a deep
+aubergine rather than a neutral black) and **Night Shift** — amber only, no
+blue channel — still auto-engages between 1:30am and 5:30am.
+
+> The reference's exact typeface can't be recovered from a screenshot. The
+> stack in `tokens.css` is the closest widely available match; it is one line
+> to swap once the real name is known.
+
+## Layout
+
+Four tabs — **Home · Journal · Progress · Learn** — with profile behind the
+header avatar.
+
+- **Home** is a single focus: what to do right now as one illustrated card, one
+  coral action under it, three stat tiles, then tonight's practice as pastel
+  cards.
+- **Journal** opens straight into capture, then the timeline grouped by day.
+- **Progress** is the record: stat tiles, the next milestone, an eight-rung
+  milestone grid, the recall chart, the recurring-sign field, the lucidity log.
+- **Learn** is a library — search, a featured read, filter chips, then rows.
+
+`node audit.mjs` drives every screen at five widths across all three themes and
+reports overflow, overlap, clipping, touch targets and cramped spacing. It is
+at zero.
 
 ## Not in v1
 

@@ -75,18 +75,18 @@ export function SessionPlayer() {
       transition={m.t(320)}
       onPointerMove={wake}
       onPointerDown={wake}
-      className="fixed inset-0 z-50 flex flex-col bg-lowest"
+      className="fixed inset-0 z-50 flex flex-col bg-canvas"
     >
       <div className="relative flex flex-1 items-center justify-center overflow-hidden">
         <motion.div
           aria-hidden
-          className="absolute size-[min(78vw,420px)] rounded-full bg-primary/20 blur-3xl"
+          className="absolute size-[min(78vw,420px)] rounded-full bg-accent/15 blur-3xl"
           animate={m.full ? { scale: [1, 1.12, 1], opacity: [0.7, 1, 0.7] } : { opacity: 0.8 }}
           transition={m.full ? { duration: 11, repeat: Infinity, ease: 'easeInOut' } : { duration: 0.1 }}
         />
         <motion.div
           aria-hidden
-          className="size-[min(52vw,260px)] rounded-full border border-outline-variant bg-container"
+          className="size-[min(52vw,260px)] rounded-full bg-surface shadow-[var(--shadow-lift)]"
           animate={m.full ? { scale: [1, 1.05, 1] } : { scale: 1 }}
           transition={m.full ? { duration: 11, repeat: Infinity, ease: 'easeInOut' } : { duration: 0.1 }}
         />
@@ -95,21 +95,21 @@ export function SessionPlayer() {
       <motion.div
         animate={{ opacity: dimmed ? 0.2 : 1 }}
         transition={m.t(600)}
-        className="px-margin md:px-lg"
+        className="px-5 md:px-8"
         style={{ paddingBottom: 'calc(env(safe-area-inset-bottom) + 40px)' }}
       >
-        <div className="mx-auto flex w-full max-w-[560px] flex-col gap-md">
+        <div className="mx-auto flex w-full max-w-[560px] flex-col gap-6">
           <div className="flex items-start justify-between gap-3">
             <div>
-              <p className="t-label-caps text-primary uppercase">{session.kind}</p>
-              <h1 className="mt-1 t-headline-md text-on-surface">{session.title}</h1>
-              <p className="mt-2 max-w-[46ch] t-body-md text-on-variant">{session.description}</p>
+              <p className="t-eyebrow text-accent">{session.kind}</p>
+              <h1 className="mt-1 t-title">{session.title}</h1>
+              <p className="mt-2 max-w-[46ch] t-body text-body">{session.description}</p>
             </div>
             <button
               type="button"
               onClick={closeSession}
               aria-label="Close session"
-              className="grid size-11 shrink-0 place-items-center rounded-full bg-container text-on-surface"
+              className="grid size-11 shrink-0 place-items-center rounded-full bg-surface text-ink shadow-[var(--shadow-card)]"
             >
               <Icon name="expand_more" size={24} />
             </button>
@@ -126,12 +126,12 @@ export function SessionPlayer() {
               max={session.seconds}
               value={position}
               onChange={(e) => seek(Number(e.target.value))}
-              className="h-2 w-full appearance-none rounded-full accent-[var(--primary)]"
+              className="h-2 w-full appearance-none rounded-full accent-[var(--accent)]"
               style={{
-                background: `linear-gradient(to right, var(--primary) ${pct * 100}%, var(--surface-variant) ${pct * 100}%)`,
+                background: `linear-gradient(to right, var(--accent) ${pct * 100}%, var(--surface-sunken) ${pct * 100}%)`,
               }}
             />
-            <div className="mt-2 flex justify-between t-stats-sm text-on-variant">
+            <div className="mt-2 flex justify-between t-meta text-muted">
               <span>{formatDuration(position)}</span>
               <span>{formatDuration(session.seconds)}</span>
             </div>
@@ -139,7 +139,7 @@ export function SessionPlayer() {
 
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <span className="text-on-variant">
+              <span className="text-muted">
                 <Icon name="timer" size={20} />
               </span>
               <span className="sr-only">Sleep timer</span>
@@ -150,10 +150,8 @@ export function SessionPlayer() {
                   aria-pressed={sleepTimerMin === min}
                   onClick={() => setSleepTimer(sleepTimerMin === min ? null : min)}
                   className={cx(
-                    'min-h-[44px] rounded-full px-3 t-label-caps',
-                    sleepTimerMin === min
-                      ? 'bg-primary text-on-primary-container'
-                      : 'text-on-variant',
+                    'min-h-[44px] rounded-field px-3 t-meta',
+                    sleepTimerMin === min ? 'bg-accent text-white' : 'text-muted',
                   )}
                 >
                   {min}M
@@ -166,7 +164,7 @@ export function SessionPlayer() {
               whileTap={m.press}
               transition={m.t(120)}
               aria-label={playing ? 'Pause' : 'Play'}
-              className="grid size-[72px] place-items-center rounded-full bg-primary text-on-primary-container"
+              className="grid size-[72px] place-items-center rounded-full bg-accent text-white"
             >
               <Icon name={playing ? 'pause' : 'play_arrow'} size={32} fill />
             </motion.button>

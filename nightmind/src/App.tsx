@@ -3,12 +3,11 @@ import { Route, Routes, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 import { useApp } from './store'
 import { useApplyTheme } from './lib/theme'
-import { Tonight } from './screens/Tonight'
+import { Home } from './screens/Home'
 import { Journal } from './screens/Journal'
-import { Path } from './screens/Path'
-import { LessonDetail } from './screens/Path/LessonDetail'
-import { Signs } from './screens/Signs'
-import { Player } from './screens/Player'
+import { Progress } from './screens/Progress'
+import { Learn } from './screens/Learn'
+import { LessonDetail } from './screens/Learn/LessonDetail'
 import { Profile } from './screens/Profile'
 import { Onboarding } from './screens/Onboarding'
 import { SessionPlayer } from './screens/SessionPlayer'
@@ -37,14 +36,13 @@ export function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Tonight />} />
+        <Route path="/" element={<Home />} />
         <Route path="/journal" element={<Journal />} />
-        <Route path="/path" element={<Path />} />
-        <Route path="/path/:lessonId" element={<LessonDetail />} />
-        <Route path="/signs" element={<Signs />} />
-        <Route path="/player" element={<Player />} />
+        <Route path="/progress" element={<Progress />} />
+        <Route path="/learn" element={<Learn />} />
+        <Route path="/learn/:lessonId" element={<LessonDetail />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="*" element={<Tonight />} />
+        <Route path="*" element={<Home />} />
       </Routes>
 
       <AnimatePresence>{activeSessionId ? <SessionPlayer /> : null}</AnimatePresence>

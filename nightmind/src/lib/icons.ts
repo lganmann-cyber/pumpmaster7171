@@ -10,6 +10,7 @@ export const ICON: Record<string, string> = {
   'check_circle': '\uf0be',
   'checklist': '\ue6b1',
   'chevron_right': '\ue5cc',
+  'chevron_left': '\ue5cb',
   'circle': '\uef4a',
   'close': '\ue5cd',
   'edit_note': '\ue745',
@@ -37,5 +38,8 @@ export const ICON: Record<string, string> = {
   'keyboard_arrow_up': '\ue316',
   'keyboard_arrow_down': '\ue313',
   'auto_awesome': '\ue65f',
+  'search': '\uef7a',
+  'tune': '\ue429',
+  'favorite': '\ue87e',
 }
 export type IconName = keyof typeof ICON

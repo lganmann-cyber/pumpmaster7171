@@ -16,7 +16,7 @@ export function RecordButton({
   const m = useMotionProfile()
   return (
     <div className="relative flex items-center justify-center">
-      <div className="absolute size-28 rounded-full bg-primary/20 blur-xl" />
+      <div className="absolute size-28 rounded-full bg-accent/20 blur-xl" />
       <motion.button
         type="button"
         onClick={onToggle}
@@ -24,7 +24,7 @@ export function RecordButton({
         transition={m.t(120)}
         aria-pressed={recording}
         aria-label={recording ? 'Stop recording' : 'Start recording'}
-        className="relative grid size-[88px] place-items-center rounded-full bg-primary text-on-primary-container"
+        className="relative grid size-[88px] place-items-center rounded-full bg-accent text-white"
       >
         <Icon name={recording ? 'stop_circle' : 'mic'} size={32} fill />
       </motion.button>
@@ -34,7 +34,7 @@ export function RecordButton({
           {[0.1, 0.3, 0.2, 0.4, 0.5].map((delay, i) => (
             <motion.span
               key={i}
-              className="w-1 rounded-full bg-primary"
+              className="w-1 rounded-full bg-accent"
               style={{ opacity: [0.4, 0.6, 1, 0.6, 0.4][i] }}
               animate={m.full ? { height: [8, 26, 12, 30, 8] } : { height: 16 }}
               transition={

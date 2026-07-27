@@ -2,11 +2,10 @@ import type { IconName } from '../lib/icons'
 
 export type NavItem = { to: string; label: string; icon: IconName }
 
-/** Five tabs, per the design. Profile sits behind the avatar, not in the nav. */
+/** Four tabs. Profile lives behind the header avatar, not in the bar. */
 export const NAV_ITEMS: NavItem[] = [
-  { to: '/', label: 'Tonight', icon: 'nights_stay' },
-  { to: '/journal', label: 'Journal', icon: 'book' },
-  { to: '/path', label: 'Path', icon: 'psychology_alt' },
-  { to: '/signs', label: 'Signs', icon: 'insights' },
-  { to: '/player', label: 'Player', icon: 'graphic_eq' },
+  { to: '/', label: 'Home', icon: 'self_improvement' },
+  { to: '/journal', label: 'Journal', icon: 'edit_note' },
+  { to: '/progress', label: 'Progress', icon: 'insights' },
+  { to: '/learn', label: 'Learn', icon: 'book' },
 ]

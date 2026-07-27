@@ -44,8 +44,8 @@ export function Onboarding() {
   }
 
   return (
-    <div className="flex min-h-dvh flex-col bg-background" style={{ paddingTop: 'env(safe-area-inset-top)' }}>
-      <div className="mx-auto flex w-full max-w-[720px] flex-1 flex-col gap-lg px-margin py-md md:px-lg">
+    <div className="flex min-h-dvh flex-col" style={{ paddingTop: 'env(safe-area-inset-top)' }}>
+      <div className="mx-auto flex w-full max-w-[720px] flex-1 flex-col gap-7 px-5 py-6 md:px-8">
         <div className="flex items-center gap-2">
           {[0, 1, 2, 3, 4].map((i) => (
             <button
@@ -54,7 +54,7 @@ export function Onboarding() {
               onClick={() => setStep(i)}
               aria-label={`Step ${i + 1} of 5`}
               aria-current={i === step}
-              className={cx('h-1 flex-1 rounded-full', i <= step ? 'bg-primary' : 'bg-high')}
+              className={cx('h-1 flex-1 rounded-full', i <= step ? 'bg-accent' : 'bg-sunken')}
             />
           ))}
         </div>
@@ -66,19 +66,19 @@ export function Onboarding() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
             transition={m.t(240)}
-            className="flex flex-1 flex-col gap-md"
+            className="flex flex-1 flex-col gap-6"
           >
             {step === 0 ? (
               <>
-                <h1 className="max-w-[300px] t-headline-lg">
-                  <span className="text-on-surface">Most people forget four dreams a night.</span>{' '}
-                  <span className="text-primary">You're about to stop.</span>
+                <h1 className="max-w-[15ch] t-display">
+                  <span className="text-ink">Most people forget four dreams a night.</span>{' '}
+                  <span className="text-accent">You're about to stop.</span>
                 </h1>
-                <p className="max-w-[40ch] t-body-md text-on-variant">
+                <p className="max-w-[40ch] t-body text-body">
                   This app trains recall first. Lucidity comes later, and only after you can
                   remember what you dreamed.
                 </p>
-                <label htmlFor="name" className="t-label-caps text-on-variant uppercase">
+                <label htmlFor="name" className="t-eyebrow text-muted">
                   What should we call you?
                 </label>
                 <input
@@ -86,7 +86,7 @@ export function Onboarding() {
                   value={name}
                   onChange={(e) => setLocalName(e.target.value)}
                   placeholder="First name"
-                  className="min-h-[48px] w-full rounded-md border border-outline-variant bg-low px-4 t-body-md text-on-surface placeholder:text-on-variant/60 focus:border-primary"
+                  className="min-h-[52px] w-full rounded-field bg-surface px-4 t-body text-ink shadow-[var(--shadow-card)] placeholder:text-muted focus:outline-2 focus:outline-accent"
                 />
                 <div className="mt-auto">
                   <PrimaryButton onClick={next}>Continue</PrimaryButton>
@@ -96,11 +96,11 @@ export function Onboarding() {
 
             {step === 1 ? (
               <>
-                <h1 className="max-w-[300px] t-headline-lg">
-                  <span className="text-on-surface">How many dreams in a normal week?</span>{' '}
-                  <span className="text-primary">Answer honestly.</span>
+                <h1 className="max-w-[15ch] t-display">
+                  <span className="text-ink">How many dreams in a normal week?</span>{' '}
+                  <span className="text-accent">Answer honestly.</span>
                 </h1>
-                <div className="grid grid-cols-2 gap-gutter">
+                <div className="grid grid-cols-2 gap-3">
                   {BASELINE.map((b) => {
                     const on = tier === b.tier
                     return (
@@ -110,10 +110,8 @@ export function Onboarding() {
                         aria-pressed={on}
                         onClick={() => setTier(b.tier)}
                         className={cx(
-                          'min-h-[96px] rounded-card border p-4 text-left t-body-md font-bold',
-                          on
-                            ? 'border-primary bg-primary/10 text-on-surface'
-                            : 'border-outline-variant bg-low text-on-variant',
+                          'min-h-[96px] rounded-card p-4 text-left t-label',
+                          on ? 'bg-accent text-white' : 'bg-surface text-ink shadow-[var(--shadow-card)]',
                         )}
                       >
                         {b.label}
@@ -121,8 +119,8 @@ export function Onboarding() {
                     )
                   })}
                 </div>
-                <div className="mt-auto flex gap-xs">
-                  <PrimaryButton variant="outline" full={false} onClick={back}>
+                <div className="mt-auto flex gap-3">
+                  <PrimaryButton variant="quiet" full={false} onClick={back}>
                     Back
                   </PrimaryButton>
                   <PrimaryButton onClick={next} disabled={!tier}>
@@ -134,13 +132,13 @@ export function Onboarding() {
 
             {step === 2 ? (
               <>
-                <h1 className="max-w-[300px] t-headline-lg">
-                  <span className="text-on-surface">When do you wake up?</span>{' '}
-                  <span className="text-primary">We work back from it.</span>
+                <h1 className="max-w-[15ch] t-display">
+                  <span className="text-ink">When do you wake up?</span>{' '}
+                  <span className="text-accent">We work back from it.</span>
                 </h1>
                 <TimePicker value={settings.wakeTime} onChange={setWakeTime} label="Usual wake time" />
-                <div className="mt-auto flex gap-xs">
-                  <PrimaryButton variant="outline" full={false} onClick={back}>
+                <div className="mt-auto flex gap-3">
+                  <PrimaryButton variant="quiet" full={false} onClick={back}>
                     Back
                   </PrimaryButton>
                   <PrimaryButton onClick={next}>Continue</PrimaryButton>
@@ -150,11 +148,11 @@ export function Onboarding() {
 
             {step === 3 ? (
               <>
-                <h1 className="max-w-[300px] t-headline-lg">
-                  <span className="text-on-surface">What would you do once lucid?</span>{' '}
-                  <span className="text-primary">Pick as many as you like.</span>
+                <h1 className="max-w-[15ch] t-display">
+                  <span className="text-ink">What would you do once lucid?</span>{' '}
+                  <span className="text-accent">Pick as many as you like.</span>
                 </h1>
-                <div className="flex flex-col gap-xs">
+                <div className="flex flex-col gap-3">
                   {CATEGORIES.map(({ id, label, blurb, icon }) => {
                     const on = settings.categories.includes(id)
                     return (
@@ -170,19 +168,19 @@ export function Onboarding() {
                           toggleCategory(id)
                         }}
                         className={cx(
-                          'flex items-start gap-4 rounded-card border p-4 text-left',
-                          on ? 'border-primary bg-primary/10' : 'border-outline-variant bg-low',
+                          'flex items-start gap-4 rounded-card p-4 text-left',
+                          on ? 'bg-accent-tint' : 'bg-surface shadow-[var(--shadow-card)]',
                         )}
                       >
-                        <span className="grid size-10 shrink-0 place-items-center rounded-lg bg-primary-container/20 text-primary">
+                        <span className="grid size-10 shrink-0 place-items-center rounded-tile bg-accent-tint text-accent">
                           <Icon name={icon} size={22} />
                         </span>
                         <span className="flex-1">
-                          <span className="block t-body-md font-bold text-on-surface">{label}</span>
-                          <span className="mt-1 block t-body-md text-on-variant">{blurb}</span>
+                          <span className="block t-label text-ink">{label}</span>
+                          <span className="mt-1 block t-meta text-body">{blurb}</span>
                         </span>
                         {on ? (
-                          <span className="text-primary">
+                          <span className="text-accent">
                             <Icon name="check" size={22} />
                           </span>
                         ) : null}
@@ -192,11 +190,11 @@ export function Onboarding() {
                 </div>
 
                 {ageGate ? (
-                  <div role="alertdialog" aria-label="Age confirmation" className="card rounded-card p-md">
-                    <p className="t-body-md text-on-surface">
+                  <div role="alertdialog" aria-label="Age confirmation" className="card p-5">
+                    <p className="t-body text-ink">
                       Romance content is for adults. Confirm you're 18 or over.
                     </p>
-                    <div className="mt-sm flex gap-xs">
+                    <div className="mt-4 flex gap-3">
                       <PrimaryButton
                         onClick={() => {
                           setAgeVerified(true)
@@ -206,15 +204,15 @@ export function Onboarding() {
                       >
                         I'm 18 or over
                       </PrimaryButton>
-                      <PrimaryButton variant="outline" full={false} onClick={() => setAgeGate(false)}>
+                      <PrimaryButton variant="quiet" full={false} onClick={() => setAgeGate(false)}>
                         Not now
                       </PrimaryButton>
                     </div>
                   </div>
                 ) : null}
 
-                <div className="mt-auto flex gap-xs">
-                  <PrimaryButton variant="outline" full={false} onClick={back}>
+                <div className="mt-auto flex gap-3">
+                  <PrimaryButton variant="quiet" full={false} onClick={back}>
                     Back
                   </PrimaryButton>
                   <PrimaryButton onClick={next} disabled={settings.categories.length === 0}>
@@ -226,22 +224,22 @@ export function Onboarding() {
 
             {step === 4 ? (
               <>
-                <h1 className="max-w-[300px] t-headline-lg">
-                  <span className="text-on-surface">Tonight, you do one thing.</span>{' '}
-                  <span className="text-primary">That's the whole assignment.</span>
+                <h1 className="max-w-[15ch] t-display">
+                  <span className="text-ink">Tonight, you do one thing.</span>{' '}
+                  <span className="text-accent">That's the whole assignment.</span>
                 </h1>
-                <p className="max-w-[42ch] t-body-md text-on-variant">
+                <p className="max-w-[42ch] t-body text-body">
                   Write down anything you remember when you wake up. Fragments count. Nothing
                   remembered counts too — log it and the streak holds.
                 </p>
-                <div className="card rounded-card p-md">
-                  <p className="t-label-caps text-primary uppercase">Tomorrow morning</p>
-                  <p className="mt-xs t-body-md font-bold text-on-surface">
+                <div className="card p-5">
+                  <p className="t-eyebrow text-accent">Tomorrow morning</p>
+                  <p className="mt-2 t-label text-ink">
                     Open the journal before you move.
                   </p>
                 </div>
-                <div className="mt-auto flex gap-xs">
-                  <PrimaryButton variant="outline" full={false} onClick={back}>
+                <div className="mt-auto flex gap-3">
+                  <PrimaryButton variant="quiet" full={false} onClick={back}>
                     Back
                   </PrimaryButton>
                   <PrimaryButton onClick={finish}>Start</PrimaryButton>

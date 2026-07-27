@@ -1,187 +1,153 @@
-/* NightMind design tokens — the NightMind Lucid system, verbatim.
-   Values come from the design system's DESIGN.md: a Material-3 style tonal
-   palette on a #10131a base, Plus Jakarta Sans for prose, JetBrains Mono for
-   anything quantifiable, a strict 4px grid, and 1px outlines instead of
-   shadows. Nothing here is invented; the three themes below are the same
-   token names re-pointed. */
+/* NightMind design tokens — warm-cream system.
+   Matched to the supplied reference: a cream canvas, white cards with a very
+   soft shadow, one coral accent carrying every primary action, pastel tint
+   cards, and soft flat illustrations. Light-first; the dark and night themes
+   below re-point the same token names. */
 
 :root,
-[data-theme='dark'] {
-  --background: #10131a;
-  --surface: #10131a;
-  --surface-dim: #10131a;
-  --surface-bright: #363941;
-  --surface-container-lowest: #0b0e15;
-  --surface-container-low: #191c23;
-  --surface-container: #1d2027;
-  --surface-container-high: #272a31;
-  --surface-container-highest: #32353c;
-  --surface-variant: #32353c;
-
-  --on-surface: #e0e2ec;
-  --on-surface-variant: #cec3d2;
-  --on-background: #e0e2ec;
-  --inverse-surface: #e0e2ec;
-  --inverse-on-surface: #2d3038;
-
-  --outline: #978d9b;
-  --outline-variant: #4b4450;
-  /* the 1px perimeter on interactive cards */
-  --card-outline: #232833;
-
-  --primary: #ddb8ff; /* lucidity */
-  --on-primary: #461373;
-  --primary-container: #b07fe0;
-  --on-primary-container: #420e6f;
-  --inverse-primary: #7748a5;
-  --primary-fixed: #f0dbff;
-
-  --secondary: #95ccff; /* REM / data */
-  --on-secondary: #003353;
-  --secondary-container: #3297de;
-  --on-secondary-container: #002c48;
-
-  --tertiary: #ffb869; /* state checks / actions */
-  --on-tertiary: #482900;
-  --tertiary-container: #cf8422;
-  --on-tertiary-container: #442700;
-
-  --error: #ffb4ab;
-  --on-error: #690005;
-  --error-container: #93000a;
-
-  --glass: rgba(20, 23, 30, 0.6);
-}
-
 [data-theme='light'] {
-  --background: #f7f6fb;
-  --surface: #f7f6fb;
-  --surface-dim: #ecebf2;
-  --surface-bright: #ffffff;
-  --surface-container-lowest: #ffffff;
-  --surface-container-low: #ffffff;
-  --surface-container: #f2f1f8;
-  --surface-container-high: #ecebf2;
-  --surface-container-highest: #e6e5ee;
-  --surface-variant: #e4e1ec;
+  --canvas: #faf7f2; /* warm cream page */
+  --canvas-dots: rgba(42, 40, 48, 0.05); /* the faint dot grid */
+  --surface: #ffffff; /* cards */
+  --surface-sunken: #f4f1ec; /* search fields, inactive chips */
+  --surface-raised: #ffffff;
 
-  --on-surface: #1b1b22;
-  --on-surface-variant: #4a4551;
-  --on-background: #1b1b22;
-  --inverse-surface: #2d3038;
-  --inverse-on-surface: #f2f0f7;
+  --ink: #2a2830; /* headlines — warm charcoal */
+  --ink-body: #5f5c68; /* running copy */
+  --ink-muted: #918d99; /* meta, captions */
+  --ink-inverse: #ffffff;
 
-  --outline: #7b7580;
-  --outline-variant: #cbc4cf;
-  --card-outline: #dedbe6;
+  --accent: #e2604a; /* coral — primary action, active tab, eyebrow */
+  --accent-hover: #cf5340;
+  --accent-tint: #fdeee8;
 
-  --primary: #6a2fa0; /* the ramp inverts so purple type holds AA on paper */
-  --on-primary: #ffffff;
-  --primary-container: #e9ddff;
-  --on-primary-container: #260056;
-  --inverse-primary: #ddb8ff;
-  --primary-fixed: #e9ddff;
+  --lilac: #6b5b95; /* the illustration's deep violet */
+  --lilac-tint: #ede9f7;
+  --mint: #3d8f68;
+  --mint-tint: #e6f2ea;
+  --peach: #d98246;
+  --peach-tint: #fbeee3;
+  --sky: #4a7ba7;
+  --sky-tint: #e8eff8;
 
-  --secondary: #00639b;
-  --on-secondary: #ffffff;
-  --secondary-container: #cee5ff;
-  --on-secondary-container: #001d32;
+  --positive: #3d8f68;
+  --alert: #c4432c;
 
-  --tertiary: #8a5100;
-  --on-tertiary: #ffffff;
-  --tertiary-container: #ffdcbb;
-  --on-tertiary-container: #2b1700;
-
-  --error: #ba1a1a;
-  --on-error: #ffffff;
-  --error-container: #ffdad6;
-
-  --glass: rgba(255, 255, 255, 0.72);
+  --hairline: rgba(42, 40, 48, 0.08);
+  --track: rgba(42, 40, 48, 0.09); /* chart tracks, progress rails */
+  --shadow-card: 0 2px 14px rgba(42, 40, 48, 0.05);
+  --shadow-lift: 0 8px 28px rgba(42, 40, 48, 0.09);
 }
 
-/* Night Shift — amber only, no blue channel, for 3am WBTB windows. */
+/* Dark keeps the warmth — a deep aubergine-brown rather than a neutral black,
+   so the coral and the pastels stay in the same family. */
+[data-theme='dark'] {
+  --canvas: #191720;
+  --canvas-dots: rgba(255, 255, 255, 0.045);
+  --surface: #221f2b;
+  --surface-sunken: #2b2735;
+  --surface-raised: #2b2735;
+
+  --ink: #f4f1f7;
+  --ink-body: #c4bfcd;
+  --ink-muted: #948fa0;
+  --ink-inverse: #191720;
+
+  --accent: #f07a5f;
+  --accent-hover: #e2604a;
+  --accent-tint: #3a2420;
+
+  --lilac: #b6a4e0;
+  --lilac-tint: #2e2740;
+  --mint: #6fc79a;
+  --mint-tint: #1f3229;
+  --peach: #f0a468;
+  --peach-tint: #38281c;
+  --sky: #86b3dd;
+  --sky-tint: #1e2b3a;
+
+  --positive: #6fc79a;
+  --alert: #f0806c;
+
+  --hairline: rgba(255, 255, 255, 0.08);
+  --track: rgba(255, 255, 255, 0.1);
+  --shadow-card: none;
+  --shadow-lift: none;
+}
+
+/* Night Shift — amber only, no blue channel, for 3am wake-back-to-bed. */
 [data-theme='nightshift'] {
-  --background: #0a0705;
-  --surface: #0a0705;
-  --surface-dim: #0a0705;
-  --surface-bright: #3a2c1c;
-  --surface-container-lowest: #060403;
-  --surface-container-low: #17110b;
-  --surface-container: #1c150d;
-  --surface-container-high: #241c11;
-  --surface-container-highest: #2e2416;
-  --surface-variant: #2e2416;
+  --canvas: #0a0705;
+  --canvas-dots: rgba(232, 160, 85, 0.05);
+  --surface: #17110b;
+  --surface-sunken: #201810;
+  --surface-raised: #201810;
 
-  --on-surface: #e8a055;
-  --on-surface-variant: #b7813f;
-  --on-background: #e8a055;
-  --inverse-surface: #e8a055;
-  --inverse-on-surface: #2b1c0a;
+  --ink: #e8a055;
+  --ink-body: #c98f4d;
+  --ink-muted: #8a6438;
+  --ink-inverse: #0a0705;
 
-  --outline: #8a6438;
-  --outline-variant: #4a3620;
-  --card-outline: #2a1f13;
+  --accent: #e8a055;
+  --accent-hover: #c4652a;
+  --accent-tint: #2a1a0c;
 
-  --primary: #e8a055;
-  --on-primary: #2b1700;
-  --primary-container: #c4652a;
-  --on-primary-container: #2b1700;
-  --inverse-primary: #a85222;
-  --primary-fixed: #f6dcc0;
+  --lilac: #c98f4d;
+  --lilac-tint: #241a0f;
+  --mint: #c98f4d;
+  --mint-tint: #241a0f;
+  --peach: #e8a055;
+  --peach-tint: #241a0f;
+  --sky: #c98f4d;
+  --sky-tint: #241a0f;
 
-  --secondary: #d9974f;
-  --on-secondary: #2b1700;
-  --secondary-container: #a85222;
-  --on-secondary-container: #2b1700;
+  --positive: #c98f4d;
+  --alert: #d4553a;
 
-  --tertiary: #e8a055;
-  --on-tertiary: #2b1700;
-  --tertiary-container: #a85222;
-  --on-tertiary-container: #2b1700;
-
-  --error: #d4553a;
-  --on-error: #2b1700;
-  --error-container: #5c2a16;
-
-  --glass: rgba(28, 21, 13, 0.6);
+  --hairline: rgba(232, 160, 85, 0.12);
+  --track: rgba(232, 160, 85, 0.14);
+  --shadow-card: none;
+  --shadow-lift: none;
 }
 
 :root {
+  /* The reference's headline face is a warm humanist sans with a double-storey
+     'a' and tight bold tracking. Plus Jakarta Sans is the closest widely
+     available match; swap this one line if the real face is known. Numbers sit
+     in the same family — this system has no separate mono face. */
   --font: 'Plus Jakarta Sans', -apple-system, system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
 
-  /* The system's type ramp — five prose steps and three data steps.
-     Mono is reserved for quantifiable values: times, counts, durations,
-     percentages, technical logs. */
-  --t-headline-lg: 800 32px/1.2 var(--font); /* -0.02em */
-  --t-headline-md: 700 24px/1.3 var(--font);
-  --t-headline-sm: 700 20px/1.4 var(--font);
-  --t-body-lg: 400 18px/1.6 var(--font);
-  --t-body-md: 400 16px/1.5 var(--font);
-  --t-stats-lg: 600 24px/1.1 var(--font-mono);
-  --t-stats-sm: 500 14px/1.4 var(--font-mono); /* +0.05em */
-  --t-label-caps: 700 12px/1 var(--font-mono);
+  --t-display: 700 30px/1.2 var(--font); /* screen headline, two lines */
+  --t-title: 700 22px/1.3 var(--font); /* card headline */
+  --t-heading: 700 18px/1.35 var(--font); /* section heading */
+  --t-stat: 700 24px/1.15 var(--font); /* the number on a tile */
+  --t-body: 400 15px/1.6 var(--font);
+  --t-label: 600 14px/1.4 var(--font);
+  --t-meta: 400 13px/1.45 var(--font);
+  --t-eyebrow: 700 11px/1.2 var(--font); /* uppercase, tracked */
+  --t-nav: 500 11px/1.2 var(--font);
 
-  /* Rounded-rectangle-everything. No sharp corners anywhere. */
-  --r-sheet: 32px;
-  --r-card: 28px;
-  --r-xl: 1.5rem;
-  --r-lg: 1rem;
-  --r-md: 0.75rem;
-  --r-sm: 0.5rem;
-  --r-xs: 0.25rem;
-  --r-full: 9999px;
+  /* Generous, soft radii — everything is a rounded rectangle. */
+  --r-sheet: 28px;
+  --r-card: 24px;
+  --r-tile: 18px;
+  --r-chip: 999px;
+  --r-field: 14px;
 
-  /* Strict 4px rhythm. */
-  --s-base: 4px;
-  --s-xs: 8px;
-  --s-sm: 16px;
-  --s-md: 24px;
-  --s-lg: 32px;
-  --s-xl: 48px;
-  --gutter: 16px;
-  --margin-mobile: 20px;
-  --margin-desktop: 64px;
+  /* 4px rhythm. Screens compose these; no screen invents its own. */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 20px;
+  --s-6: 24px;
+  --s-7: 32px;
+  --s-8: 40px;
+
+  --gap-card: 12px; /* card to card */
+  --gap-block: 24px; /* block to block */
+  --gap-section: 32px; /* section to section */
+  --inset: 20px; /* screen side margin */
 
   --content-max: 720px;
   --rail-w: 88px;

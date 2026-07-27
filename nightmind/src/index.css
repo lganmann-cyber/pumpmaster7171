@@ -2,89 +2,78 @@
 @import './fonts.css';
 @import './tokens.css';
 
-/* Every utility resolves to a token. `inline` keeps the var() reference live,
-   so swapping the theme on <html> repaints the app without regenerating CSS. */
 @theme inline {
-  --color-background: var(--background);
+  --color-canvas: var(--canvas);
   --color-surface: var(--surface);
-  --color-surface-dim: var(--surface-dim);
-  --color-surface-bright: var(--surface-bright);
-  --color-lowest: var(--surface-container-lowest);
-  --color-low: var(--surface-container-low);
-  --color-container: var(--surface-container);
-  --color-high: var(--surface-container-high);
-  --color-highest: var(--surface-container-highest);
-  --color-variant: var(--surface-variant);
+  --color-sunken: var(--surface-sunken);
+  --color-raised: var(--surface-raised);
 
-  --color-on-surface: var(--on-surface);
-  --color-on-variant: var(--on-surface-variant);
-  --color-inverse-surface: var(--inverse-surface);
-  --color-inverse-on-surface: var(--inverse-on-surface);
+  --color-ink: var(--ink);
+  --color-body: var(--ink-body);
+  --color-muted: var(--ink-muted);
+  --color-inverse: var(--ink-inverse);
 
-  --color-outline: var(--outline);
-  --color-outline-variant: var(--outline-variant);
-  --color-card-outline: var(--card-outline);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-tint: var(--accent-tint);
 
-  --color-primary: var(--primary);
-  --color-on-primary: var(--on-primary);
-  --color-primary-container: var(--primary-container);
-  --color-on-primary-container: var(--on-primary-container);
+  --color-lilac: var(--lilac);
+  --color-lilac-tint: var(--lilac-tint);
+  --color-mint: var(--mint);
+  --color-mint-tint: var(--mint-tint);
+  --color-peach: var(--peach);
+  --color-peach-tint: var(--peach-tint);
+  --color-sky: var(--sky);
+  --color-sky-tint: var(--sky-tint);
 
-  --color-secondary: var(--secondary);
-  --color-on-secondary: var(--on-secondary);
-  --color-secondary-container: var(--secondary-container);
-  --color-on-secondary-container: var(--on-secondary-container);
-
-  --color-tertiary: var(--tertiary);
-  --color-on-tertiary: var(--on-tertiary);
-  --color-tertiary-container: var(--tertiary-container);
-  --color-on-tertiary-container: var(--on-tertiary-container);
-
-  --color-error: var(--error);
+  --color-positive: var(--positive);
+  --color-alert: var(--alert);
+  --color-hairline: var(--hairline);
+  --color-track: var(--track);
 
   --radius-sheet: var(--r-sheet);
   --radius-card: var(--r-card);
-  --radius-xl: var(--r-xl);
-  --radius-lg: var(--r-lg);
-  --radius-md: var(--r-md);
-  --radius-sm: var(--r-sm);
+  --radius-tile: var(--r-tile);
+  --radius-field: var(--r-field);
 
-  --spacing-base: 4px;
-  --spacing-xs: 8px;
-  --spacing-sm: 16px;
-  --spacing-gutter: 16px;
-  --spacing-md: 24px;
-  --spacing-lg: 32px;
-  --spacing-xl: 48px;
-  --spacing-margin: 20px;
-  --spacing-margin-desktop: 64px;
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  --spacing-5: 20px;
+  --spacing-6: 24px;
+  --spacing-7: 32px;
+  --spacing-8: 40px;
 
   --font-sans: var(--font);
-  --font-mono: var(--font-mono);
 }
 
 @layer base {
   html {
-    background: var(--background);
-    color-scheme: dark;
+    background: var(--canvas);
+    color-scheme: light;
     -webkit-tap-highlight-color: transparent;
   }
-  [data-theme='light'] {
-    color-scheme: light;
+  [data-theme='dark'],
+  [data-theme='nightshift'] {
+    color-scheme: dark;
   }
 
   body {
-    font: var(--t-body-md);
-    background: var(--background);
-    color: var(--on-surface);
+    font: var(--t-body);
+    color: var(--ink-body);
     overscroll-behavior-y: none;
     -webkit-font-smoothing: antialiased;
+    /* the faint dot grid the reference uses behind everything */
+    background-color: var(--canvas);
+    background-image: radial-gradient(var(--canvas-dots) 1px, transparent 1px);
+    background-size: 22px 22px;
   }
 
   :where(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
-    outline: 2px solid var(--primary);
+    outline: 2px solid var(--accent);
     outline-offset: 2px;
-    border-radius: var(--r-md);
+    border-radius: 12px;
   }
 
   button {
@@ -92,54 +81,56 @@
   }
 
   ::selection {
-    background: var(--primary);
-    color: var(--on-primary-container);
+    background: var(--accent-tint);
+    color: var(--ink);
   }
 }
 
 @layer components {
-  /* Prose */
-  .t-headline-lg {
-    font: var(--t-headline-lg);
+  .t-display {
+    font: var(--t-display);
+    letter-spacing: -0.025em;
+    color: var(--ink);
+  }
+  .t-title {
+    font: var(--t-title);
     letter-spacing: -0.02em;
+    color: var(--ink);
   }
-  .t-headline-md {
-    font: var(--t-headline-md);
+  .t-heading {
+    font: var(--t-heading);
+    letter-spacing: -0.015em;
+    color: var(--ink);
   }
-  .t-headline-sm {
-    font: var(--t-headline-sm);
-  }
-  .t-body-lg {
-    font: var(--t-body-lg);
-  }
-  .t-body-md {
-    font: var(--t-body-md);
-  }
-
-  /* Data — mono, tabular, reserved for quantifiable values */
-  .t-stats-lg {
-    font: var(--t-stats-lg);
+  .t-stat {
+    font: var(--t-stat);
+    letter-spacing: -0.02em;
+    color: var(--ink);
     font-variant-numeric: tabular-nums;
   }
-  .t-stats-sm {
-    font: var(--t-stats-sm);
-    letter-spacing: 0.05em;
-    font-variant-numeric: tabular-nums;
+  .t-body {
+    font: var(--t-body);
   }
-  .t-label-caps {
-    font: var(--t-label-caps);
-    letter-spacing: 0.02em;
+  .t-label {
+    font: var(--t-label);
+  }
+  .t-meta {
+    font: var(--t-meta);
+  }
+  .t-eyebrow {
+    font: var(--t-eyebrow);
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+  }
+  .t-nav {
+    font: var(--t-nav);
   }
 
-  /* The card perimeter: a 1px outline, never a shadow. */
+  /* A card is white with a soft lift — never a hard border. */
   .card {
-    background: var(--surface-container);
-    border: 1px solid var(--card-outline);
-  }
-  .glass-card {
-    background: var(--glass);
-    backdrop-filter: blur(12px);
-    border: 1px solid var(--card-outline);
+    background: var(--surface);
+    border-radius: var(--r-card);
+    box-shadow: var(--shadow-card);
   }
 }
 
@@ -150,7 +141,6 @@
   }
 }
 
-/* Night Shift suppresses every CSS transition/animation beyond a 100ms fade. */
 [data-theme='nightshift'] *,
 [data-theme='nightshift'] *::before,
 [data-theme='nightshift'] *::after {

@@ -40,11 +40,11 @@ export function TimePicker({
         onClick={onUp}
         whileTap={m.press}
         transition={m.t(120)}
-        className="grid size-11 place-items-center rounded-full text-on-variant"
+        className="grid size-11 place-items-center rounded-full text-muted"
       >
         <Icon name="keyboard_arrow_up" size={22} />
       </motion.button>
-      <span className="font-mono text-[36px] leading-none font-semibold text-on-surface tabular-nums">
+      <span className="text-[36px] leading-none font-bold text-ink tabular-nums">
         {children}
       </span>
       <motion.button
@@ -53,7 +53,7 @@ export function TimePicker({
         onClick={onDown}
         whileTap={m.press}
         transition={m.t(120)}
-        className="grid size-11 place-items-center rounded-full text-on-variant"
+        className="grid size-11 place-items-center rounded-full text-muted"
       >
         <Icon name="keyboard_arrow_down" size={22} />
       </motion.button>
@@ -61,17 +61,17 @@ export function TimePicker({
   )
 
   return (
-    <div className="card rounded-card p-md">
-      <span className="t-label-caps text-on-variant uppercase">{label}</span>
-      <div className="mt-sm flex items-center justify-center gap-2">
+    <div className="card p-5">
+      <span className="t-eyebrow text-muted">{label}</span>
+      <div className="mt-4 flex items-center justify-center gap-2">
         <Stepper onUp={() => bump(60)} onDown={() => bump(-60)} unit="hour">
           {`${h12}`.padStart(2, '0')}
         </Stepper>
-        <span className="pb-1 font-mono text-[36px] leading-none text-on-variant">:</span>
+        <span className="pb-1 text-[36px] leading-none font-bold text-muted">:</span>
         <Stepper onUp={() => bump(5)} onDown={() => bump(-5)} unit="minutes">
           {`${minute}`.padStart(2, '0')}
         </Stepper>
-        <div className="ml-4 flex flex-col gap-xs">
+        <div className="ml-4 flex flex-col gap-2">
           {(['am', 'pm'] as const).map((mer) => {
             const active = (mer === 'pm') === pm
             return (
@@ -81,8 +81,8 @@ export function TimePicker({
                 aria-pressed={active}
                 onClick={() => bump(pm === (mer === 'pm') ? 0 : mer === 'pm' ? 720 : -720)}
                 className={cx(
-                  'min-h-[44px] rounded-md px-4 t-label-caps uppercase',
-                  active ? 'bg-primary text-on-primary-container' : 'text-on-variant',
+                  'min-h-[44px] rounded-field px-4 t-label',
+                  active ? 'bg-accent text-white' : 'bg-sunken text-body',
                 )}
               >
                 {mer}

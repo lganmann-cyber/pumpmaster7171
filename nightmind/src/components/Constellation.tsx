@@ -21,7 +21,7 @@ export function Constellation({
   const byId = new Map(nodes.map((n) => [n.id, n]))
 
   return (
-    <div className="relative flex-1 overflow-hidden rounded-xl border border-outline-variant bg-lowest">
+    <div className="relative size-full overflow-hidden rounded-tile bg-sunken">
       <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="absolute inset-0 size-full" aria-hidden>
         {edges.map((e) => {
           const a = byId.get(e.a)
@@ -35,7 +35,7 @@ export function Constellation({
               y1={a.y}
               x2={b.x}
               y2={b.y}
-              stroke={lit ? 'var(--primary)' : 'var(--outline-variant)'}
+              stroke={lit ? 'var(--accent)' : 'var(--hairline)'}
               strokeWidth={lit ? 1.2 : 0.6}
               vectorEffect="non-scaling-stroke"
               initial={m.full ? { opacity: 0 } : false}
@@ -67,13 +67,13 @@ export function Constellation({
               width: `${n.r * 2.5}%`,
               minWidth: 52,
               aspectRatio: '1 / 1',
-              borderColor: 'var(--primary)',
+              borderColor: 'var(--accent)',
               borderWidth: isSelected ? 1.5 : 1,
-              background: `color-mix(in srgb, var(--primary) ${Math.round(share * 100)}%, transparent)`,
-              boxShadow: isSelected ? '0 0 16px -2px var(--primary)' : undefined,
+              background: `color-mix(in srgb, var(--accent) ${Math.round(share * 100)}%, var(--surface))`,
+              boxShadow: isSelected ? '0 0 0 3px var(--accent-tint)' : 'var(--shadow-card)',
             }}
           >
-            <span className="px-1 t-label-caps text-[8px] leading-none text-primary uppercase">
+            <span className="px-1 text-[9px] leading-tight font-semibold text-ink">
               {n.label}
             </span>
           </motion.button>

@@ -1,35 +1,27 @@
 import type { ReactNode } from 'react'
 import { BottomNav } from './BottomNav'
 import { NavRail } from './NavRail'
-import { TopBar } from './TopBar'
 import { cx } from '../lib/cx'
 
 /**
- * One shell, one rhythm: 20px side margins on phone, 64px from 768up, the
- * app bar docked at the top and 32px between logical sections. No screen sets
- * its own margins — that is what made the spacing read as uneven.
+ * One shell, one rhythm: 20px side margins, 32px between sections. Screens
+ * compose sections; none of them set their own margins.
  */
-export function AppShell({
-  children,
-  topBar = true,
-  className,
-}: {
-  children: ReactNode
-  topBar?: boolean
-  className?: string
-}) {
+export function AppShell({ children, className }: { children: ReactNode; className?: string }) {
   return (
-    <div className="min-h-dvh bg-background">
+    <div className="min-h-dvh">
       <NavRail />
-      {topBar ? <TopBar /> : null}
       <BottomNav />
       <main className="md:pl-[88px] xl:pl-[240px]">
         <div
           className={cx(
-            'mx-auto flex w-full max-w-[720px] flex-col gap-lg px-margin pb-[132px] md:px-lg md:pb-lg',
-            topBar ? 'pt-[88px]' : 'pt-md',
+            // every section is a flex item: without min-w-0 a wide row (three tiles)
+            // grows the column instead of shrinking to fit
+            'mx-auto flex w-full max-w-[720px] flex-col gap-7 px-5 pb-[120px] md:px-8 md:pb-10',
+            '[&>*]:min-w-0',
             className,
           )}
+          style={{ paddingTop: 'calc(env(safe-area-inset-top) + 20px)' }}
         >
           {children}
         </div>

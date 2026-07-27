@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { AppShell } from '../../components/AppShell'
+import { ScreenHeader } from '../../components/ScreenHeader'
 import { Icon } from '../../components/Icon'
 import { PrimaryButton } from '../../components/PrimaryButton'
 import { RecordButton } from '../../components/RecordButton'
@@ -103,13 +104,10 @@ export function Journal() {
 
   return (
     <AppShell>
-      <h2 className="t-headline-lg">
-        <span className="text-on-surface">Journal</span>
-        <span className="text-primary">.</span>
-      </h2>
+      <ScreenHeader eyebrow="Your record" eyebrowTone="accent" title="Journal" />
 
       {/* Capture — the first thing on the screen, no intermediate step */}
-      <section className="flex flex-col items-center justify-center py-md">
+      <section className="card flex flex-col items-center justify-center gap-2 p-6">
         <AnimatePresence mode="wait">
           {phase === 'capture' || phase === 'recording' ? (
             <motion.div
@@ -125,7 +123,7 @@ export function Journal() {
                 onToggle={phase === 'recording' ? stopRecording : () => setPhase('recording')}
               />
               {phase === 'recording' ? (
-                <p className="mt-md t-stats-sm text-primary">{formatDuration(elapsed)}</p>
+                <p className="mt-4 t-label text-accent">{formatDuration(elapsed)}</p>
               ) : null}
               <button
                 type="button"
@@ -134,7 +132,7 @@ export function Journal() {
                   setPhase('review')
                   window.setTimeout(() => textarea.current?.focus(), 60)
                 }}
-                className="mt-md flex min-h-[44px] items-center px-3 t-label-caps text-on-variant underline decoration-outline-variant underline-offset-4"
+                className="mt-4 flex min-h-[44px] items-center px-3 t-label text-accent"
               >
                 or type it
               </button>
@@ -144,7 +142,7 @@ export function Journal() {
                   addDream({ transcript: '', wokeAt: new Date().toISOString(), clarity: 1 })
                   toast('Blank night saved — streak held')
                 }}
-                className="flex min-h-[44px] items-center px-3 t-label-caps text-on-variant opacity-60"
+                className="flex min-h-[44px] items-center px-3 t-meta text-muted"
               >
                 I don't remember anything
               </button>
@@ -160,10 +158,10 @@ export function Journal() {
               transition={m.t(180)}
               className="flex h-[168px] flex-col items-center justify-center gap-3"
             >
-              <span className={cx('text-primary', m.full && 'animate-pulse')}>
+              <span className={cx('text-accent', m.full && 'animate-pulse')}>
                 <Icon name="graphic_eq" size={32} />
               </span>
-              <p className="t-label-caps text-on-variant">Writing it down</p>
+              <p className="t-meta text-muted">Writing it down</p>
             </motion.div>
           ) : null}
 
@@ -174,9 +172,9 @@ export function Journal() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
               transition={m.t(180)}
-              className="flex w-full flex-col gap-sm"
+              className="flex w-full flex-col gap-4"
             >
-              <label htmlFor="transcript" className="t-label-caps text-on-variant uppercase">
+              <label htmlFor="transcript" className="t-eyebrow text-muted">
                 {editingId ? 'Entry' : 'What you said'}
               </label>
               <textarea
@@ -186,12 +184,12 @@ export function Journal() {
                 onChange={(e) => setDraft(e.target.value)}
                 rows={6}
                 placeholder="Whatever you still have. Fragments are fine."
-                className="w-full resize-none rounded-xl border border-outline-variant bg-low p-4 t-body-md text-on-surface placeholder:text-on-variant/60 focus:border-primary"
+                className="w-full resize-none rounded-tile bg-sunken p-4 t-body text-ink placeholder:text-muted focus:outline-2 focus:outline-accent"
               />
 
-              <fieldset className="flex flex-col gap-xs">
-                <legend className="t-label-caps text-on-variant uppercase">Signs</legend>
-                <div className="mt-xs flex flex-wrap gap-2">
+              <fieldset className="flex flex-col gap-2">
+                <legend className="t-eyebrow text-muted">Signs</legend>
+                <div className="mt-2 flex flex-wrap gap-2">
                   {signCatalogue.map((s) => {
                     const on = signs.includes(s.id)
                     return (
@@ -203,7 +201,7 @@ export function Journal() {
                           setSigns(on ? signs.filter((x) => x !== s.id) : [...signs, s.id])
                         }
                         className={cx(
-                          'min-h-[44px] rounded-full border px-4 t-label-caps',
+                          'min-h-[44px] rounded-field px-4 t-label',
                           on
                             ? 'border-primary bg-primary text-on-primary-container'
                             : 'border-outline-variant text-on-variant',
@@ -223,30 +221,30 @@ export function Journal() {
                 aria-checked={wasLucid}
                 onClick={() => setWasLucid((v) => !v)}
                 className={cx(
-                  'flex items-center justify-between rounded-card border p-4 text-left',
-                  wasLucid ? 'border-primary bg-primary/10' : 'border-outline-variant bg-low',
+                  'flex items-center justify-between rounded-tile p-4 text-left',
+                  wasLucid ? 'bg-accent-tint' : 'bg-sunken',
                 )}
               >
-                <span className="t-body-md font-bold text-on-surface">Was I lucid?</span>
+                <span className="t-label text-ink">Was I lucid?</span>
                 <span
                   className={cx(
                     'relative h-8 w-14 rounded-full transition-colors',
-                    wasLucid ? 'bg-primary' : 'bg-variant',
+                    wasLucid ? 'bg-accent' : 'bg-surface',
                   )}
                 >
                   <span
                     className={cx(
-                      'absolute top-1 size-6 rounded-full bg-background transition-all',
+                      'absolute top-1 size-6 rounded-full bg-surface shadow-[var(--shadow-card)] transition-all',
                       wasLucid ? 'left-7' : 'left-1',
                     )}
                   />
                 </span>
               </button>
 
-              <div className="flex gap-xs">
+              <div className="flex gap-3">
                 <PrimaryButton onClick={save}>{editingId ? 'Update' : 'Save'}</PrimaryButton>
                 <PrimaryButton
-                  variant="outline"
+                  variant="quiet"
                   full={false}
                   onClick={() => {
                     reset()
@@ -262,21 +260,21 @@ export function Journal() {
       </section>
 
       {/* Timeline */}
-      <section className="flex flex-col gap-md">
+      <section className="flex flex-col gap-6">
         {dreams.length === 0 ? (
-          <p className="card rounded-card p-md t-body-md text-on-variant">
+          <p className="card p-5 t-body text-body">
             Nothing here yet. Tomorrow morning, before you move, before you check your phone — talk
             into this.
           </p>
         ) : (
           visibleGroups.map(([key, entries]) => (
-            <div key={key} className="flex flex-col gap-xs">
-              <div className="flex items-center gap-sm pt-xs pb-base">
-                <span className="h-px flex-grow bg-outline-variant" />
-                <span className="t-label-caps tracking-widest text-on-variant uppercase">
+            <div key={key} className="flex flex-col gap-2">
+              <div className="flex items-center gap-4 pt-2 pb-1">
+                <span className="h-px flex-grow bg-hairline" />
+                <span className="t-eyebrow text-muted">
                   {dateHeading(entries[0].wokeAt, now)}
                 </span>
-                <span className="h-px flex-grow bg-outline-variant" />
+                <span className="h-px flex-grow bg-hairline" />
               </div>
 
               {entries.map((d) => {
@@ -286,7 +284,7 @@ export function Journal() {
                     key={d.id}
                     type="button"
                     onClick={() => openForReview(d)}
-                    className="flex items-center gap-sm rounded-xl border border-outline-variant bg-low p-4 text-left"
+                    className="card flex items-center gap-4 p-4 text-left"
                   >
                     <span
                       className={cx(
@@ -297,15 +295,15 @@ export function Journal() {
                       <Icon name={isRecall(d) ? signIcon(d.signs[0]) : 'bedtime'} size={22} />
                     </span>
                     <span className="min-w-0 flex-grow">
-                      <span className="block truncate t-body-md font-bold text-on-surface">
+                      <span className="block truncate t-label text-ink">
                         {isRecall(d) ? firstLine(d.transcript) : 'Nothing remembered'}
                       </span>
-                      <span className="mt-1 block t-stats-sm text-on-variant">
+                      <span className="mt-1 block t-meta text-muted">
                         {formatClock(new Date(d.wokeAt))} •{' '}
                         {isRecall(d) ? formatDuration(estimateSeconds(d.transcript)) : 'Blank log'}
                       </span>
                     </span>
-                    <span className={tagged ? 'text-primary' : 'text-on-variant/40'}>
+                    <span className={tagged ? 'text-accent' : 'text-muted opacity-50'}>
                       <Icon name={tagged ? 'check_circle' : 'circle'} size={24} fill={tagged} />
                     </span>
                   </button>
@@ -319,24 +317,24 @@ export function Journal() {
           <button
             type="button"
             onClick={() => setShowAll(true)}
-            className="flex min-h-[48px] w-full items-center justify-center rounded-xl border border-outline-variant t-label-caps text-primary"
+            className="card flex min-h-[52px] w-full items-center justify-center t-label text-accent"
           >
-            SHOW {hiddenCount} EARLIER {hiddenCount === 1 ? 'ENTRY' : 'ENTRIES'}
+            Show {hiddenCount} earlier {hiddenCount === 1 ? 'entry' : 'entries'}
           </button>
         ) : null}
       </section>
 
       {/* Practitioner tip */}
-      <section className="card relative overflow-hidden rounded-card p-md">
-        <div className="flex flex-col gap-xs">
+      <section className="card p-5">
+        <div className="flex flex-col gap-2">
           <div className="flex items-start justify-between gap-3">
-            <span className="rounded-md bg-primary/10 px-2 py-1 t-label-caps text-primary">
-              PRACTITIONER TIP
+            <span className="rounded-field bg-accent-tint px-2.5 py-1 t-eyebrow text-accent">
+              Practitioner tip
             </span>
-            <span className="t-stats-sm text-primary">#LD-04</span>
+            <span className="t-meta text-muted">Read 04</span>
           </div>
-          <h4 className="mt-xs t-headline-sm text-on-surface">Recall optimization</h4>
-          <p className="t-body-md text-on-variant">
+          <h4 className="mt-2 t-heading">Recall optimisation</h4>
+          <p className="mt-1 t-body text-body">
             Log within 60 seconds of waking. Audio holds more detail than text, and the first
             minute is where most of a dream is lost.
           </p>

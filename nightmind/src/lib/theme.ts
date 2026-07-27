@@ -48,8 +48,8 @@ export function useTheme(): ThemeName {
 }
 
 const THEME_COLOR: Record<ThemeName, string> = {
-  dark: '#10131A',
-  light: '#F7F6FB',
+  dark: '#191720',
+  light: '#FAF7F2',
   nightshift: '#0A0705',
 }
 

@@ -23,7 +23,7 @@ export function ToastHost() {
   return (
     <div
       aria-live="polite"
-      className="pointer-events-none fixed inset-x-0 bottom-[104px] z-[60] flex justify-center px-margin md:bottom-8 md:pl-[88px] xl:pl-[240px]"
+      className="pointer-events-none fixed inset-x-0 bottom-[104px] z-[60] flex justify-center px-5 md:bottom-8 md:pl-[88px] xl:pl-[240px]"
     >
       <AnimatePresence>
         {message ? (
@@ -33,7 +33,7 @@ export function ToastHost() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
             transition={m.t(180)}
-            className="rounded-full border border-outline-variant bg-high px-5 py-3 t-label-caps text-on-surface"
+            className="rounded-field bg-ink px-5 py-3 t-label text-inverse shadow-[var(--shadow-lift)]"
           >
             {message}
           </motion.div>
