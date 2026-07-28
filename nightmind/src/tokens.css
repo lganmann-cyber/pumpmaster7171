@@ -149,6 +149,14 @@
   --gap-section: 32px; /* section to section */
   --inset: 20px; /* screen side margin */
 
+  /* The session player dims the phone whatever the theme is — a bright screen
+     defeats a wind-down. These are fixed, not themed. */
+  --player-bg: #191720;
+  --player-surface: #241f2e;
+  --player-ink: #f4f1f7;
+  --player-body: #b8b2c4;
+  --player-muted: #8b8596;
+
   --content-max: 720px;
   --rail-w: 88px;
   --rail-w-wide: 240px;

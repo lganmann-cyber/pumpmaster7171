@@ -75,7 +75,7 @@ export function SessionPlayer() {
       transition={m.t(320)}
       onPointerMove={wake}
       onPointerDown={wake}
-      className="fixed inset-0 z-50 flex flex-col bg-canvas"
+      className="fixed inset-0 z-50 flex flex-col bg-player-bg"
     >
       <div className="relative flex flex-1 items-center justify-center overflow-hidden">
         <motion.div
@@ -86,7 +86,7 @@ export function SessionPlayer() {
         />
         <motion.div
           aria-hidden
-          className="size-[min(52vw,260px)] rounded-full bg-surface shadow-[var(--shadow-lift)]"
+          className="size-[min(52vw,260px)] rounded-full bg-player-surface"
           animate={m.full ? { scale: [1, 1.05, 1] } : { scale: 1 }}
           transition={m.full ? { duration: 11, repeat: Infinity, ease: 'easeInOut' } : { duration: 0.1 }}
         />
@@ -102,14 +102,14 @@ export function SessionPlayer() {
           <div className="flex items-start justify-between gap-3">
             <div>
               <p className="t-eyebrow text-accent">{session.kind}</p>
-              <h1 className="mt-1 t-title">{session.title}</h1>
-              <p className="mt-2 max-w-[46ch] t-body text-body">{session.description}</p>
+              <h1 className="mt-1 t-title text-player-ink">{session.title}</h1>
+              <p className="mt-2 max-w-[46ch] t-body text-player-body">{session.description}</p>
             </div>
             <button
               type="button"
               onClick={closeSession}
               aria-label="Close session"
-              className="grid size-11 shrink-0 place-items-center rounded-full bg-surface text-ink shadow-[var(--shadow-card)]"
+              className="grid size-11 shrink-0 place-items-center rounded-full bg-player-surface text-player-ink"
             >
               <Icon name="expand_more" size={24} />
             </button>
@@ -128,10 +128,10 @@ export function SessionPlayer() {
               onChange={(e) => seek(Number(e.target.value))}
               className="h-2 w-full appearance-none rounded-full accent-[var(--accent)]"
               style={{
-                background: `linear-gradient(to right, var(--accent) ${pct * 100}%, var(--surface-sunken) ${pct * 100}%)`,
+                background: `linear-gradient(to right, var(--accent) ${pct * 100}%, var(--player-surface) ${pct * 100}%)`,
               }}
             />
-            <div className="mt-2 flex justify-between t-meta text-muted">
+            <div className="mt-2 flex justify-between t-meta text-player-muted">
               <span>{formatDuration(position)}</span>
               <span>{formatDuration(session.seconds)}</span>
             </div>
@@ -139,7 +139,7 @@ export function SessionPlayer() {
 
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <span className="text-muted">
+              <span className="text-player-muted">
                 <Icon name="timer" size={20} />
               </span>
               <span className="sr-only">Sleep timer</span>
@@ -151,7 +151,7 @@ export function SessionPlayer() {
                   onClick={() => setSleepTimer(sleepTimerMin === min ? null : min)}
                   className={cx(
                     'min-h-[44px] rounded-field px-3 t-meta',
-                    sleepTimerMin === min ? 'bg-accent text-white' : 'text-muted',
+                    sleepTimerMin === min ? 'bg-accent text-white' : 'text-player-muted',
                   )}
                 >
                   {min}M

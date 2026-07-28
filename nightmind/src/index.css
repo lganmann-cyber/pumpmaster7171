@@ -31,6 +31,12 @@
   --color-hairline: var(--hairline);
   --color-track: var(--track);
 
+  --color-player-bg: var(--player-bg);
+  --color-player-surface: var(--player-surface);
+  --color-player-ink: var(--player-ink);
+  --color-player-body: var(--player-body);
+  --color-player-muted: var(--player-muted);
+
   --radius-sheet: var(--r-sheet);
   --radius-card: var(--r-card);
   --radius-tile: var(--r-tile);
