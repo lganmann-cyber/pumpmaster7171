@@ -17,7 +17,7 @@ export function Chip({
       onClick={onClick}
       className={cx(
         'min-h-[44px] shrink-0 rounded-field px-4 t-label whitespace-nowrap',
-        selected ? 'bg-accent text-white' : 'bg-sunken text-body',
+        selected ? 'bg-pill text-pill-ink' : 'bg-sunken text-body',
       )}
     >
       {children}

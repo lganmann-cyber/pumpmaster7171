@@ -42,7 +42,7 @@ export function PrimaryButton({
         'inline-flex min-h-[52px] items-center justify-center gap-2 rounded-field px-6 t-label',
         'disabled:opacity-40',
         variant === 'solid'
-          ? 'bg-accent text-white'
+          ? 'bg-pill text-pill-ink'
           : 'bg-surface text-ink shadow-[var(--shadow-card)]',
         full && 'w-full',
         className,

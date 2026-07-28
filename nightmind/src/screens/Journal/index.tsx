@@ -104,7 +104,7 @@ export function Journal() {
 
   return (
     <AppShell>
-      <ScreenHeader eyebrow="Your record" eyebrowTone="accent" title="Journal" />
+      <ScreenHeader eyebrow="Every night" eyebrowTone="accent" title="Journal" />
 
       {/* Capture — the first thing on the screen, no intermediate step */}
       <section className="card flex flex-col items-center justify-center gap-2 p-6">

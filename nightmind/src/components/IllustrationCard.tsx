@@ -51,7 +51,7 @@ export function IllustrationCard({
           style={amber ? { filter: AMBER_FILTER } : undefined}
         />
         {badge ? (
-          <span className="absolute top-3 left-3 rounded-field bg-accent px-2.5 py-1 t-eyebrow text-white">
+          <span className="absolute top-3 left-3 rounded-field bg-pill px-2.5 py-1 t-eyebrow text-pill-ink">
             {badge}
           </span>
         ) : null}

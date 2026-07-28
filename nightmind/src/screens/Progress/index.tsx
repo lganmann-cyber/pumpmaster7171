@@ -52,7 +52,7 @@ export function Progress() {
           label="Best streak"
           value={`${progress.longestStreak}`}
           unit="nights"
-          delta="Personal best"
+          delta="Best yet"
           deltaIcon="self_improvement"
           deltaTone="accent"
         />
@@ -65,7 +65,7 @@ export function Progress() {
         <StatTile
           label="Capture rate"
           value={`${captureRate}%`}
-          delta="Last 6 weeks"
+          delta="6 weeks"
           deltaIcon="check_circle"
           deltaTone="positive"
         />

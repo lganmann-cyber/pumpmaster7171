@@ -151,7 +151,7 @@ export function SessionPlayer() {
                   onClick={() => setSleepTimer(sleepTimerMin === min ? null : min)}
                   className={cx(
                     'min-h-[44px] rounded-field px-3 t-meta',
-                    sleepTimerMin === min ? 'bg-accent text-white' : 'text-player-muted',
+                    sleepTimerMin === min ? 'bg-pill text-pill-ink' : 'text-player-muted',
                   )}
                 >
                   {min}M
@@ -164,7 +164,7 @@ export function SessionPlayer() {
               whileTap={m.press}
               transition={m.t(120)}
               aria-label={playing ? 'Pause' : 'Play'}
-              className="grid size-[72px] place-items-center rounded-full bg-accent text-white"
+              className="grid size-[72px] place-items-center rounded-full bg-pill text-pill-ink"
             >
               <Icon name={playing ? 'pause' : 'play_arrow'} size={32} fill />
             </motion.button>

@@ -24,7 +24,7 @@ export function RecordButton({
         transition={m.t(120)}
         aria-pressed={recording}
         aria-label={recording ? 'Stop recording' : 'Start recording'}
-        className="relative grid size-[88px] place-items-center rounded-full bg-accent text-white"
+        className="relative grid size-[88px] place-items-center rounded-full bg-pill text-pill-ink"
       >
         <Icon name={recording ? 'stop_circle' : 'mic'} size={32} fill />
       </motion.button>

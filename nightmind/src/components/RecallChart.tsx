@@ -69,7 +69,7 @@ export function RecallChart({
                 animate={{ height: `${pct}%` }}
                 transition={m.t(400, i * 40)}
               />
-              <span className="sr-only">{`${d.key}, ${d.value} dreams recalled`}</span>
+              <span className="sr-only">{`${d.key}, ${d.value} ${d.value === 1 ? 'dream' : 'dreams'} recalled`}</span>
             </button>
           )
         })}

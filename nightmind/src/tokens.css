@@ -14,12 +14,21 @@
 
   --ink: #2a2830; /* headlines — warm charcoal */
   --ink-body: #5f5c68; /* running copy */
-  --ink-muted: #918d99; /* meta, captions */
+  --ink-muted: #6f6b79; /* meta, captions — 4.9:1 on cream, so it stays legible */
   --ink-inverse: #ffffff;
 
-  --accent: #e2604a; /* coral — primary action, active tab, eyebrow */
-  --accent-hover: #cf5340;
+  /* The reference coral is #e2604a, but white on it measures 3.5:1 and it
+     measures 3.3:1 as text on cream — both under AA. This is that exact hue
+     (9°) and saturation (0.67) walked down in value to the lightest point that
+     clears 4.5:1 both as white-on-fill (4.8:1, the CTA label) and as text on
+     cream (4.5:1, the 11px eyebrow). One coral does every job; two reds on a
+     screen read as a mistake, and a fill that can't carry its label is one. */
+  --accent: #bc503e; /* coral — primary action, active tab, eyebrow */
+  --accent-hover: #a84636;
   --accent-tint: #fdeee8;
+
+  --pill-bg: var(--accent);
+  --pill-ink: #ffffff;
 
   --lilac: #6b5b95; /* the illustration's deep violet */
   --lilac-tint: #ede9f7;
@@ -57,6 +66,10 @@
   --accent-hover: #e2604a;
   --accent-tint: #3a2420;
 
+  /* On a dark canvas the accent is light, so the pill label inverts. 6.5:1. */
+  --pill-bg: #f07a5f;
+  --pill-ink: #191720;
+
   --lilac: #b6a4e0;
   --lilac-tint: #2e2740;
   --mint: #6fc79a;
@@ -85,12 +98,17 @@
 
   --ink: #e8a055;
   --ink-body: #c98f4d;
-  --ink-muted: #8a6438;
+  --ink-muted: #a3743f; /* 4.9:1 on the night canvas */
   --ink-inverse: #0a0705;
 
   --accent: #e8a055;
   --accent-hover: #c4652a;
   --accent-tint: #2a1a0c;
+
+  /* White is a blue emitter — the one thing this theme exists to avoid. The
+     pill label is the near-black canvas instead. 9.2:1. */
+  --pill-bg: #e8a055;
+  --pill-ink: #0a0705;
 
   --lilac: #c98f4d;
   --lilac-tint: #241a0f;

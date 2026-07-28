@@ -92,7 +92,7 @@ export function Home() {
           label="Checks today"
           value={`${progress.checksToday}`}
           unit={`of ${progress.checkTarget}`}
-          delta="Tap to add"
+          delta="Log one"
           deltaIcon="check_circle"
           deltaTone="positive"
         />

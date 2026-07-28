@@ -16,6 +16,8 @@
   --color-accent: var(--accent);
   --color-accent-hover: var(--accent-hover);
   --color-accent-tint: var(--accent-tint);
+  --color-pill: var(--pill-bg);
+  --color-pill-ink: var(--pill-ink);
 
   --color-lilac: var(--lilac);
   --color-lilac-tint: var(--lilac-tint);

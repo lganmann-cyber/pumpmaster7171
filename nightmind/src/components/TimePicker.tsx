@@ -82,7 +82,7 @@ export function TimePicker({
                 onClick={() => bump(pm === (mer === 'pm') ? 0 : mer === 'pm' ? 720 : -720)}
                 className={cx(
                   'min-h-[44px] rounded-field px-4 t-label',
-                  active ? 'bg-accent text-white' : 'bg-sunken text-body',
+                  active ? 'bg-pill text-pill-ink' : 'bg-sunken text-body',
                 )}
               >
                 {mer}

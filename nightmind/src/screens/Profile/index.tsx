@@ -95,7 +95,7 @@ export function Profile() {
                 onClick={() => setTheme(id)}
                 className={cx(
                   'flex min-h-[56px] items-center gap-3 rounded-tile px-4 text-left t-label',
-                  on ? 'bg-accent text-white' : 'bg-surface text-ink shadow-[var(--shadow-card)]',
+                  on ? 'bg-pill text-pill-ink' : 'bg-surface text-ink shadow-[var(--shadow-card)]',
                 )}
               >
                 <Icon name={icon} size={22} />
@@ -154,7 +154,7 @@ export function Profile() {
                 }}
                 className={cx(
                   'min-h-[44px] rounded-field px-4 t-label',
-                  on ? 'bg-accent text-white' : 'bg-sunken text-body',
+                  on ? 'bg-pill text-pill-ink' : 'bg-sunken text-body',
                 )}
               >
                 {label}
@@ -195,7 +195,7 @@ export function Profile() {
                 onClick={() => setTimeOverride(hm)}
                 className={cx(
                   'min-h-[44px] rounded-field px-4 t-label',
-                  on ? 'bg-accent text-white' : 'bg-sunken text-body',
+                  on ? 'bg-pill text-pill-ink' : 'bg-sunken text-body',
                 )}
               >
                 {label}

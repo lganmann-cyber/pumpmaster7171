@@ -111,7 +111,7 @@ export function Onboarding() {
                         onClick={() => setTier(b.tier)}
                         className={cx(
                           'min-h-[96px] rounded-card p-4 text-left t-label',
-                          on ? 'bg-accent text-white' : 'bg-surface text-ink shadow-[var(--shadow-card)]',
+                          on ? 'bg-pill text-pill-ink' : 'bg-surface text-ink shadow-[var(--shadow-card)]',
                         )}
                       >
                         {b.label}
